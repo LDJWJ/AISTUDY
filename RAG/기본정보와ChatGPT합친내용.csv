@@ -1,0 +1,279 @@
+Gubun,Link,Title,Description,Example Code,Detail_Code,ChatGPT¿ä¾à
+Write and Magic,https://docs.streamlit.io/library/api-reference/write-magic/st.write,st.write,Write arguments to the app.,"st.write(""Hello **world**!"")
+st.write(my_data_frame)
+st.write(my_mpl_figure)
+","
+---
+
+import streamlit as st
+
+st.write('Hello, *World!* :sunglasses:')
+
+---
+
+import streamlit as st
+import pandas as pd
+
+st.write(1234)
+st.write(pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40],
+}))
+
+---
+
+import streamlit as st
+
+st.write('1 + 1 = ', 2)
+st.write('Below is a DataFrame:', data_frame, 'Above is a dataframe.')
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import altair as alt
+
+df = pd.DataFrame(
+    np.random.randn(200, 3),
+    columns=['a', 'b', 'c'])
+
+c = alt.Chart(df).mark_circle().encode(
+    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+st.write(c)
+
+---
+","The st.write function in the Streamlit library is a versatile command that can be used to display various types of data in a Streamlit app. It accepts multiple arguments and behaves differently depending on the input types. It can be used to display formatted Markdown text, data frames, exceptions, functions, modules, classes, dictionaries, Matplotlib figures, Altair charts, Keras models, Graphviz graphs, Plotly figures, Bokeh figures, SymPy expressions, and HTML objects. By default, HTML tags found in strings are escaped for security reasons, but this behavior can be turned off with the unsafe_allow_html argument. The function returns None and cannot be reused in the app. Examples of using st.write include displaying Markdown-formatted text, numbers, data frames, and charts."
+Write and Magic,https://docs.streamlit.io/library/api-reference/write-magic/magic,Magic,"Any time Streamlit sees either a variable or literal value on its own line, it automatically writes that to your app using st.write",st.write,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Draw a title and some text to the app:
+'''
+# This is the document title
+
+This is some _markdown_.
+'''
+
+import pandas as pd
+df = pd.DataFrame({'col1': [1,2,3]})
+df  # ?‘ˆ Draw the dataframe
+
+x = 10
+'x', x  # ?‘ˆ Draw the string 'x' and then the value of x
+
+# Also works with most supported chart types
+import matplotlib.pyplot as plt
+import numpy as np
+
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
+
+fig  # ?‘ˆ Draw a Matplotlib chart
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-toml"">[runner]
+magicEnabled = false
+</code></div></section>
+---
+
+---
+","Magic commands in Streamlit allow you to write content such as markdown, data, and charts without using explicit commands. Simply put the content on its own line and it will appear in your app. Magic commands work by automatically using the st.write function to display the content. You can turn off magic commands in your configuration file if you prefer to use explicit commands. Note that magic commands only work in the main Python app file and not in imported files."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.markdown,Markdown,Display string formatted as Markdown.,"st.markdown(""Hello **world**!"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+md = st.text_area('Type in your markdown string (without outer quotes)',
+                  ""Happy Streamlit-ing! :balloon:"")
+
+st.code(f""""""
+import streamlit as st
+
+st.markdown('''{md}''')
+"""""")
+
+st.markdown(md)
+</code></div></section>
+---
+
+import streamlit as st
+
+st.markdown(""*Streamlit* is **really** ***cool***."")
+st.markdown('''
+    :red[Streamlit] :orange[can] :green[write] :blue[text] :violet[in]
+    :gray[pretty] :rainbow[colors].''')
+st.markdown(""Here's a bouquet &mdash;\
+            :tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:"")
+
+multi = '''If you end a line with two spaces,
+a soft return is used for the next line.
+
+Two (or more) newline characters in a row will result in a hard return.
+'''
+st.markdown(multi)
+
+---
+","The st.markdown function in the Streamlit library is used to display a string formatted as Markdown. It supports various Markdown syntax, including emoji shortcodes, LaTeX expressions, and colored text. By default, HTML tags in the body are escaped for security reasons, but this behavior can be turned off with the unsafe_allow_html parameter. The function also accepts an optional tooltip for additional information. Examples of using st.markdown are provided, including displaying formatted text and accepting user input for Markdown strings."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.title,Title,Display text in title formatting.,"st.title(""The app title"")
+","
+---
+
+import streamlit as st
+
+st.title('This is a title')
+st.title('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+","The st.title function in the Streamlit library is used to display text in title formatting. It takes three parameters: body (the text to display), anchor (the anchor name of the header), and help (an optional tooltip). The body parameter supports Github-flavored Markdown, emoji shortcodes, LaTeX expressions, and colored text. The anchor parameter is used to generate an anchor for the header, and the help parameter displays a tooltip next to the title."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.header,Header,Display text in header formatting.,"st.header(""This is a header"")
+","
+---
+
+import streamlit as st
+
+st.header('This is a header with a divider', divider='rainbow')
+st.header('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+","The st.header function in the Streamlit library is used to display text in header formatting. It takes the following parameters: body (the text to display), anchor (optional anchor name for the header), help (optional tooltip), and divider (optional colored divider below the header). The body parameter supports Github-flavored Markdown syntax, emoji shortcodes, LaTeX expressions, and colored text. The anchor parameter is used to generate an anchor for the header, and the help parameter displays a tooltip. The divider parameter can be set to a boolean value or a string representing a color to show a colored divider below the header. Examples of using st.header are provided in the documentation."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.subheader,Subheader,Display text in subheader formatting.,"st.subheader(""This is a subheader"")
+","
+---
+
+import streamlit as st
+
+st.subheader('This is a subheader with a divider', divider='rainbow')
+st.subheader('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+","The st.subheader function in the Streamlit library is used to display text in subheader formatting. It takes the following parameters: body (the text to display), anchor (optional anchor name for the header), help (optional tooltip), and divider (optional colored divider below the header). Examples of using st.subheader include displaying a subheader with a divider and adding emojis or colored text."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.caption,Caption,Display text in small font.,"st.caption(""This is written small caption text"")
+","
+---
+
+import streamlit as st
+
+st.caption('This is a string that explains something above.')
+st.caption('A caption with _italics_ :blue[colors] and emojis :sunglasses:')
+
+---
+","The st.caption function in the Streamlit library is used to display text in a small font. It is typically used for captions, asides, footnotes, sidenotes, and other explanatory text. The function takes the following parameters: body (the text to display), unsafe_allow_html (a boolean to allow or disallow HTML tags in the text), and help (an optional tooltip). Examples of using st.caption include displaying a string that explains something above and displaying a caption with colored text and emojis. It is important to note that allowing HTML tags in the text can compromise user security."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.code,Code block,Display a code block with optional syntax highlighting.,"st.code(""a = 1234"")
+","
+---
+
+import streamlit as st
+
+code = '''def hello():
+    print(""Hello, Streamlit!"")'''
+st.code(code, language='python')
+
+---
+","The Streamlit documentation provides information on how to use the Streamlit library for building web applications. It covers topics such as installation, fundamentals, tutorials, API reference, and advanced features. The ""st.code"" function is described, which allows displaying a code block with optional syntax highlighting. It takes parameters such as the code body, language, and line numbers. The documentation also includes examples and links to additional resources."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.text,Preformatted text,Write fixed-width and preformatted text.,"st.text(""Hello world"")
+","
+---
+
+import streamlit as st
+
+st.text('This is some text.')
+
+---
+","The Streamlit documentation provides information on various features and functionalities of the Streamlit library. It includes installation instructions, API references, tutorials, and examples. The ""Text elements"" section specifically focuses on the st.text function, which is used to display fixed-width and preformatted text. The function takes a string as input and can also include an optional tooltip. The documentation also provides an example code snippet to demonstrate the usage of the st.text function."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.latex,LaTeX,Display mathematical expressions formatted as LaTeX.,"st.latex(""\int a x^2 \,dx"")
+","
+---
+
+import streamlit as st
+
+st.latex(r'''
+    a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
+    \sum_{k=0}^{n-1} ar^k =
+    a \left(\frac{1-r^{n}}{1-r}\right)
+    ''')
+
+---
+","The st.latex function in the Streamlit library allows users to display mathematical expressions formatted as LaTeX. It supports various LaTeX functions, and the function signature includes parameters for the body (the expression to display) and an optional help tooltip. An example usage of the function is provided in the documentation. Users can find more information and supported LaTeX functions at the provided link."
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.divider,Divider,Display a horizontal rule.,"st.divider()
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+st.write(""This is some text."")
+
+st.slider(""This is a slider"", 0, 100, (25, 75))
+
+st.divider()  # ?‘ˆ Draws a horizontal rule
+
+st.write(""This text is between the horizontal rules."")
+
+st.divider()  # ?‘ˆ Another horizontal rule
+</code></div></section>
+---
+
+import streamlit as st
+
+st.divider()
+
+---
+","The st.divider function in the Streamlit library is used to display a horizontal rule. It can be used to visually separate different sections or elements in a web page. The function does not require any parameters and can be called directly. Alternatively, the same effect can be achieved using st.write(""---"") or ""---"" in the script. Multiple dividers can be used to create multiple horizontal rules."
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.dataframe,Dataframes,Display a dataframe as an interactive table.,"st.dataframe(my_data_frame)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import pandas as pd
+import streamlit as st
+
+# Cache the dataframe so it's only loaded once
+@st.cache_data
+def load_data():
+    return pd.DataFrame(
+        {
+            ""first column"": [1, 2, 3, 4],
+            ""second column"": [10, 20, 30, 40],
+        }
+    )
+
+# Boolean to resize the dataframe, stored as a session state variable
+st.checkbox(""Use container width"", value=False, key=""use_container_width"")
+
+df = load_data()
+
+# Display the dataframe and allow the user to stretch the dataframe
+# across the full width of the container, based on the checkbox value
+st.dataframe(df, use_container_width=st.session_state.use_container_width)
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(50, 20), columns=(""col %d"" % i for i in range(20)))
+
+st.dataframe(df)  # Same as st.write(df)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10, 20), columns=(""col %d"" % i for i in range(20)))
+
+st.dataframe(df.style.highlight_max(axis=0))
+
+---
+
+import random
+import pandas as pd
+import streamlit as st
+
+df = pd.DataFrame(
+    {
+        ""name"": [""Roadmap"", ""Extras"", ""Issues""],
+        ""url"": [""https://roadmap.streamlit.app"", ""https://extras.streamlit.app"", ""https://issues.streamlit.app""],
+        ""stars"": [random.randint(0, 1000) for _ in range(3)],
+        ""views_history"": [[random.randint(0, 5000) for _ in range(30)] for _ in range(3)],
+    }
+)
+st.dataframe(
+    df,
+    column_config={
+        ""name"": ""App name"",
+        ""stars"": st.column_config.NumberColumn(
+            ""Github Stars"",
+            help=""Number of stars on GitHub"",
+            format=""%d â­?","st.dataframe is a function in the Streamlit library that allows you to display a dataframe as an interactive table. It supports dataframes from various sources such as Pandas, PyArrow, Snowpark, and PySpark. It can also display other types of data that can be converted to dataframes, such as numpy arrays, lists, sets, and dictionaries. The function provides parameters to customize the width, height, visibility of the index column, display order of columns, and configuration of column display. The displayed dataframe is interactive, allowing users to sort, resize, search, and copy data. Additionally, you can configure the display and editing behavior of columns using the Column configuration API."

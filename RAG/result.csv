@@ -1,0 +1,1138 @@
+Gubun,Link,Title,Description,Example Code,Detail_Code
+Write and Magic,https://docs.streamlit.io/library/api-reference/write-magic/st.write,st.write,Write arguments to the app.,"st.write(""Hello **world**!"")
+st.write(my_data_frame)
+st.write(my_mpl_figure)
+","
+---
+
+import streamlit as st
+
+st.write('Hello, *World!* :sunglasses:')
+
+---
+
+import streamlit as st
+import pandas as pd
+
+st.write(1234)
+st.write(pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40],
+}))
+
+---
+
+import streamlit as st
+
+st.write('1 + 1 = ', 2)
+st.write('Below is a DataFrame:', data_frame, 'Above is a dataframe.')
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import altair as alt
+
+df = pd.DataFrame(
+    np.random.randn(200, 3),
+    columns=['a', 'b', 'c'])
+
+c = alt.Chart(df).mark_circle().encode(
+    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+st.write(c)
+
+---
+"
+Write and Magic,https://docs.streamlit.io/library/api-reference/write-magic/magic,Magic,"Any time Streamlit sees either a variable or literal value on its own line, it automatically writes that to your app using st.write",st.write,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Draw a title and some text to the app:
+'''
+# This is the document title
+
+This is some _markdown_.
+'''
+
+import pandas as pd
+df = pd.DataFrame({'col1': [1,2,3]})
+df  # 👈 Draw the dataframe
+
+x = 10
+'x', x  # 👈 Draw the string 'x' and then the value of x
+
+# Also works with most supported chart types
+import matplotlib.pyplot as plt
+import numpy as np
+
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
+
+fig  # 👈 Draw a Matplotlib chart
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-toml"">[runner]
+magicEnabled = false
+</code></div></section>
+---
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.markdown,Markdown,Display string formatted as Markdown.,"st.markdown(""Hello **world**!"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+md = st.text_area('Type in your markdown string (without outer quotes)',
+                  ""Happy Streamlit-ing! :balloon:"")
+
+st.code(f""""""
+import streamlit as st
+
+st.markdown('''{md}''')
+"""""")
+
+st.markdown(md)
+</code></div></section>
+---
+
+import streamlit as st
+
+st.markdown(""*Streamlit* is **really** ***cool***."")
+st.markdown('''
+    :red[Streamlit] :orange[can] :green[write] :blue[text] :violet[in]
+    :gray[pretty] :rainbow[colors].''')
+st.markdown(""Here's a bouquet &mdash;\
+            :tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:"")
+
+multi = '''If you end a line with two spaces,
+a soft return is used for the next line.
+
+Two (or more) newline characters in a row will result in a hard return.
+'''
+st.markdown(multi)
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.title,Title,Display text in title formatting.,"st.title(""The app title"")
+","
+---
+
+import streamlit as st
+
+st.title('This is a title')
+st.title('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.header,Header,Display text in header formatting.,"st.header(""This is a header"")
+","
+---
+
+import streamlit as st
+
+st.header('This is a header with a divider', divider='rainbow')
+st.header('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.subheader,Subheader,Display text in subheader formatting.,"st.subheader(""This is a subheader"")
+","
+---
+
+import streamlit as st
+
+st.subheader('This is a subheader with a divider', divider='rainbow')
+st.subheader('_Streamlit_ is :blue[cool] :sunglasses:')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.caption,Caption,Display text in small font.,"st.caption(""This is written small caption text"")
+","
+---
+
+import streamlit as st
+
+st.caption('This is a string that explains something above.')
+st.caption('A caption with _italics_ :blue[colors] and emojis :sunglasses:')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.code,Code block,Display a code block with optional syntax highlighting.,"st.code(""a = 1234"")
+","
+---
+
+import streamlit as st
+
+code = '''def hello():
+    print(""Hello, Streamlit!"")'''
+st.code(code, language='python')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.text,Preformatted text,Write fixed-width and preformatted text.,"st.text(""Hello world"")
+","
+---
+
+import streamlit as st
+
+st.text('This is some text.')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.latex,LaTeX,Display mathematical expressions formatted as LaTeX.,"st.latex(""\int a x^2 \,dx"")
+","
+---
+
+import streamlit as st
+
+st.latex(r'''
+    a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
+    \sum_{k=0}^{n-1} ar^k =
+    a \left(\frac{1-r^{n}}{1-r}\right)
+    ''')
+
+---
+"
+Text elements,https://docs.streamlit.io/library/api-reference/text/st.divider,Divider,Display a horizontal rule.,"st.divider()
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+st.write(""This is some text."")
+
+st.slider(""This is a slider"", 0, 100, (25, 75))
+
+st.divider()  # 👈 Draws a horizontal rule
+
+st.write(""This text is between the horizontal rules."")
+
+st.divider()  # 👈 Another horizontal rule
+</code></div></section>
+---
+
+import streamlit as st
+
+st.divider()
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.dataframe,Dataframes,Display a dataframe as an interactive table.,"st.dataframe(my_data_frame)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import pandas as pd
+import streamlit as st
+
+# Cache the dataframe so it's only loaded once
+@st.cache_data
+def load_data():
+    return pd.DataFrame(
+        {
+            ""first column"": [1, 2, 3, 4],
+            ""second column"": [10, 20, 30, 40],
+        }
+    )
+
+# Boolean to resize the dataframe, stored as a session state variable
+st.checkbox(""Use container width"", value=False, key=""use_container_width"")
+
+df = load_data()
+
+# Display the dataframe and allow the user to stretch the dataframe
+# across the full width of the container, based on the checkbox value
+st.dataframe(df, use_container_width=st.session_state.use_container_width)
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(50, 20), columns=(""col %d"" % i for i in range(20)))
+
+st.dataframe(df)  # Same as st.write(df)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10, 20), columns=(""col %d"" % i for i in range(20)))
+
+st.dataframe(df.style.highlight_max(axis=0))
+
+---
+
+import random
+import pandas as pd
+import streamlit as st
+
+df = pd.DataFrame(
+    {
+        ""name"": [""Roadmap"", ""Extras"", ""Issues""],
+        ""url"": [""https://roadmap.streamlit.app"", ""https://extras.streamlit.app"", ""https://issues.streamlit.app""],
+        ""stars"": [random.randint(0, 1000) for _ in range(3)],
+        ""views_history"": [[random.randint(0, 5000) for _ in range(30)] for _ in range(3)],
+    }
+)
+st.dataframe(
+    df,
+    column_config={
+        ""name"": ""App name"",
+        ""stars"": st.column_config.NumberColumn(
+            ""Github Stars"",
+            help=""Number of stars on GitHub"",
+            format=""%d ⭐"",
+        ),
+        ""url"": st.column_config.LinkColumn(""App URL""),
+        ""views_history"": st.column_config.LineChartColumn(
+            ""Views (past 30 days)"", y_min=0, y_max=5000
+        ),
+    },
+    hide_index=True,
+)
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.data_editor,Data editor,Display a data editor widget.,"edited = st.data_editor(df, num_rows=""dynamic"")
+","
+---
+
+import streamlit as st
+import pandas as pd
+
+df = pd.DataFrame(
+    [
+       {""command"": ""st.selectbox"", ""rating"": 4, ""is_widget"": True},
+       {""command"": ""st.balloons"", ""rating"": 5, ""is_widget"": False},
+       {""command"": ""st.time_input"", ""rating"": 3, ""is_widget"": True},
+   ]
+)
+edited_df = st.data_editor(df)
+
+favorite_command = edited_df.loc[edited_df[""rating""].idxmax()][""command""]
+st.markdown(f""Your favorite command is **{favorite_command}** 🎈"")
+
+---
+
+import streamlit as st
+import pandas as pd
+
+df = pd.DataFrame(
+    [
+       {""command"": ""st.selectbox"", ""rating"": 4, ""is_widget"": True},
+       {""command"": ""st.balloons"", ""rating"": 5, ""is_widget"": False},
+       {""command"": ""st.time_input"", ""rating"": 3, ""is_widget"": True},
+   ]
+)
+edited_df = st.data_editor(df, num_rows=""dynamic"")
+
+favorite_command = edited_df.loc[edited_df[""rating""].idxmax()][""command""]
+st.markdown(f""Your favorite command is **{favorite_command}** 🎈"")
+
+---
+
+import pandas as pd
+import streamlit as st
+
+df = pd.DataFrame(
+    [
+        {""command"": ""st.selectbox"", ""rating"": 4, ""is_widget"": True},
+        {""command"": ""st.balloons"", ""rating"": 5, ""is_widget"": False},
+        {""command"": ""st.time_input"", ""rating"": 3, ""is_widget"": True},
+    ]
+)
+edited_df = st.data_editor(
+    df,
+    column_config={
+        ""command"": ""Streamlit Command"",
+        ""rating"": st.column_config.NumberColumn(
+            ""Your rating"",
+            help=""How much do you like this command (1-5)?"",
+            min_value=1,
+            max_value=5,
+            step=1,
+            format=""%d ⭐"",
+        ),
+        ""is_widget"": ""Widget ?"",
+    },
+    disabled=[""command"", ""is_widget""],
+    hide_index=True,
+)
+
+favorite_command = edited_df.loc[edited_df[""rating""].idxmax()][""command""]
+st.markdown(f""Your favorite command is **{favorite_command}** 🎈"")
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.column_config,Column configuration,Configure the display and editing behavior of dataframes and data editors.,"st.column_config.NumberColumn(""Price (in USD)"", min_value=0, format=""$%d"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">Column(""Streamlit Widgets"", width=""medium"", help=""Streamlit **widget** commands 🎈"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">TextColumn(""Widgets"", max_chars=50, validate=""^st\.[a-z_]+$"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">NumberColumn(""Price (in USD)"", min_value=0, format=""$%d"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">CheckboxColumn(""Your favorite?"", help=""Select your **favorite** widgets"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">SelectboxColumn(""App Category"", options=[""🤖 LLM"", ""📈 Data Viz""])
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">DatetimeColumn(""Appointment"", min_value=datetime(2023, 6, 1), format=""D MMM YYYY, h:mm a"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">DateColumn(""Birthday"", max_value=date(2005, 1, 1), format=""DD.MM.YYYY"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">TimeColumn(""Appointment"", min_value=time(8, 0, 0), format=""hh:mm a"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">ListColumn(""Sales (last 6 months)"", width=""medium"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">LinkColumn(""Trending apps"", max_chars=100, validate=""^https://.*$"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">ImageColumn(""Preview Image"", help=""The preview screenshots"")
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">LineChartColumn(""Sales (last 6 months)"" y_min=0, y_max=100)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">BarChartColumn(""Marketing spend"" y_min=0, y_max=100)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">ProgressColumn(""Sales volume"", min_value=0, max_value=1000, format=""$%f"")
+</code></div></section>
+---
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.table,Static tables,Display a static table.,"st.table(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10, 5), columns=(""col %d"" % i for i in range(5)))
+
+st.table(df)
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.metric,Metrics,"Display a metric in big bold font, with an optional indicator of how the metric changed.","st.metric(""My metric"", 42, 2)
+","
+---
+
+import streamlit as st
+
+st.metric(label=""Temperature"", value=""70 °F"", delta=""1.2 °F"")
+
+---
+
+import streamlit as st
+
+col1, col2, col3 = st.columns(3)
+col1.metric(""Temperature"", ""70 °F"", ""1.2 °F"")
+col2.metric(""Wind"", ""9 mph"", ""-8%"")
+col3.metric(""Humidity"", ""86%"", ""4%"")
+
+---
+
+import streamlit as st
+
+st.metric(label=""Gas price"", value=4, delta=-0.5,
+    delta_color=""inverse"")
+
+st.metric(label=""Active developers"", value=123, delta=123,
+    delta_color=""off"")
+
+---
+"
+Data Element,https://docs.streamlit.io/library/api-reference/data/st.json,Dicts and JSON,Display object or string as a pretty-printed JSON string.,"st.json(my_dict)
+","
+---
+
+import streamlit as st
+
+st.json({
+    'foo': 'bar',
+    'baz': 'boz',
+    'stuff': [
+        'stuff 1',
+        'stuff 2',
+        'stuff 3',
+        'stuff 5',
+    ],
+})
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.area_chart,Simple area charts,Display an area chart.,"st.area_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.area_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": np.random.randn(20),
+       ""col2"": np.random.randn(20),
+       ""col3"": np.random.choice([""A"", ""B"", ""C""], 20),
+   }
+)
+
+st.area_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+
+st.area_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.bar_chart,Simple bar charts,Display a bar chart.,"st.bar_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.bar_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": list(range(20)) * 3,
+       ""col2"": np.random.randn(60),
+       ""col3"": [""A""] * 20 + [""B""] * 20 + [""C""] * 20,
+   }
+)
+
+st.bar_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {""col1"": list(range(20)), ""col2"": np.random.randn(20), ""col3"": np.random.randn(20)}
+)
+
+st.bar_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.line_chart,Simple line charts,Display a line chart.,"st.line_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.line_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": np.random.randn(20),
+       ""col2"": np.random.randn(20),
+       ""col3"": np.random.choice([""A"", ""B"", ""C""], 20),
+   }
+)
+
+st.line_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+
+st.line_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.scatter_chart,Simple scatter charts,Display a line chart.,"st.scatter_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.scatter_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+chart_data['col4'] = np.random.choice(['A','B','C'], 20)
+
+st.scatter_chart(
+    chart_data,
+    x='col1',
+    y='col2',
+    color='col4',
+    size='col3',
+)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 4), columns=[""col1"", ""col2"", ""col3"", ""col4""])
+
+st.scatter_chart(
+    chart_data,
+    x='col1',
+    y=['col2', 'col3'],
+    size='col4',
+    color=['#FF0000', '#0000FF'],  # Optional
+)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.map,Scatterplots on maps,Display a map with points on it.,"st.map(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+st.map(df)
+
+---
+
+st.map(df, size=20, color='#0044ff')
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    ""col1"": np.random.randn(1000) / 50 + 37.76,
+    ""col2"": np.random.randn(1000) / 50 + -122.4,
+    ""col3"": np.random.randn(1000) * 100,
+    ""col4"": np.random.rand(1000, 4).tolist(),
+})
+
+st.map(df,
+    latitude='col1',
+    longitude='col2',
+    size='col3',
+    color='col4')
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.pyplot,Matplotlib,Display a matplotlib.pyplot figure.,"st.pyplot(my_mpl_figure)
+","
+---
+
+import streamlit as st
+import matplotlib.pyplot as plt
+import numpy as np
+
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
+
+st.pyplot(fig)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.altair_chart,Altair,Display a chart using the Altair library.,"st.altair_chart(my_altair_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+from vega_datasets import data
+
+source = data.cars()
+
+chart = alt.Chart(source).mark_circle().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+).interactive()
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Altair native theme""])
+
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.altair_chart(chart, theme=""streamlit"", use_container_width=True)
+with tab2:
+    # Use the native Altair theme.
+    st.altair_chart(chart, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+import streamlit as st
+from vega_datasets import data
+
+source = data.seattle_weather()
+
+scale = alt.Scale(
+    domain=[""sun"", ""fog"", ""drizzle"", ""rain"", ""snow""],
+    range=[""#e7ba52"", ""#a7a7a7"", ""#aec7e8"", ""#1f77b4"", ""#9467bd""],
+)
+color = alt.Color(""weather:N"", scale=scale)
+
+# We create two selections:
+# - a brush that is active on the top panel
+# - a multi-click that is active on the bottom panel
+brush = alt.selection_interval(encodings=[""x""])
+click = alt.selection_multi(encodings=[""color""])
+
+# Top panel is scatter plot of temperature vs time
+points = (
+    alt.Chart()
+    .mark_point()
+    .encode(
+        alt.X(""monthdate(date):T"", title=""Date""),
+        alt.Y(
+            ""temp_max:Q"",
+            title=""Maximum Daily Temperature (C)"",
+            scale=alt.Scale(domain=[-5, 40]),
+        ),
+        color=alt.condition(brush, color, alt.value(""lightgray"")),
+        size=alt.Size(""precipitation:Q"", scale=alt.Scale(range=[5, 200])),
+    )
+    .properties(width=550, height=300)
+    .add_selection(brush)
+    .transform_filter(click)
+)
+
+# Bottom panel is a bar chart of weather type
+bars = (
+    alt.Chart()
+    .mark_bar()
+    .encode(
+        x=""count()"",
+        y=""weather:N"",
+        color=alt.condition(click, color, alt.value(""lightgray"")),
+    )
+    .transform_filter(brush)
+    .properties(
+        width=550,
+    )
+    .add_selection(click)
+)
+
+chart = alt.vconcat(points, bars, data=source, title=""Seattle Weather: 2012-2015"")
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Altair native theme""])
+
+with tab1:
+    st.altair_chart(chart, theme=""streamlit"", use_container_width=True)
+with tab2:
+    st.altair_chart(chart, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+import pandas as pd
+import streamlit as st
+from vega_datasets import data
+
+# We use @st.cache_data to keep the dataset in cache
+@st.cache_data
+def get_data():
+    source = data.stocks()
+    source = source[source.date.gt(""2004-01-01"")]
+    return source
+
+source = get_data()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Define the base time-series chart.
+def get_chart(data):
+    hover = alt.selection_single(
+        fields=[""date""],
+        nearest=True,
+        on=""mouseover"",
+        empty=""none"",
+    )
+
+    lines = (
+        alt.Chart(data, title=""Evolution of stock prices"")
+        .mark_line()
+        .encode(
+            x=""date"",
+            y=""price"",
+            color=""symbol"",
+        )
+    )
+
+    # Draw points on the line, and highlight based on selection
+    points = lines.transform_filter(hover).mark_circle(size=65)
+
+    # Draw a rule at the location of the selection
+    tooltips = (
+        alt.Chart(data)
+        .mark_rule()
+        .encode(
+            x=""yearmonthdate(date)"",
+            y=""price"",
+            opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
+            tooltip=[
+                alt.Tooltip(""date"", title=""Date""),
+                alt.Tooltip(""price"", title=""Price (USD)""),
+            ],
+        )
+        .add_selection(hover)
+    )
+    return (lines + points + tooltips).interactive()
+
+chart = get_chart(source)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Add annotations
+ANNOTATIONS = [
+    (""Mar 01, 2008"", ""Pretty good day for GOOG""),
+    (""Dec 01, 2007"", ""Something's going wrong for GOOG &amp; AAPL""),
+    (""Nov 01, 2008"", ""Market starts again thanks to...""),
+    (""Dec 01, 2009"", ""Small crash for GOOG after...""),
+]
+annotations_df = pd.DataFrame(ANNOTATIONS, columns=[""date"", ""event""])
+annotations_df.date = pd.to_datetime(annotations_df.date)
+annotations_df[""y""] = 10
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">annotation_layer = (
+    alt.Chart(annotations_df)
+    .mark_text(size=20, text=""⬇"", dx=-8, dy=-10, align=""left"")
+    .encode(
+        x=""date:T"",
+        y=alt.Y(""y:Q""),
+        tooltip=[""event""],
+    )
+    .interactive()
+)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">st.altair_chart(
+    (chart + annotation_layer).interactive(),
+    use_container_width=True
+)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">.mark_image(
+    width=12,
+    height=12,
+    url=""image_url"",
+)
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import altair as alt
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+c = (
+   alt.Chart(chart_data)
+   .mark_circle()
+   .encode(x=""a"", y=""b"", size=""c"", color=""c"", tooltip=[""a"", ""b"", ""c""])
+)
+
+st.altair_chart(c, use_container_width=True)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.vega_lite_chart,Vega-Lite,Display a chart using the Vega-Lite library.,"st.vega_lite_chart(my_vega_lite_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+from vega_datasets import data
+
+source = data.cars()
+
+chart = {
+    ""mark"": ""point"",
+    ""encoding"": {
+        ""x"": {
+            ""field"": ""Horsepower"",
+            ""type"": ""quantitative"",
+        },
+        ""y"": {
+            ""field"": ""Miles_per_Gallon"",
+            ""type"": ""quantitative"",
+        },
+        ""color"": {""field"": ""Origin"", ""type"": ""nominal""},
+        ""shape"": {""field"": ""Origin"", ""type"": ""nominal""},
+    },
+}
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Vega-Lite native theme""])
+
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.vega_lite_chart(
+        source, chart, theme=""streamlit"", use_container_width=True
+    )
+with tab2:
+    st.vega_lite_chart(
+        source, chart, theme=None, use_container_width=True
+    )
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(200, 3), columns=[""a"", ""b"", ""c""])
+
+st.vega_lite_chart(
+   chart_data,
+   {
+       ""mark"": {""type"": ""circle"", ""tooltip"": True},
+       ""encoding"": {
+           ""x"": {""field"": ""a"", ""type"": ""quantitative""},
+           ""y"": {""field"": ""b"", ""type"": ""quantitative""},
+           ""size"": {""field"": ""c"", ""type"": ""quantitative""},
+           ""color"": {""field"": ""c"", ""type"": ""quantitative""},
+       },
+   },
+)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.plotly_chart,Plotly,Display an interactive Plotly chart.,"st.plotly_chart(my_plotly_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import plotly.express as px
+import streamlit as st
+
+df = px.data.gapminder()
+
+fig = px.scatter(
+    df.query(""year==2007""),
+    x=""gdpPercap"",
+    y=""lifeExp"",
+    size=""pop"",
+    color=""continent"",
+    hover_name=""country"",
+    log_x=True,
+    size_max=60,
+)
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Plotly native theme""])
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.plotly_chart(fig, theme=""streamlit"", use_container_width=True)
+with tab2:
+    # Use the native Plotly theme.
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import plotly.express as px
+import streamlit as st
+
+st.subheader(""Define a custom colorscale"")
+df = px.data.iris()
+fig = px.scatter(
+    df,
+    x=""sepal_width"",
+    y=""sepal_length"",
+    color=""sepal_length"",
+    color_continuous_scale=""reds"",
+)
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Plotly native theme""])
+with tab1:
+    st.plotly_chart(fig, theme=""streamlit"", use_container_width=True)
+with tab2:
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+</code></div></section>
+---
+
+import streamlit as st
+import numpy as np
+import plotly.figure_factory as ff
+
+# Add histogram data
+x1 = np.random.randn(200) - 2
+x2 = np.random.randn(200)
+x3 = np.random.randn(200) + 2
+
+# Group data together
+hist_data = [x1, x2, x3]
+
+group_labels = ['Group 1', 'Group 2', 'Group 3']
+
+# Create distplot with custom bin_size
+fig = ff.create_distplot(
+        hist_data, group_labels, bin_size=[.1, .25, .5])
+
+# Plot!
+st.plotly_chart(fig, use_container_width=True)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.bokeh_chart,Bokeh,Display an interactive Bokeh chart.,"st.bokeh_chart(my_bokeh_chart)
+","
+---
+
+import streamlit as st
+from bokeh.plotting import figure
+
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 2, 4, 5]
+
+p = figure(
+    title='simple line example',
+    x_axis_label='x',
+    y_axis_label='y')
+
+p.line(x, y, legend_label='Trend', line_width=2)
+
+st.bokeh_chart(p, use_container_width=True)
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.pydeck_chart,PyDeck,Display a chart using the PyDeck library.,"st.pydeck_chart(my_pydeck_chart)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import pydeck as pdk
+
+chart_data = pd.DataFrame(
+   np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+   columns=['lat', 'lon'])
+
+st.pydeck_chart(pdk.Deck(
+    map_style=None,
+    initial_view_state=pdk.ViewState(
+        latitude=37.76,
+        longitude=-122.4,
+        zoom=11,
+        pitch=50,
+    ),
+    layers=[
+        pdk.Layer(
+           'HexagonLayer',
+           data=chart_data,
+           get_position='[lon, lat]',
+           radius=200,
+           elevation_scale=4,
+           elevation_range=[0, 1000],
+           pickable=True,
+           extruded=True,
+        ),
+        pdk.Layer(
+            'ScatterplotLayer',
+            data=chart_data,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            get_radius=200,
+        ),
+    ],
+))
+
+---
+"
+Chart elements,https://docs.streamlit.io/library/api-reference/charts/st.graphviz_chart,GraphViz,Display a graph using the dagre-d3 library.,"st.graphviz_chart(my_graphviz_spec)
+","
+---
+
+import streamlit as st
+import graphviz
+
+# Create a graphlib graph object
+graph = graphviz.Digraph()
+graph.edge('run', 'intr')
+graph.edge('intr', 'runbl')
+graph.edge('runbl', 'run')
+graph.edge('run', 'kernel')
+graph.edge('kernel', 'zombie')
+graph.edge('kernel', 'sleep')
+graph.edge('kernel', 'runmem')
+graph.edge('sleep', 'swap')
+graph.edge('swap', 'runswap')
+graph.edge('runswap', 'new')
+graph.edge('runswap', 'runmem')
+graph.edge('new', 'runmem')
+graph.edge('sleep', 'runmem')
+
+st.graphviz_chart(graph)
+
+---
+
+st.graphviz_chart('''
+    digraph {
+        run -> intr
+        intr -> runbl
+        runbl -> run
+        run -> kernel
+        kernel -> zombie
+        kernel -> sleep
+        kernel -> runmem
+        sleep -> swap
+        swap -> runswap
+        runswap -> new
+        runswap -> runmem
+        new -> runmem
+        sleep -> runmem
+    }
+''')
+
+---
+"

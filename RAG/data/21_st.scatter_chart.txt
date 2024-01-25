@@ -1,0 +1,885 @@
+
+
+
+
+대형 언어 모델 - 위키백과, 우리 모두의 백과사전
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+본문으로 이동
+
+
+
+
+
+
+
+주 메뉴
+
+
+
+
+
+주 메뉴
+사이드바로 이동
+숨기기
+
+
+
+		둘러보기
+	
+
+
+대문최근 바뀜요즘 화제임의의 문서로기부
+
+
+
+
+
+		사용자 모임
+	
+
+
+사랑방사용자 모임관리 요청
+
+
+
+
+
+		편집 안내
+	
+
+
+도움말정책과 지침질문방
+
+
+
+
+
+언어
+
+이 위키백과에서 언어 링크는 문서 제목 건너편의 문서 최상단에 있습니다. 최상단으로 이동합니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+검색
+
+
+
+
+
+
+
+
+
+
+
+검색
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+계정 만들기
+
+로그인
+
+
+
+
+
+
+
+
+개인 도구
+
+
+
+
+
+ 계정 만들기 로그인
+
+
+
+
+
+		로그아웃한 편집자를 위한 문서 더 알아보기
+
+
+
+기여토론
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+목차
+사이드바로 이동
+숨기기
+
+
+
+
+처음 위치
+
+
+
+
+
+1대형 언어 모델 목록
+
+
+
+
+
+
+
+2각주
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+목차 토글
+
+
+
+
+
+
+
+대형 언어 모델
+
+
+
+31개 언어
+
+
+
+
+العربيةAzərbaycancaBoarischBosanskiCatalàČeštinaDeutschΕλληνικάEnglishEspañolEuskaraفارسیFrançaisGalegoעבריתहिन्दीBahasa IndonesiaItaliano日本語МакедонскиPortuguêsRuna SimiРусскийSlovenščinaTürkçeئۇيغۇرچە / UyghurcheУкраїнська中文Bân-lâm-gú粵語IsiZulu
+
+링크 편집
+
+
+
+
+
+
+
+
+
+
+
+문서토론
+
+
+
+
+
+한국어
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+읽기편집역사 보기
+
+
+
+
+
+
+
+도구
+
+
+
+
+
+도구
+사이드바로 이동
+숨기기
+
+
+
+		동작
+	
+
+
+읽기편집역사 보기
+
+
+
+
+
+		일반
+	
+
+
+여기를 가리키는 문서가리키는 글의 최근 바뀜파일 올리기특수 문서 목록고유 링크문서 정보이 문서 인용하기축약된 URL 얻기위키데이터 항목
+
+
+
+
+
+		인쇄/내보내기
+	
+
+
+책 만들기PDF로 다운로드인쇄용 판
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+위키백과, 우리 모두의 백과사전.
+
+
+
+대형 언어 모델(Large language model, LLM) 또는 거대 언어 모델은 수많은 파라미터(보통 수십억 웨이트 이상)를 보유한 인공 신경망으로 구성되는 언어 모델이다. 자기 지도 학습이나 반자기지도학습을 사용하여 레이블링되지 않은 상당한 양의 텍스트로 훈련된다.[1] LLM은 2018년 즈음에 모습을 드러냈으며 다양한 작업을 위해 수행된다. 이전의 특정 작업의 특수한 지도 학습 모델의 훈련 패러다임에서 벗어나 자연어 처리 연구로 초점이 옮겨졌다.
+대규모 언어 모델(LLM) 은 AI 챗봇 기술을 가능하게 하는 요소이며 많은 화제를 불러일으키고 있는 주제 중 하나다. 대규모 언어 모델(LLM)의 작동 방식은 크게 3가지로 나뉘고 있다. 토큰화, 트랜스포머 모델, 프롬프트 등. 토큰화는 자연어 처리의 일부로 일반 인간 언어를 저수준 기계 시스템(LLMS)가 이해할 수 있는 시퀀스로 변환하는 작업을 말하며 여기에는 섹션에 숫자 값을 할당하고 빠른 분석을 위해 인코딩하는 작업이 수반된다. 이는 음성학의 AI 버전과 같으며 토큰화의 목적은 인공지능이 문장의 구조를 예측하기 위한 학습 가이드 또는 공식과 같은 컨텍스트 백터를 생성하는 것이 목적. 언어를 더 많이 연구하고 문장이 어떻게 구성되는지 이해할수록 특정 유형의 문장에서 다음 언어에 대한 예측이 더 정확 해진다. 이로 인해 온라인에서 사람들이 사용하는 다양한 커뮤니케이션 스타일을 재현하는 모델을 개발할 수 있다.
+트랜스포머 모델은 순차적 데이터를 검사하여 어떤 단어가 서로 뒤따를 가능성이 높은지 관련 패턴을 식별하는 신경망의 일종으로 각각 다른 분석을 수행하여 어떤 단어가 호환되는지 결정하는 계층으로 구성된다. 이러한 모델은 언어를 학습하지 않고 알고리즘에 의존하여 사람이 쓴 단어를 이해하고 예를들어, 힙스터 커피 블로그를 제공함으로써 커피에 대한 표준 글을 작성하도록 학습 시킨다. 이 트랜스포머 모델이 대규모 언어 모델 LLM 언어 생성의 기초.
+프롬프트는 개발자가 정보를 분석하고 토큰화하기 위해 대규모 언어 모델 LLM에 제공하는 정보로 프롬프트는 기본적으로 다양한 사용 사례에서 LLM에 도움이 되는 학습 데이터 입니다. 더 정확한 프롬프트를 받을수록 LLM은 다음 단어를 더 잘 예측하고 정확한 문장을 구성할 수 있습니다. 따라서 딥러닝 AI의 적절한 학습을 위해서는 적절한 프롬프트를 선택하는 것이 중요하다.
+
+대형 언어 모델 목록[편집]
+
+대형 언어 모델 목록
+
+
+이름
+출시일[a]
+개발
+파라미터 수[b]
+코퍼스 크기
+라이선스[c]
+
+
+BERT
+2018년
+구글
+340 million[2]
+3.3 billion words[2]
+Apache 2.0[3]
+
+
+XLNet
+2019년
+Google
+~340 million[4]
+33 billion words
+
+
+
+GPT-2
+2019년
+OpenAI
+1.5 billion[5]
+40GB[6] (~10 billion tokens)[7]
+MIT[8]
+
+
+GPT-3
+2020년
+OpenAI
+175 billion[9]
+300 billion tokens[7]
+공개 웹 API
+
+
+GPT-Neo
+2021년 3월
+EleutherAI
+2.7 billion[10]
+825 GiB[11]
+MIT[12]
+
+
+GPT-J
+2021년 6월
+EleutherAI
+6 billion[13]
+825 GiB[11]
+Apache 2.0
+
+
+Megatron-Turing NLG
+2021년 10월[14]
+Microsoft and Nvidia
+530 billion[15]
+338.6 billion tokens[15]
+제한된 웹 접근
+
+
+Ernie 3.0 Titan
+2021년 12월
+Baidu
+260 billion[16]
+4 Tb
+사유(Proprietary)
+
+
+Claude[17]
+2021년 12월
+Anthropic
+52 billion[18]
+400 billion tokens[18]
+클로즈드 베타
+
+
+GLaM (Generalist Language Model)
+2021년 12월
+Google
+1.2 trillion[19]
+1.6 trillion tokens[19]
+사유(Proprietary)
+
+
+Gopher
+2021년 12월
+DeepMind
+280 billion[20]
+300 billion tokens[21]
+사유(Proprietary)
+
+
+LaMDA (Language Models for Dialog Applications)
+2022년 1월
+Google
+137 billion[22]
+1.56T words,[22] 168 billion tokens[21]
+사유(Proprietary)
+
+
+GPT-NeoX
+2022년 2월
+EleutherAI
+20 billion[23]
+825 GiB[11]
+Apache 2.0
+
+
+Chinchilla
+2022년 3월
+DeepMind
+70 billion[24]
+1.4 trillion tokens[24][21]
+사유(Proprietary)
+
+
+PaLM (Pathways Language Model)
+2022년 4월
+Google
+540 billion[25]
+768 billion tokens[24]
+사유(Proprietary)
+
+
+OPT (Open Pretrained Transformer)
+2022년 5월
+Meta
+175 billion[26]
+180 billion tokens[27]
+비상업적 연구[d]
+
+
+YaLM 100B
+
+2022년 6월
+
+Yandex
+
+100 billion[28]
+
+1.7TB[28]
+
+Apache 2.0
+
+
+Minerva
+2022년 6월
+Google
+540 billion[29]
+38.5B tokens from webpages filtered for mathematical content and from papers submitted to the arXiv preprint server[29]
+사유(Proprietary)
+
+
+BLOOM
+2022년 7월
+Large collaboration led by Hugging Face
+175 billion[30]
+350 billion tokens (1.6TB)[31]
+Responsible AI
+
+
+Galactica
+2022년 11월
+Meta
+120 billion
+106 billion tokens[32]
+CC-BY-NC-4.0
+
+
+AlexaTM (Teacher Models)
+2022년 11월
+Amazon
+20 billion[33]
+1.3 trillion[34]
+공개 웹 API[35]
+
+
+LLaMA (Large Language Model Meta AI)
+2023년 2월
+Meta
+65 billion[36]
+1.4 trillion[36]
+비상업적 연구[e]
+
+
+GPT-4
+2023년 3월
+OpenAI
+정확한 수치 알 수 없음. 대략 1 trillion [f]
+알 수 없음
+공개 웹 API
+
+
+Cerebras-GPT
+
+2023년 3월
+
+Cerebras
+
+13 billion[38]
+
+
+Apache 2.0
+
+
+Falcon
+2023년 3월
+Technology Innovation Institute
+40 billion[39]
+1 Trillion tokens (1TB)[39]
+사유(Proprietary)
+
+
+BloombergGPT
+2023년 3월
+Bloomberg L.P.
+50 billion
+363 billion token dataset based on Bloomberg's data sources, plus 345 billion tokens from general purpose datasets[40]
+사유(Proprietary)
+
+
+PanGu-Σ
+2023년 3월
+Huawei
+1.085 trillion
+329 billion tokens[41]
+사유(Proprietary)
+
+
+OpenAssistant[42]
+2023년 3월
+LAION
+17 billion
+1.5 trillion tokens
+Apache 2.0
+
+
+PaLM 2 (Pathways Language Model 2)
+2023년 5월
+Google
+340 billion[43]
+3.6 trillion tokens[43]
+사유(Proprietary)
+
+
+↑ This is the date that documentation describing the model's architecture was first released.
+
+↑ In many cases, researchers release or report on multiple versions of a model having different sizes. In these cases, the size of the largest model is listed here.
+
+↑ This is the license of the pre-trained model weights. In almost all cases the training code itself is open-source or can be easily replicated.
+
+↑ The smaller models including 66B are publicly available, while the 175B model is available on request.
+
+↑ Facebook's license and distribution scheme restricted access to approved researchers, but the model weights were leaked and became widely available.
+
+↑ As stated in Technical report: "Given both the competitive landscape and the safety implications of large-scale models like GPT-4, this report contains no further details about the architecture (including model size), hardware, training compute, dataset construction, training method ..."[37] Approximate number in the comparison chart that compares the relative storage, from the same report.
+
+
+각주[편집]
+
+
+↑ Goled, Shraddha (2021년 5월 7일). “Self-Supervised Learning Vs Semi-Supervised Learning: How They Differ”. 《Analytics India Magazine》. 
+
+↑ 가 나 Devlin, Jacob; Chang, Ming-Wei; Lee, Kenton; Toutanova, Kristina (2018년 10월 11일). “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding”. arXiv:1810.04805v2 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ “BERT”. 2023년 3월 13일  – GitHub 경유. 
+
+↑ “BERT, RoBERTa, DistilBERT, XLNet: Which one to use?”. [깨진 링크(과거 내용 찾기)]
+
+↑ “GPT-2: 1.5B Release”. 《OpenAI》 (영어). 2019년 11월 5일. 2019년 11월 14일에 원본 문서에서 보존된 문서. 2019년 11월 14일에 확인함. 
+
+↑ “Better language models and their implications”. 《openai.com》. 
+
+↑ 가 나 “OpenAI's GPT-3 Language Model: A Technical Overview”. 《lambdalabs.com》 (영어). 
+
+↑ “gpt-2”. 《GitHub》. 2023년 3월 13일에 확인함. 
+
+↑ Wiggers, Kyle (2022년 4월 28일). “The emerging types of language models and why they matter”. 《TechCrunch》. 
+
+↑ “GPT Neo”. 2023년 3월 15일  – GitHub 경유. 
+
+↑ 가 나 다 Gao, Leo; Biderman, Stella; Black, Sid; Golding, Laurence; Hoppe, Travis; Foster, Charles; Phang, Jason; He, Horace; Thite, Anish; Nabeshima, Noa; Presser, Shawn; Leahy, Connor (2020년 12월 31일). “The Pile: An 800GB Dataset of Diverse Text for Language Modeling”. arXiv:2101.00027 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ Iyer, Abhishek (2021년 5월 15일). “GPT-3's free alternative GPT-Neo is something to be excited about”. 《VentureBeat》. 
+
+↑ “GPT-J-6B: An Introduction to the Largest Open Source GPT Model | Forefront”. 《www.forefront.ai》 (영어). 2023년 3월 9일에 원본 문서에서 보존된 문서. 2023년 2월 28일에 확인함. 
+
+↑ Alvi, Ali; Kharya, Paresh (2021년 10월 11일). “Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, the World's Largest and Most Powerful Generative Language Model”. 《Microsoft Research》. 
+
+↑ 가 나 Smith, Shaden; Patwary, Mostofa; Norick, Brandon; LeGresley, Patrick; Rajbhandari, Samyam; Casper, Jared; Liu, Zhun; Prabhumoye, Shrimai; Zerveas, George; Korthikanti, Vijay; Zhang, Elton; Child, Rewon; Aminabadi, Reza Yazdani; Bernauer, Julie; Song, Xia (2022년 2월 4일). “Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model”. arXiv:2201.11990. 
+
+↑ Wang, Shuohuan; Sun, Yu; Xiang, Yang; Wu, Zhihua; Ding, Siyu; Gong, Weibao; Feng, Shikun; Shang, Junyuan; Zhao, Yanbin; Pang, Chao; Liu, Jiaxiang; Chen, Xuyi; Lu, Yuxiang; Liu, Weixin; Wang, Xi; Bai, Yangfan; Chen, Qiuliang; Zhao, Li; Li, Shiyong; Sun, Peng; Yu, Dianhai; Ma, Yanjun; Tian, Hao; Wu, Hua; Wu, Tian; Zeng, Wei; Li, Ge; Gao, Wen; Wang, Haifeng (2021년 12월 23일). “ERNIE 3.0 Titan: Exploring Larger-scale Knowledge Enhanced Pre-training for Language Understanding and Generation”. arXiv:2112.12731. 
+
+↑ “Product”. 《Anthropic》 (영어). 2023년 3월 14일에 확인함. 
+
+↑ 가 나 Askell, Amanda; Bai, Yuntao; Chen, Anna;  외. (2021년 12월 9일). “A General Language Assistant as a Laboratory for Alignment”. arXiv:2112.00861 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ 가 나 Dai, Andrew M; Du, Nan (2021년 12월 9일). “More Efficient In-Context Learning with GLaM”. 《ai.googleblog.com》 (영어). 2023년 3월 9일에 확인함. 
+
+↑ “Language modelling at scale: Gopher, ethical considerations, and retrieval”. 《www.deepmind.com》 (영어). 2023년 3월 20일에 확인함. 
+
+↑ 가 나 다 Hoffmann, Jordan; Borgeaud, Sebastian; Mensch, Arthur;  외. (2022년 3월 29일). “Training Compute-Optimal Large Language Models”. arXiv:2203.15556 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ 가 나 Cheng, Heng-Tze; Thoppilan, Romal (2022년 1월 21일). “LaMDA: Towards Safe, Grounded, and High-Quality Dialog Models for Everything”. 《ai.googleblog.com》 (영어). 2023년 3월 9일에 확인함. 
+
+↑ Black, Sidney; Biderman, Stella; Hallahan, Eric;  외. (2022년 5월 1일). 《GPT-NeoX-20B: An Open-Source Autoregressive Language Model》. Proceedings of BigScience Episode #5 -- Workshop on Challenges & Perspectives in Creating Large Language Models. 95–136쪽. 2022년 12월 19일에 확인함. 
+
+↑ 가 나 다 Hoffmann, Jordan; Borgeaud, Sebastian; Mensch, Arthur; Sifre, Laurent (2022년 4월 12일). “An empirical analysis of compute-optimal large language model training”. 《Deepmind Blog》. 
+
+↑ Narang, Sharan; Chowdhery, Aakanksha (2022년 4월 4일). “Pathways Language Model (PaLM): Scaling to 540 Billion Parameters for Breakthrough Performance”. 《ai.googleblog.com》 (영어). 2023년 3월 9일에 확인함. 
+
+↑ “Democratizing access to large-scale language models with OPT-175B”. 《ai.facebook.com》 (영어). 
+
+↑ Zhang, Susan; Roller, Stephen; Goyal, Naman; Artetxe, Mikel; Chen, Moya; Chen, Shuohui; Dewan, Christopher; Diab, Mona; Li, Xian; Lin, Xi Victoria; Mihaylov, Todor; Ott, Myle; Shleifer, Sam; Shuster, Kurt; Simig, Daniel; Koura, Punit Singh; Sridhar, Anjali; Wang, Tianlu; Zettlemoyer, Luke (2022년 6월 21일). “OPT: Open Pre-trained Transformer Language Models”. arXiv:2205.01068 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ 가 나 Khrushchev, Mikhail; Vasilev, Ruslan; Petrov, Alexey; Zinov, Nikolay (2022년 6월 22일), 《YaLM 100B》, 2023년 3월 18일에 확인함 
+
+↑ 가 나 Lewkowycz, Aitor; Andreassen, Anders; Dohan, David; Dyer, Ethan; Michalewski, Henryk; Ramasesh, Vinay; Slone, Ambrose; Anil, Cem; Schlag, Imanol; Gutman-Solo, Theo; Wu, Yuhuai; Neyshabur, Behnam; Gur-Ari, Guy; Misra, Vedant (2022년 6월 30일). “Solving Quantitative Reasoning Problems with Language Models”. arXiv:2206.14858 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ Ananthaswamy, Anil (2023년 3월 8일). “In AI, is bigger always better?”. 《Nature》. 
+
+↑ “bigscience/bloom · Hugging Face”. 《huggingface.co》. 
+
+↑ Taylor, Ross; Kardas, Marcin; Cucurull, Guillem; Scialom, Thomas; Hartshorn, Anthony; Saravia, Elvis; Poulton, Andrew; Kerkez, Viktor; Stojnic, Robert (2022년 11월 16일). “Galactica: A Large Language Model for Science”. arXiv:2211.09085 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ “20B-parameter Alexa model sets new marks in few-shot learning”. 《Amazon Science》 (영어). 2022년 8월 2일. 
+
+↑ Soltan, Saleh; Ananthakrishnan, Shankar; FitzGerald, Jack;  외. (2022년 8월 3일). “AlexaTM 20B: Few-Shot Learning Using a Large-Scale Multilingual Seq2Seq Model”. arXiv:2208.01448 [cs.CL].  더 이상 지원되지 않는 변수를 사용함 (도움말)
+
+↑ “AlexaTM 20B is now available in Amazon SageMaker JumpStart | AWS Machine Learning Blog”. 《aws.amazon.com》. 2022년 11월 17일. 2023년 3월 13일에 확인함. 
+
+↑ 가 나 “Introducing LLaMA: A foundational, 65-billion-parameter large language model”. 《Meta AI》. 2023년 2월 24일. 
+
+↑ “GPT-4 Technical Report” (PDF). 《OpenAI》. 2023. 2023년 3월 14일에 원본 문서 (PDF)에서 보존된 문서. 2023년 3월 14일에 확인함. 
+
+↑ Dey, Nolan (2023년 3월 28일). “Cerebras-GPT: A Family of Open, Compute-efficient, Large Language Models”. 《Cerebras》. 
+
+↑ 가 나 “Abu Dhabi-based TII launches its own version of ChatGPT”. 《tii.ae》. 
+
+↑ Wu, Shijie; Irsoy, Ozan; Lu, Steven; Dabravolski, Vadim; Dredze, Mark; Gehrmann, Sebastian; Kambadur, Prabhanjan; Rosenberg, David; Mann, Gideon (2023년 3월 30일). “BloombergGPT: A Large Language Model for Finance”. arXiv:2303.17564. 
+
+↑ Ren, Xiaozhe; Zhou, Pingyi; Meng, Xinfan; Huang, Xinjing; Wang, Yadao; Wang, Weichao; Li, Pengfei; Zhang, Xiaoda; Podolskiy, Alexander; Arshinov, Grigory; Bout, Andrey; Piontkovskaya, Irina; Wei, Jiansheng; Jiang, Xin; Su, Teng; Liu, Qun; Yao, Jun (2023년 3월 19일). “PanGu-Σ: Towards Trillion Parameter Language Model with Sparse Heterogeneous Computing”. arXiv:2303.10845. 
+
+↑ Köpf, Andreas; Kilcher, Yannic; von Rütte, Dimitri; Anagnostidis, Sotiris; Tam, Zhi-Rui; Stevens, Keith; Barhoum, Abdullah; Duc, Nguyen Minh; Stanley, Oliver; Nagyfi, Richárd; ES, Shahul; Suri, Sameer; Glushkov, David; Dantuluri, Arnav; Maguire, Andrew (2023년 4월 14일). “OpenAssistant Conversations -- Democratizing Large Language Model Alignment”. 《arXiv:2304.07327 [cs]》. 
+
+↑ 가 나 Elias, Jennifer (2023년 5월 16일). “Google's newest A.I. model uses nearly five times more text data for training than its predecessor”. 《CNBC》. 2023년 5월 18일에 확인함. 
+
+
+vte자연어 처리일반
+AI-완전
+단어 가방 모형
+n-gram
+Bigram
+Trigram
+전산언어학
+자연어 이해
+불용어
+텍스트 처리
+텍스트 분석
+연어 추출
+Concept mining
+공통참조해결
+Deep linguistic processing
+Distant reading
+정보 추출
+개체명 인식
+온톨로지 학습
+구문 분석
+품사 태깅
+의미역 결정
+의미 유사도
+감성 분석
+용어 추출
+텍스트 마이닝
+Textual entailment
+Truecasing
+단어 중의성 해소
+Word-sense induction
+Text segmentation
+Compound-term processing
+표제어 추출
+낱말 분석
+Text chunking
+어간 추출
+문장 분할
+단어 분절
+
+자동 요약
+다중 문서 요약
+문장 추출
+텍스트 단순화
+기계 번역
+컴퓨터 보조
+예시 기반 번역
+규칙 기반 번역
+통계적
+전이학습 기반 번역
+신경망
+분포 의미론 모델
+BERT
+문서-단어 행렬
+명시 의미 분석
+fastText
+GloVe
+잠재 의미 분석
+단어 임베딩
+Word2vec
+언어 자원,데이터셋, 말뭉치유형, 표준
+말뭉치언어학
+Lexical resource
+Linguistic Linked Open Data
+기계 가독형 사전
+병렬말뭉치
+PropBank
+시맨틱 네트워크
+Simple Knowledge Organization System
+음성 코퍼스
+말뭉치
+Thesaurus (information retrieval)
+Treebank
+보편 의존
+데이터
+BabelNet
+Bank of English
+디비피디아
+FrameNet
+구글 엔그램 뷰어
+UBY
+워드넷
+Automatic identificationand data capture
+음성 인식
+음성 분할
+음성 합성
+자연어 생성
+광학 문자 인식
+토픽 모델
+문서 분류
+잠재 디리클레 할당
+파친코 할당
+Computer-assistedreviewing
+작문 자동 채점
+Concordancer
+문법 검사기
+예측 문자
+맞춤법 검사기
+문법 예측
+자연어 사용자 인터페이스
+챗봇
+인터랙티브 픽션
+질의 응답
+가상 비서
+음성 사용자 인터페이스
+기타 소프트웨어
+Natural Language Toolkit
+spaCy
+
+
+
+
+
+원본 주소 "https://ko.wikipedia.org/w/index.php?title=대형_언어_모델&oldid=35987613"
+분류: 딥 러닝자연어 처리숨은 분류: 인용 오류 - 오래된 변수를 사용함깨진 링크를 가지고 있는 문서CS1 - 영어 인용 (en)
+
+
+
+
+
+
+ 이 문서는 2023년 11월 28일 (화) 22:37에 마지막으로 편집되었습니다.
+모든 문서는 크리에이티브 커먼즈 저작자표시-동일조건변경허락 4.0에 따라 사용할 수 있으며, 추가적인 조건이 적용될 수 있습니다. 자세한 내용은 이용 약관을 참고하십시오.Wikipedia®는 미국 및 다른 국가에 등록되어 있는 Wikimedia Foundation, Inc. 소유의 등록 상표입니다.
+
+
+개인정보처리방침
+위키백과 소개
+면책 조항
+행동 강령
+개발자
+통계
+쿠키 정책
+모바일 보기
+
+
+
+
+
+
+
+
+
+
+
+
+
+내용 폭 제한 전환
+
+
+
+
+
+
+
