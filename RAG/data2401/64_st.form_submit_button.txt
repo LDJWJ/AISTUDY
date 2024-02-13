@@ -1,0 +1,62 @@
+st.form_submit_button - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowremovest.formst.form_submit_buttonst.rerunst.stopst.switch_pagest.experimental_rerundeleteUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Control flow/st.form_submit_buttonst.form_submit_buttonStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a form submit button.
+When this button is clicked, all widget values inside the form will be
+sent to Streamlit in a batch.
+Every form must have a form_submit_button. A form_submit_button
+cannot exist outside a form.
+For more information about forms, check out our
+blog post.
+Function signature[source] st.form_submit_button(label="Submit", help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False) Parameters
+
+label
+(str)
+ 
+A short label explaining to the user what this button is for.
+Defaults to "Submit".
+
+
+help
+(str or None)
+ 
+A tooltip that gets displayed when the button is hovered over.
+Defaults to None.
+
+
+on_click
+(callable)
+ 
+An optional callback invoked when this button is clicked.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+
+
+type
+("secondary" or "primary")
+ 
+An optional string that specifies the button type. Can be "primary" for a
+button with additional emphasis or "secondary" for a normal button. Defaults
+to "secondary".
+
+
+disabled
+(bool)
+ 
+An optional boolean, which disables the button if set to True. The
+default is False.
+
+
+use_container_width
+(bool)
+ 
+An optional boolean, which makes the button stretch its width to match the parent container.
+Returns(bool)  True if the button was clicked.
+Previous: st.formNext: st.rerunforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

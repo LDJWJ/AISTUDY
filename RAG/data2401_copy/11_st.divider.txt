@@ -1,0 +1,28 @@
+st.divider - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsremovest.markdownst.titlest.headerst.subheaderst.captionst.codest.textst.latexst.dividerData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Text elements/st.dividerst.dividerStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a horizontal rule.
+
+Note
+You can achieve the same effect with st.write("---") or
+even just "---" in your script (via magic).
+
+Function signature[source] st.divider() Example
+
+import streamlit as st
+
+st.divider()
+
+
+
+Here's what it looks like in action when you have multiple elements in the app:
+import streamlit as st
+
+st.write("This is some text.")
+
+st.slider("This is a slider", 0, 100, (25, 75))
+
+st.divider()  # ğŸ‘ˆ Draws a horizontal rule
+
+st.write("This text is between the horizontal rules.")
+
+st.divider()  # ğŸ‘ˆ Another horizontal rule
+
+Previous: st.latexNext: Data elementsforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

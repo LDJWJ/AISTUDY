@@ -1,0 +1,81 @@
+st.container - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersremovest.sidebarst.columnsst.tabsst.expanderst.containerst.emptyChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Layouts and containers/st.containerst.containerStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeInsert a multi-element container.
+Inserts an invisible container into your app that can be used to hold
+multiple elements. This allows you to, for example, insert multiple
+elements into your app out of order.
+To add elements to the returned container, you can use "with" notation
+(preferred) or just call methods directly on the returned object. See
+examples below.
+Function signature[source] st.container(*, height=None, border=None) Parameters
+
+height
+(int or None)
+ 
+Desired height of the container expressed in pixels. If None (default)
+the container grows to fit its content. If a fixed height, scrolling is
+enabled for large content and a grey border is shown around the container
+to visually separate its scroll surface from the rest of the app.
+
+Note
+Use containers with scroll sparingly. If you do, try to keep
+the height small (below 500 pixels). Otherwise, the scroll
+surface of the container might cover the majority of the screen
+on mobile devices, which makes it hard to scroll the rest of the app.
+
+
+
+border
+(bool or None)
+ 
+Whether to show a border around the container. If None (default), a
+border is shown if the container is set to a fixed height and not
+shown otherwise.
+Examples
+Inserting elements using "with" notation:
+
+import streamlit as st
+
+with st.container():
+   st.write("This is inside the container")
+
+   # You can call any Streamlit command, including custom components:
+   st.bar_chart(np.random.randn(50, 3))
+
+st.write("This is outside the container")
+
+
+Inserting elements out of order:
+
+import streamlit as st
+
+container = st.container(border=True)
+container.write("This is inside the container")
+st.write("This is outside the container")
+
+# Now insert some more in the container
+container.write("This is inside too")
+
+
+Using height to make a grid:
+
+import streamlit as st
+
+row1 = st.columns(3)
+row2 = st.columns(3)
+
+for col in row1 + row2:
+    tile = col.container(height=120)
+    tile.title(":balloon:")
+
+
+Using height to create a scrolling container for long content:
+
+import streamlit as st
+
+long_text = "Lorem ipsum. " * 1000
+
+with st.container(height=300):
+    st.markdown(long_text)
+
+
+
+Previous: st.expanderNext: st.emptyforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

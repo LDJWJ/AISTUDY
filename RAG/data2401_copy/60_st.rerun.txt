@@ -1,0 +1,44 @@
+st.rerun - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowremovest.formst.form_submit_buttonst.rerunst.stopst.switch_pagest.experimental_rerundeleteUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Control flow/st.rerunst.rerunStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeRerun the script immediately.
+When st.rerun() is called, the script is halted - no more statements will
+be run, and the script will be queued to re-run from the top.
+Function signature[source] st.rerun() 
+Caveats for st.rerun
+st.rerun is one of the tools to control the logic of your app. While it is great for prototyping, there can be adverse side effects:
+
+Additional script runs may be inefficient and slower.
+Excessive reruns may complicate your app's logic and be harder to follow.
+If misused, infinite looping may crash your app.
+
+In many cases where st.rerun works, callbacks may be a cleaner alternative. Containers may also be helpful.
+A simple example in three variations
+Using st.rerun to update an earlier header
+import streamlit as st
+
+if "value" not in st.session_state:
+    st.session_state.value = "Title"
+
+##### Option using st.rerun #####
+st.header(st.session_state.value)
+
+if st.button("Foo"):
+    st.session_state.value = "Foo"
+    st.rerun()
+
+Using a callback to update an earlier header
+##### Option using a callback #####
+st.header(st.session_state.value)
+
+def update_value():
+    st.session_state.value = "Bar"
+
+st.button("Bar", on_click=update_value)
+
+Using containers to update an earlier header
+##### Option using a container #####
+container = st.container()
+
+if st.button("Baz"):
+    st.session_state.value = "Baz"
+
+container.header(st.session_state.value)
+Previous: st.form_submit_buttonNext: st.stopforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,124 @@
+st.map - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsremovest.area_chartst.bar_chartst.line_chartst.scatter_chartst.pyplotst.altair_chartst.vega_lite_chartst.plotly_chartst.bokeh_chartst.pydeck_chartst.graphviz_chartst.mapInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chart elements/st.mapst.mapStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a map with a scatterplot overlaid onto it.
+This is a wrapper around st.pydeck_chart to quickly create
+scatterplot charts on top of a map, with auto-centering and auto-zoom.
+When using this command, Mapbox provides the map tiles to render map
+content. Note that Mapbox is a third-party product, the use of which is
+governed by Mapbox's Terms of Use.
+Mapbox requires users to register and provide a token before users can
+request map tiles. Currently, Streamlit provides this token for you, but
+this could change at any time. We strongly recommend all users create and
+use their own personal Mapbox token to avoid any disruptions to their
+experience. You can do this with the mapbox.token config option.
+To get a token for yourself, create an account at https://mapbox.com.
+For more info on how to set config options, see
+https://docs.streamlit.io/library/advanced-features/configuration
+Function signature[source] st.map(data=None, *, latitude=None, longitude=None, color=None, size=None, zoom=None, use_container_width=True) Parameters
+
+data
+(pandas.DataFrame, pandas.Styler, pyarrow.Table, pyspark.sql.DataFrame,            snowflake.snowpark.dataframe.DataFrame, snowflake.snowpark.table.Table,            Iterable, dict, or None)
+ 
+The data to be plotted.
+
+
+latitude
+(str or None)
+ 
+The name of the column containing the latitude coordinates of
+the datapoints in the chart.
+If None, the latitude data will come from any column named 'lat',
+'latitude', 'LAT', or 'LATITUDE'.
+
+
+longitude
+(str or None)
+ 
+The name of the column containing the longitude coordinates of
+the datapoints in the chart.
+If None, the longitude data will come from any column named 'lon',
+'longitude', 'LON', or 'LONGITUDE'.
+
+
+color
+(str or tuple or None)
+ 
+The color of the circles representing each datapoint.
+Can be:
+
+None, to use the default color.
+A hex string like "#ffaa00" or "#ffaa0088".
+An RGB or RGBA tuple with the red, green, blue, and alpha
+components specified as ints from 0 to 255 or floats from 0.0 to
+1.0.
+The name of the column to use for the color. Cells in this column
+should contain colors represented as a hex string or color tuple,
+as described above.
+
+
+
+size
+(str or float or None)
+ 
+The size of the circles representing each point, in meters.
+This can be:
+
+None, to use the default size.
+A number like 100, to specify a single size to use for all
+datapoints.
+The name of the column to use for the size. This allows each
+datapoint to be represented by a circle of a different size.
+
+
+
+zoom
+(int)
+ 
+Zoom level as specified in
+https://wiki.openstreetmap.org/wiki/Zoom_levels.
+
+
+use_container_width
+(bool)
+ 
+If True, set the chart width to the column width. This takes
+precedence over the width argument.
+Examples
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+st.map(df)
+
+
+You can also customize the size and color of the datapoints:
+
+st.map(df, size=20, color='#0044ff')
+
+And finally, you can choose different columns to use for the latitude
+and longitude components, as well as set size and color of each
+datapoint dynamically based on other columns:
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    "col1": np.random.randn(1000) / 50 + 37.76,
+    "col2": np.random.randn(1000) / 50 + -122.4,
+    "col3": np.random.randn(1000) * 100,
+    "col4": np.random.rand(1000, 4).tolist(),
+})
+
+st.map(df,
+    latitude='col1',
+    longitude='col2',
+    size='col3',
+    color='col4')
+
+
+
+Previous: st.graphviz_chartNext: Input widgetsforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

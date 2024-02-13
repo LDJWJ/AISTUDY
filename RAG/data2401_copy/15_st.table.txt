@@ -1,0 +1,23 @@
+st.table - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsremovest.dataframest.data_editorst.column_configaddst.tablest.metricst.jsonst.experimental_data_editordeleteChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Data elements/st.tablestarTipStatic tables with st.table are the most basic way to display dataframes. For the majority of cases, we recommend using st.dataframe to display interactive dataframes, and st.data_editor to let users edit dataframes.
+st.tableStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a static table.
+This differs from st.dataframe in that the table in this case is
+static: its entire contents are laid out directly on the page.
+Function signature[source] st.table(data=None) Parameters
+
+data
+(pandas.DataFrame, pandas.Styler, pyarrow.Table, numpy.ndarray, pyspark.sql.DataFrame, snowflake.snowpark.dataframe.DataFrame, snowflake.snowpark.table.Table, Iterable, dict, or None)
+ 
+The table data.
+Example
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10, 5), columns=("col %d" % i for i in range(5)))
+
+st.table(df)
+
+
+
+Previous: st.column_configNext: st.metricforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,104 @@
+st.vega_lite_chart - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsremovest.area_chartst.bar_chartst.line_chartst.scatter_chartst.pyplotst.altair_chartst.vega_lite_chartst.plotly_chartst.bokeh_chartst.pydeck_chartst.graphviz_chartst.mapInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chart elements/st.vega_lite_chartst.vega_lite_chartStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a chart using the Vega-Lite library.
+Function signature[source] st.vega_lite_chart(data=None, spec=None, use_container_width=False, theme="streamlit", **kwargs) Parameters
+
+data
+(pandas.DataFrame, pandas.Styler, pyarrow.Table, numpy.ndarray, Iterable, dict, or None)
+ 
+Either the data to be plotted or a Vega-Lite spec containing the
+data (which more closely follows the Vega-Lite API).
+
+
+spec
+(dict or None)
+ 
+The Vega-Lite spec for the chart. If the spec was already passed in
+the previous argument, this must be set to None. See
+https://vega.github.io/vega-lite/docs/ for more info.
+
+
+use_container_width
+(bool)
+ 
+If True, set the chart width to the column width. This takes
+precedence over Vega-Lite's native width value.
+
+
+theme
+("streamlit" or None)
+ 
+The theme of the chart. Currently, we only support "streamlit" for the Streamlit
+defined design or None to fallback to the default behavior of the library.
+
+
+**kwargs
+(any)
+ 
+Same as spec, but as keywords.
+Example
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(200, 3), columns=["a", "b", "c"])
+
+st.vega_lite_chart(
+   chart_data,
+   {
+       "mark": {"type": "circle", "tooltip": True},
+       "encoding": {
+           "x": {"field": "a", "type": "quantitative"},
+           "y": {"field": "b", "type": "quantitative"},
+           "size": {"field": "c", "type": "quantitative"},
+           "color": {"field": "c", "type": "quantitative"},
+       },
+   },
+)
+
+
+Examples of Vega-Lite usage without Streamlit can be found at
+https://vega.github.io/vega-lite/examples/. Most of those can be easily
+translated to the syntax shown above.
+
+
+Theming
+Vega-Lite charts are displayed using the Streamlit theme by default. This theme is sleek, user-friendly, and incorporates Streamlit's color palette. The added benefit is that your charts better integrate with the rest of your app's design.
+The Streamlit theme is available from Streamlit 1.16.0 through the theme="streamlit" keyword argument. To disable it, and use Vega-Lite's native theme, use theme=None instead.
+Let's look at an example of charts with the Streamlit theme and the native Vega-Lite theme:
+import streamlit as st
+from vega_datasets import data
+
+source = data.cars()
+
+chart = {
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "Horsepower",
+            "type": "quantitative",
+        },
+        "y": {
+            "field": "Miles_per_Gallon",
+            "type": "quantitative",
+        },
+        "color": {"field": "Origin", "type": "nominal"},
+        "shape": {"field": "Origin", "type": "nominal"},
+    },
+}
+
+tab1, tab2 = st.tabs(["Streamlit theme (default)", "Vega-Lite native theme"])
+
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.vega_lite_chart(
+        source, chart, theme="streamlit", use_container_width=True
+    )
+with tab2:
+    st.vega_lite_chart(
+        source, chart, theme=None, use_container_width=True
+    )
+
+Click the tabs in the interactive app below to see the charts with the Streamlit theme enabled and disabled.
+
+If you're wondering if your own customizations will still be taken into account, don't worry! You can still make changes to your chart configurations. In other words, although we now enable the Streamlit theme by default, you can overwrite it with custom colors or fonts. For example, if you want a chart line to be green instead of the default red, you can do it!Previous: st.altair_chartNext: st.plotly_chartforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

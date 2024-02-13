@@ -1,0 +1,338 @@
+st.experimental_singleton - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceremovest.cache_datast.cache_resourcest.cachedeletest.experimental_memodeletest.experimental_singletondeletePersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Performance/st.experimental_singletonpriority_highImportantThis is an experimental feature. Experimental features and their APIs may change or be removed at any time. To learn more, click here.
+st.experimental_singletonStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakedeleteDeprecation noticest.experimental_singleton was deprecated in version 1.18.0. Use st.cache_resource instead. Learn more in Caching.Decorator to cache functions that return global resources (e.g. database connections, ML models).
+Cached objects are shared across all users, sessions, and reruns. They
+must be thread-safe because they can be accessed from multiple threads
+concurrently. If thread safety is an issue, consider using st.session_state
+to store resources per session instead.
+You can clear a function's cache with func.clear() or clear the entire
+cache with st.cache_resource.clear().
+To cache data, use st.cache_data instead. Learn more about caching at
+https://docs.streamlit.io/library/advanced-features/caching.
+Function signature[source] st.experimental_singleton(func, *, ttl, max_entries, show_spinner, validate, experimental_allow_widgets, hash_funcs=None) Parameters
+
+func
+(callable)
+ 
+The function that creates the cached resource. Streamlit hashes the
+function's source code.
+
+
+ttl
+(float, timedelta, str, or None)
+ 
+The maximum time to keep an entry in the cache. Can be one of:
+
+None if cache entries should never expire (default).
+A number specifying the time in seconds.
+A string specifying the time in a format supported by Pandas's
+Timedelta constructor,
+e.g. "1d", "1.5 days", or "1h23s".
+A timedelta object from Python's built-in datetime library,
+e.g. timedelta(days=1).
+
+
+
+max_entries
+(int or None)
+ 
+The maximum number of entries to keep in the cache, or None
+for an unbounded cache. When a new entry is added to a full cache,
+the oldest cached entry will be removed. Defaults to None.
+
+
+show_spinner
+(bool or str)
+ 
+Enable the spinner. Default is True to show a spinner when there is
+a "cache miss" and the cached resource is being created. If string,
+value of show_spinner param will be used for spinner text.
+
+
+validate
+(callable or None)
+ 
+An optional validation function for cached data. validate is called
+each time the cached value is accessed. It receives the cached value as
+its only parameter and it must return a boolean. If validate returns
+False, the current cached value is discarded, and the decorated function
+is called to compute a new value. This is useful e.g. to check the
+health of database connections.
+
+
+experimental_allow_widgets
+(bool)
+ 
+Allow widgets to be used in the cached function. Defaults to False.
+Support for widgets in cached functions is currently experimental.
+Setting this parameter to True may lead to excessive memory use since the
+widget value is treated as an additional input parameter to the cache.
+We may remove support for this option at any time without notice.
+
+
+hash_funcs
+(dict or None)
+ 
+Mapping of types or fully qualified names to hash functions.
+This is used to override the behavior of the hasher inside Streamlit's
+caching mechanism: when the hasher encounters an object, it will first
+check to see if its type matches a key in this dict and, if so, will use
+the provided function to generate a hash for it. See below for an example
+of how this can be used.
+Example
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(url):
+    # Create a database session object that points to the URL.
+    return session
+
+s1 = get_database_session(SESSION_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(SESSION_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the connection object in s1 is the same as in s2.
+
+s3 = get_database_session(SESSION_URL_2)
+# This is a different URL, so the function executes.
+
+By default, all parameters to a cache_resource function must be hashable.
+Any parameter whose name begins with _ will not be hashed. You can use
+this as an "escape hatch" for parameters that are not hashable:
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+s1 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _sessionmaker parameter was different
+# in both calls.
+
+A cache_resource function's cache can be procedurally cleared:
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+get_database_session.clear()
+# Clear all cached entries for this function.
+
+To override the default hashing behavior, pass a custom hash function.
+You can do that by mapping a type (e.g. Person) to a hash
+function (str) like this:
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={Person: str})
+def get_person_name(person: Person):
+    return person.name
+
+Alternatively, you can map the type's fully-qualified name
+(e.g. "__main__.Person") to the hash function instead:
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={"__main__.Person": str})
+def get_person_name(person: Person):
+    return person.name
+
+
+
+st.experimental_singleton.clearStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakedeleteDeprecation noticest.experimental_singleton.clear was deprecated in version 1.18.0. Use st.cache_resource.clear instead. Learn more in Caching.Clear all cache_resource caches.
+Function signature[source] st.experimental_singleton.clear() 
+Example
+In the example below, pressing the "Clear All" button will clear all singleton caches. i.e. Clears cached singleton objects from all functions decorated with @st.experimental_singleton.
+import streamlit as st
+from transformers import BertModel
+
+@st.experimental_singleton
+ def get_database_session(url):
+     # Create a database session object that points to the URL.
+     return session
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Create a model of the specified type.
+    return BertModel.from_pretrained(model_type)
+
+if st.button("Clear All"):
+    # Clears all singleton caches:
+    st.experimental_singleton.clear()
+
+Validating the cache
+The @st.experimental_singleton decorator is used to cache the output of a function, so that it only needs to be executed once. This can improve performance in certain situations, such as when a function takes a long time to execute or makes a network request.
+However, in some cases, the cached output may become invalid over time, such as when a database connection times out. To handle this, the @st.experimental_singleton decorator supports an optional validate parameter, which accepts a validation function that is called each time the cached output is accessed. If the validation function returns False, the cached output is discarded and the decorated function is executed again.
+Best Practices
+
+Use the validate parameter when the cached output may become invalid over time, such as when a database connection or an API key expires.
+Use the validate parameter judiciously, as it will add an additional overhead of calling the validation function each time the cached output is accessed.
+Make sure that the validation function is as fast as possible, as it will be called each time the cached output is accessed.
+Consider to validate cached data periodically, instead of each time it is accessed, to mitigate the performance impact.
+Handle errors that may occur during validation and provide a fallback mechanism if the validation fails.
+
+Replay static st elements in cache-decorated functions
+Functions decorated with @st.experimental_singleton can contain static st elements. When a cache-decorated function is executed, we record the element and block messages produced, so the elements will appear in the app even when execution of the function is skipped because the result was cached.
+In the example below, the @st.experimental_singleton decorator is used to cache the execution of the get_model function, that returns a ğŸ¤— Hugging Face Transformers model. Notice the cached function also contains a st.bar_chart command, which will be replayed when the function is skipped because the result was cached.
+import numpy as np
+import pandas as pd
+import streamlit as st
+from transformers import AutoModel
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Contains a static element st.bar_chart
+    st.bar_chart(
+        np.random.rand(10, 1)
+    )  # This will be recorded and displayed even when the function is skipped
+
+    # Create a model of the specified type
+    return AutoModel.from_pretrained(model_type)
+
+bert_model = get_model("distilbert-base-uncased")
+st.help(bert_model) # Display the model's docstring
+
+
+Supported static st elements in cache-decorated functions include:
+
+st.alert
+st.altair_chart
+st.area_chart
+st.audio
+st.bar_chart
+st.ballons
+st.bokeh_chart
+st.caption
+st.code
+st.components.v1.html
+st.components.v1.iframe
+st.container
+st.dataframe
+st.echo
+st.empty
+st.error
+st.exception
+st.expander
+st.experimental_get_query_params
+st.experimental_set_query_params
+st.form
+st.form_submit_button
+st.graphviz_chart
+st.help
+st.image
+st.info
+st.json
+st.latex
+st.line_chart
+st.markdown
+st.metric
+st.plotly_chart
+st.progress
+st.pydeck_chart
+st.snow
+st.spinner
+st.success
+st.table
+st.text
+st.vega_lite_chart
+st.video
+st.warning
+
+Replay input widgets in cache-decorated functions
+In addition to static elements, functions decorated with @st.experimental_singleton can also contain input widgets! Replaying input widgets is disabled by default. To enable it, you can set the experimental_allow_widgets parameter for @st.experimental_singleton to True. The example below enables widget replaying, and shows the use of a checkbox widget within a cache-decorated function.
+import streamlit as st
+
+# Enable widget replay
+@st.experimental_singleton(experimental_allow_widgets=True)
+def func():
+    # Contains an input widget
+    st.checkbox("Works!")
+
+func()
+
+If the cache decorated function contains input widgets, but experimental_allow_widgets is set to False or unset, Streamlit will throw a CachedStFunctionWarning, like the one below:
+import streamlit as st
+
+# Widget replay is disabled by default
+@st.experimental_singleton
+def func():
+    # Streamlit will throw a CachedStFunctionWarning
+    st.checkbox("Doesn't work")
+
+func()
+
+
+How widget replay works
+Let's demystify how widget replay in cache-decorated functions works and gain a conceptual understanding. Widget values are treated as additional inputs to the function, and are used to determine whether the function should be executed or not. Consider the following example:
+import streamlit as st
+
+@st.experimental_singleton(experimental_allow_widgets=True)
+def plus_one(x):
+    y = x + 1
+    if st.checkbox("Nuke the value ğŸ’¥"):
+        st.write("Value was nuked, returning 0")
+        y = 0
+    return y
+
+st.write(plus_one(2))
+
+The plus_one function takes an integer x as input, and returns x + 1. The function also contains a checkbox widget, which is used to "nuke" the value of x. i.e. the return value of plus_one depends on the state of the checkbox: if it is checked, the function returns 0, otherwise it returns 3.
+In order to know which value the cache should return (in case of a cache hit), Streamlit treats the checkbox state (checked / unchecked) as an additional input to the function plus_one (just like x). If the user checks the checkbox (thereby changing its state), we look up the cache for the same value of x (2) and the same checkbox state (checked). If the cache contains a value for this combination of inputs, we return it. Otherwise, we execute the function and store the result in the cache.
+Let's now understand how enabling and disabling widget replay changes the behavior of the function.
+Widget replay disabled
+
+Widgets in cached functions throw a CachedStFunctionWarning and are ignored.
+Other static elements in cached functions replay as expected.
+
+Widget replay enabled
+
+Widgets in cached functions don't lead to a warning, and are replayed as expected.
+Interacting with a widget in a cached function will cause the function to be executed again, and the cache to be updated.
+Widgets in cached functions retain their state across reruns.
+Each unique combination of widget values is treated as a separate input to the function, and is used to determine whether the function should be executed or not. i.e. Each unique combination of widget values has its own cache entry; the cached function runs the first time and the saved value is used afterwards.
+Calling a cached function multiple times in one script run with the same arguments triggers a DuplicateWidgetID error.
+If the arguments to a cached function change, widgets from that function that render again retain their state.
+Changing the source code of a cached function invalidates the cache.
+Both st.experimental_singleton and st.experimental_memo support widget replay.
+Fundamentally, the behavior of a function with (supported) widgets in it doesn't change when it is decorated with @st.experimental_singleton or @st.experimental_memo. The only difference is that the function is only executed when we detect a cache "miss".
+
+Supported widgets
+All input widgets are supported in cache-decorated functions. The following is an exhaustive list of supported widgets:
+
+st.button
+st.camera_input
+st.checkbox
+st.color_picker
+st.date_input
+st.download_button
+st.file_uploader
+st.multiselect
+st.number_input
+st.radio
+st.selectbox
+st.select_slider
+st.slider
+st.text_area
+st.text_input
+st.time_input
+Previous: st.experimental_memoNext: PersonalizationforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

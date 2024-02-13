@@ -1,0 +1,74 @@
+st.tabs - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersremovest.sidebarst.columnsst.tabsst.expanderst.containerst.emptyChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Layouts and containers/st.tabsst.tabsStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeInsert containers separated into tabs.
+Inserts a number of multi-element containers as tabs.
+Tabs are a navigational element that allows users to easily
+move between groups of related content.
+To add elements to the returned containers, you can use "with" notation
+(preferred) or just call methods directly on the returned object. See
+examples below.
+
+Warning
+All the content of every tab is always sent to and rendered on the frontend.
+Conditional rendering is currently not supported.
+
+Function signature[source] st.tabs(tabs) Parameters
+
+tabs
+(list of str)
+ 
+Creates a tab for each string in the list. The first tab is selected by default.
+The string is used as the name of the tab and can optionally contain Markdown,
+supporting the following elements: Bold, Italics, Strikethroughs, Inline Code,
+Emojis, and Links.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+Returns(list of containers)  A list of container objects.
+Examples
+You can use with notation to insert any element into a tab:
+
+import streamlit as st
+
+tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
+
+with tab1:
+   st.header("A cat")
+   st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
+
+with tab2:
+   st.header("A dog")
+   st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+
+with tab3:
+   st.header("An owl")
+   st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+
+
+Or you can just call methods directly in the returned objects:
+
+import streamlit as st
+import numpy as np
+
+tab1, tab2 = st.tabs(["ğŸ“ˆ Chart", "ğŸ—ƒ Data"])
+data = np.random.randn(10, 1)
+
+tab1.subheader("A tab with a chart")
+tab1.line_chart(data)
+
+tab2.subheader("A tab with the data")
+tab2.write(data)
+
+
+
+Previous: st.columnsNext: st.expanderforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

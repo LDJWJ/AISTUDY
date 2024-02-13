@@ -1,0 +1,61 @@
+st.graphviz_chart - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsremovest.area_chartst.bar_chartst.line_chartst.scatter_chartst.pyplotst.altair_chartst.vega_lite_chartst.plotly_chartst.bokeh_chartst.pydeck_chartst.graphviz_chartst.mapInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chart elements/st.graphviz_chartst.graphviz_chartStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a graph using the dagre-d3 library.
+Function signature[source] st.graphviz_chart(figure_or_dot, use_container_width=False) Parameters
+
+figure_or_dot
+(graphviz.dot.Graph, graphviz.dot.Digraph, str)
+ 
+The Graphlib graph object or dot string to display
+
+
+use_container_width
+(bool)
+ 
+If True, set the chart width to the column width. This takes
+precedence over the figure's native width value.
+Example
+
+import streamlit as st
+import graphviz
+
+# Create a graphlib graph object
+graph = graphviz.Digraph()
+graph.edge('run', 'intr')
+graph.edge('intr', 'runbl')
+graph.edge('runbl', 'run')
+graph.edge('run', 'kernel')
+graph.edge('kernel', 'zombie')
+graph.edge('kernel', 'sleep')
+graph.edge('kernel', 'runmem')
+graph.edge('sleep', 'swap')
+graph.edge('swap', 'runswap')
+graph.edge('runswap', 'new')
+graph.edge('runswap', 'runmem')
+graph.edge('new', 'runmem')
+graph.edge('sleep', 'runmem')
+
+st.graphviz_chart(graph)
+
+Or you can render the chart from the graph using GraphViz's Dot
+language:
+
+st.graphviz_chart('''
+    digraph {
+        run -> intr
+        intr -> runbl
+        runbl -> run
+        run -> kernel
+        kernel -> zombie
+        kernel -> sleep
+        kernel -> runmem
+        sleep -> swap
+        swap -> runswap
+        runswap -> new
+        runswap -> runmem
+        new -> runmem
+        sleep -> runmem
+    }
+''')
+
+
+
+Previous: st.pydeck_chartNext: st.mapforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

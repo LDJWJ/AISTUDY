@@ -1,0 +1,124 @@
+st.plotly_chart - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsremovest.area_chartst.bar_chartst.line_chartst.scatter_chartst.pyplotst.altair_chartst.vega_lite_chartst.plotly_chartst.bokeh_chartst.pydeck_chartst.graphviz_chartst.mapInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chart elements/st.plotly_chartst.plotly_chartStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay an interactive Plotly chart.
+Plotly is a charting library for Python. The arguments to this function
+closely follow the ones for Plotly's plot() function. You can find
+more about Plotly at https://plot.ly/python.
+To show Plotly charts in Streamlit, call st.plotly_chart wherever you
+would call Plotly's py.plot or py.iplot.
+Function signature[source] st.plotly_chart(figure_or_data, use_container_width=False, sharing="streamlit", theme="streamlit", **kwargs) Parameters
+
+figure_or_data
+(plotly.graph_objs.Figure, plotly.graph_objs.Data,            dict/list of plotly.graph_objs.Figure/Data)
+ 
+See https://plot.ly/python/ for examples of graph descriptions.
+
+
+use_container_width
+(bool)
+ 
+If True, set the chart width to the column width. This takes
+precedence over the figure's native width value.
+
+
+sharing
+("streamlit", "private", "secret", or "public")
+ 
+Use "streamlit" to insert the plot and all its dependencies
+directly in the Streamlit app using plotly's offline mode (default).
+Use any other sharing mode to send the chart to Plotly chart studio, which
+requires an account. See https://plot.ly/python/chart-studio/ for more information.
+
+
+theme
+("streamlit" or None)
+ 
+The theme of the chart. Currently, we only support "streamlit" for the Streamlit
+defined design or None to fallback to the default behavior of the library.
+
+
+**kwargs
+(null)
+ 
+Any argument accepted by Plotly's plot() function.
+Example
+The example below comes straight from the examples at
+https://plot.ly/python:
+
+import streamlit as st
+import numpy as np
+import plotly.figure_factory as ff
+
+# Add histogram data
+x1 = np.random.randn(200) - 2
+x2 = np.random.randn(200)
+x3 = np.random.randn(200) + 2
+
+# Group data together
+hist_data = [x1, x2, x3]
+
+group_labels = ['Group 1', 'Group 2', 'Group 3']
+
+# Create distplot with custom bin_size
+fig = ff.create_distplot(
+        hist_data, group_labels, bin_size=[.1, .25, .5])
+
+# Plot!
+st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+Theming
+Plotly charts are displayed using the Streamlit theme by default. This theme is sleek, user-friendly, and incorporates Streamlit's color palette. The added benefit is that your charts better integrate with the rest of your app's design.
+The Streamlit theme is available from Streamlit 1.16.0 through the theme="streamlit" keyword argument. To disable it, and use Plotly's native theme, use theme=None instead.
+Let's look at an example of charts with the Streamlit theme and the native Plotly theme:
+import plotly.express as px
+import streamlit as st
+
+df = px.data.gapminder()
+
+fig = px.scatter(
+    df.query("year==2007"),
+    x="gdpPercap",
+    y="lifeExp",
+    size="pop",
+    color="continent",
+    hover_name="country",
+    log_x=True,
+    size_max=60,
+)
+
+tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+with tab2:
+    # Use the native Plotly theme.
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+
+Click the tabs in the interactive app below to see the charts with the Streamlit theme enabled and disabled.
+
+If you're wondering if your own customizations will still be taken into account, don't worry! You can still make changes to your chart configurations. In other words, although we now enable the Streamlit theme by default, you can overwrite it with custom colors or fonts. For example, if you want a chart line to be green instead of the default red, you can do it!
+Here's an example of an Plotly chart where a custom color scale is defined and reflected:
+import plotly.express as px
+import streamlit as st
+
+st.subheader("Define a custom colorscale")
+df = px.data.iris()
+fig = px.scatter(
+    df,
+    x="sepal_width",
+    y="sepal_length",
+    color="sepal_length",
+    color_continuous_scale="reds",
+)
+
+tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
+with tab1:
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+with tab2:
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+
+Notice how the custom color scale is still reflected in the chart, even when the Streamlit theme is enabled ğŸ‘‡
+
+For many more examples of Plotly charts with and without the Streamlit theme, check out the plotly.streamlit.app.Previous: st.vega_lite_chartNext: st.bokeh_chartforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

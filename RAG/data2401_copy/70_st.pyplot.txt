@@ -1,0 +1,65 @@
+st.pyplot - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsremovest.area_chartst.bar_chartst.line_chartst.scatter_chartst.pyplotst.altair_chartst.vega_lite_chartst.plotly_chartst.bokeh_chartst.pydeck_chartst.graphviz_chartst.mapInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chart elements/st.pyplotst.pyplotStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a matplotlib.pyplot figure.
+Function signature[source] st.pyplot(fig=None, clear_figure=None, use_container_width=True, **kwargs) Parameters
+
+fig
+(Matplotlib Figure)
+ 
+The figure to plot. When this argument isn't specified, this
+function will render the global figure (but this is deprecated,
+as described below)
+
+
+clear_figure
+(bool)
+ 
+If True, the figure will be cleared after being rendered.
+If False, the figure will not be cleared after being rendered.
+If left unspecified, we pick a default based on the value of fig.
+
+If fig is set, defaults to False.
+If fig is not set, defaults to True. This simulates Jupyter's
+approach to matplotlib rendering.
+
+
+
+use_container_width
+(bool)
+ 
+If True, set the chart width to the column width. Defaults to True.
+
+
+**kwargs
+(any)
+ 
+Arguments to pass to Matplotlib's savefig function.
+Example
+
+import streamlit as st
+import matplotlib.pyplot as plt
+import numpy as np
+
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
+
+st.pyplot(fig)
+
+
+
+Notes
+
+Note
+Deprecation warning. After December 1st, 2020, we will remove the ability
+to specify no arguments in st.pyplot(), as that requires the use of
+Matplotlib's global figure object, which is not thread-safe. So
+please always pass a figure object as shown in the example section
+above.
+
+Matplotlib supports several types of "backends". If you're getting an
+error using Matplotlib with Streamlit, try setting your backend to "TkAgg":
+
+echo "backend: TkAgg" >> ~/.matplotlib/matplotlibrc
+
+For more information, see https://matplotlib.org/faq/usage_faq.html.
+
+Previous: st.scatter_chartNext: st.altair_chartforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

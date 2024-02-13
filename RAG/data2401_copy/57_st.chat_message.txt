@@ -1,0 +1,59 @@
+st.chat_message - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsremovest.chat_messagest.chat_inputStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chat elements/st.chat_messagestarTipRead the Build a basic LLM chat app tutorial to learn how to use st.chat_message and st.chat_input to build chat-based apps.
+st.chat_messageStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeInsert a chat message container.
+To add elements to the returned container, you can use with notation
+(preferred) or just call methods directly on the returned object. See the
+examples below.
+Function signature[source] st.chat_message(name, *, avatar=None) Parameters
+
+name
+("user", "assistant", "ai", "human", or str)
+ 
+The name of the message author. Can be "human"/"user" or
+"ai"/"assistant" to enable preset styling and avatars.
+Currently, the name is not shown in the UI but is only set as an
+accessibility label. For accessibility reasons, you should not use
+an empty string.
+
+
+avatar
+(str, numpy.ndarray, or BytesIO)
+ 
+The avatar shown next to the message. Can be one of:
+
+A single emoji, e.g. "ğŸ§‘â€�ğŸ’»", "ğŸ¤–", "ğŸ¦–". Shortcodes are not supported.
+
+An image using one of the formats allowed for st.image: path of a local
+image file; URL to fetch the image from; an SVG image; array of shape
+(w,h) or (w,h,1) for a monochrome image, (w,h,3) for a color image,
+or (w,h,4) for an RGBA image.
+
+
+
+If None (default), uses default icons if name is "user",
+"assistant", "ai", "human" or the first letter of the name value.
+Returns(Container)  A single container that can hold multiple elements.
+Examples
+You can use with notation to insert any element into an expander
+
+import streamlit as st
+import numpy as np
+
+with st.chat_message("user"):
+    st.write("Hello ğŸ‘‹")
+    st.line_chart(np.random.randn(30, 3))
+
+
+Or you can just call methods directly in the returned objects:
+
+import streamlit as st
+import numpy as np
+
+message = st.chat_message("assistant")
+message.write("Hello human")
+message.bar_chart(np.random.randn(30, 3))
+
+
+
+
+For an overview of the st.chat_message and st.chat_input API, check out this video tutorial by Chanin Nantasenamat (@dataprofessor), a Senior Developer Advocate at Streamlit.
+Previous: Chat elementsNext: st.chat_inputforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

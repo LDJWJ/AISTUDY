@@ -1,0 +1,215 @@
+st.connections.SQLConnection - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesremovest.connectionSnowflakeConnectionSQLConnectionBaseConnectionst.experimental_connectiondeleteSnowparkConnectiondeleteExperimentalBaseConnectiondeleteApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Connections and databases/SQLConnectionstarTipThis page only contains the st.connections.SQLConnection class. For a deeper dive into creating and managing data connections within Streamlit apps, read Connecting to data.
+st.connections.SQLConnectionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeA connection to a SQL database using a SQLAlchemy Engine. Initialize using st.connection("<name>", type="sql").
+SQLConnection provides the query() convenience method, which can be used to
+run simple read-only queries with both caching and simple error handling/retries.
+More complex DB interactions can be performed by using the .session property
+to receive a regular SQLAlchemy Session.
+SQLConnections should always be created using st.connection(), not
+initialized directly. Connection parameters for a SQLConnection can be specified
+using either st.secrets or **kwargs. Some frequently used parameters include:
+
+url or arguments for sqlalchemy.engine.URL.create().
+Most commonly it includes a dialect, host, database, username and password.
+create_engine_kwargs can be passed via st.secrets, such as for
+snowflake-sqlalchemy
+or Google BigQuery.
+These can also be passed directly as **kwargs to connection().
+autocommit=True to run with isolation level AUTOCOMMIT. Default is False.
+
+Class description[source] st.connections.SQLConnection(connection_name, **kwargs) Methods
+
+connect()
+ 
+Call .connect() on the underlying SQLAlchemy Engine, returning a new        sqlalchemy.engine.Connection object.
+
+
+query(sql, *, show_spinner="Running `sql.query(...)`.", ttl=None, index_col=None, chunksize=None, params=None, **kwargs)
+ 
+Run a read-only query.
+
+
+reset()
+ 
+Reset this connection so that it gets reinitialized the next time it's used.
+Attributes
+
+driver
+ 
+The name of the driver used by the underlying SQLAlchemy Engine.
+
+
+engine
+ 
+The underlying SQLAlchemy Engine.
+
+
+session
+ 
+Return a SQLAlchemy Session.
+Example
+
+import streamlit as st
+
+conn = st.connection("sql")
+df = conn.query("select * from pet_owners")
+st.dataframe(df)
+
+
+
+Basic usage:
+SQLAlchemy and any required drivers must be installed to use this connection.
+import streamlit as st
+
+conn = st.connection("sql")
+df = conn.query("select * from pet_owners")
+st.dataframe(df)
+
+In case you want to pass a connection URL (or other parameters) directly, it also works:
+conn = st.connection(
+    "local_db",
+    type="sql",
+    url="mysql://user:pass@localhost:3306/mydb"
+)
+
+Or specify parameters in secrets:
+# .streamlit/secrets.toml
+[connections.mydb]
+dialect = "mysql"
+username = "myuser"
+password = "password"
+host = "localhost"
+database = "mydb"
+
+# streamlit_app.py
+conn = st.connection("mydb", type="sql", autocommit=True)
+
+As described above, some cloud databases use extra **kwargs to specify credentials. These can be passed via secrets using the create_engine_kwargs section:
+# .streamlit/secrets.toml
+[connections.snowflake]
+url = "snowflake://<username>@<account>/"
+
+[connections.snowflake.create_engine_kwargs.connect_args]
+authenticator = "externalbrowser"
+role = "..."
+# ...
+
+SQLConnection.connectStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeCall .connect() on the underlying SQLAlchemy Engine, returning a new        sqlalchemy.engine.Connection object.
+Calling this method is equivalent to calling self._instance.connect().
+NOTE: This method should not be confused with the internal _connect method used
+to implement a Streamlit Connection.
+Function signature[source] SQLConnection.connect() 
+SQLConnection.queryStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeRun a read-only query.
+This method implements both query result caching (with caching behavior
+identical to that of using @st.cache_data) as well as simple error handling/retries.
+
+Note
+Queries that are run without a specified ttl are cached indefinitely.
+
+Aside from the ttl kwarg, all kwargs passed to this function are passed down
+to pandas.read_sql
+and have the behavior described in the pandas documentation.
+Function signature[source] SQLConnection.query(sql, *, show_spinner="Running `sql.query(...)`.", ttl=None, index_col=None, chunksize=None, params=None, **kwargs) Parameters
+
+sql
+(str)
+ 
+The read-only SQL query to execute.
+
+
+show_spinner
+(boolean or string)
+ 
+Enable the spinner. The default is to show a spinner when there is a
+"cache miss" and the cached resource is being created. If a string, the value
+of the show_spinner param will be used for the spinner text.
+
+
+ttl
+(float, int, timedelta or None)
+ 
+The maximum number of seconds to keep results in the cache, or
+None if cached results should not expire. The default is None.
+
+
+index_col
+(str, list of str, or None)
+ 
+Column(s) to set as index(MultiIndex). Default is None.
+
+
+chunksize
+(int or None)
+ 
+If specified, return an iterator where chunksize is the number of
+rows to include in each chunk. Default is None.
+
+
+params
+(list, tuple, dict or None)
+ 
+List of parameters to pass to the execute method. The syntax used to pass
+parameters is database driver dependent. Check your database driver
+documentation for which of the five syntax styles, described in PEP 249
+paramstyle, is supported.
+Default is None.
+
+
+**kwargs
+(dict)
+ 
+Additional keyword arguments are passed to pandas.read_sql.
+Returns(pandas.DataFrame)  The result of running the query, formatted as a pandas DataFrame.
+Example
+
+import streamlit as st
+
+conn = st.connection("sql")
+df = conn.query("select * from pet_owners where owner = :owner", ttl=3600, params={"owner":"barbara"})
+st.dataframe(df)
+
+
+
+SQLConnection.resetStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeReset this connection so that it gets reinitialized the next time it's used.
+This method can be useful when a connection has become stale, an auth token has
+expired, or in similar scenarios where a broken connection might be fixed by
+reinitializing it. Note that some connection methods may already use reset()
+in their error handling code.
+Function signature[source] SQLConnection.reset() Example
+
+import streamlit as st
+
+conn = st.connection("my_conn")
+
+# Reset the connection before using it if it isn't healthy
+# Note: is_healthy() isn't a real method and is just shown for example here.
+if not conn.is_healthy():
+    conn.reset()
+
+# Do stuff with conn...
+
+
+
+SQLConnection.driverStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeThe name of the driver used by the underlying SQLAlchemy Engine.
+This is equivalent to accessing self._instance.driver.
+Function signature[source] SQLConnection.driver 
+SQLConnection.engineStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeThe underlying SQLAlchemy Engine.
+This is equivalent to accessing self._instance.
+Function signature[source] SQLConnection.engine 
+SQLConnection.sessionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeReturn a SQLAlchemy Session.
+Users of this connection should use the contextmanager pattern for writes,
+transactions, and anything more complex than simple read queries.
+See the usage example below, which assumes we have a table numbers with a
+single integer column val. The SQLAlchemy docs also contain
+much more information on the usage of sessions.
+Function signature[source] SQLConnection.session Example
+
+import streamlit as st
+conn = st.connection("sql")
+n = st.slider("Pick a number")
+if st.button("Add the number!"):
+    with conn.session as session:
+        session.execute("INSERT INTO numbers (val) VALUES (:n);", {"n": n})
+        session.commit()
+
+
+Previous: SnowflakeConnectionNext: BaseConnectionforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

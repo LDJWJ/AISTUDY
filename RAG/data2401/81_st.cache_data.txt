@@ -1,0 +1,215 @@
+st.cache_data - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceremovest.cache_datast.cache_resourcest.cachedeletest.experimental_memodeletest.experimental_singletondeletePersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Performance/st.cache_datastarTipThis page only contains information on the st.cache_data API. For a deeper dive into caching and how to use it, check out Caching.
+st.cache_dataStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDecorator to cache functions that return data (e.g. dataframe transforms, database queries, ML inference).
+Cached objects are stored in "pickled" form, which means that the return
+value of a cached function must be pickleable. Each caller of the cached
+function gets its own copy of the cached data.
+You can clear a function's cache with func.clear() or clear the entire
+cache with st.cache_data.clear().
+To cache global resources, use st.cache_resource instead. Learn more
+about caching at https://docs.streamlit.io/library/advanced-features/caching.
+Function signature[source] st.cache_data(func=None, *, ttl, max_entries, show_spinner, persist, experimental_allow_widgets, hash_funcs=None) Parameters
+
+func
+(callable)
+ 
+The function to cache. Streamlit hashes the function's source code.
+
+
+ttl
+(float, timedelta, str, or None)
+ 
+The maximum time to keep an entry in the cache. Can be one of:
+
+None if cache entries should never expire (default).
+A number specifying the time in seconds.
+A string specifying the time in a format supported by Pandas's
+Timedelta constructor,
+e.g. "1d", "1.5 days", or "1h23s".
+A timedelta object from Python's built-in datetime library,
+e.g. timedelta(days=1).
+
+Note that ttl will be ignored if persist="disk" or persist=True.
+
+
+max_entries
+(int or None)
+ 
+The maximum number of entries to keep in the cache, or None
+for an unbounded cache. When a new entry is added to a full cache,
+the oldest cached entry will be removed. Defaults to None.
+
+
+show_spinner
+(bool or str)
+ 
+Enable the spinner. Default is True to show a spinner when there is
+a "cache miss" and the cached data is being created. If string,
+value of show_spinner param will be used for spinner text.
+
+
+persist
+("disk", bool, or None)
+ 
+Optional location to persist cached data to. Passing "disk" (or True)
+will persist the cached data to the local disk. None (or False) will disable
+persistence. The default is None.
+
+
+experimental_allow_widgets
+(bool)
+ 
+Allow widgets to be used in the cached function. Defaults to False.
+Support for widgets in cached functions is currently experimental.
+Setting this parameter to True may lead to excessive memory use since the
+widget value is treated as an additional input parameter to the cache.
+We may remove support for this option at any time without notice.
+
+
+hash_funcs
+(dict or None)
+ 
+Mapping of types or fully qualified names to hash functions.
+This is used to override the behavior of the hasher inside Streamlit's
+caching mechanism: when the hasher encounters an object, it will first
+check to see if its type matches a key in this dict and, if so, will use
+the provided function to generate a hash for it. See below for an example
+of how this can be used.
+Example
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+d1 = fetch_and_clean_data(DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+d2 = fetch_and_clean_data(DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the data in d1 is the same as in d2.
+
+d3 = fetch_and_clean_data(DATA_URL_2)
+# This is a different URL, so the function executes.
+
+To set the persist parameter, use this command as follows:
+
+import streamlit as st
+
+@st.cache_data(persist="disk")
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+By default, all parameters to a cached function must be hashable.
+Any parameter whose name begins with _ will not be hashed. You can use
+this as an "escape hatch" for parameters that are not hashable:
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+connection = make_database_connection()
+d1 = fetch_and_clean_data(connection, num_rows=10)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+another_connection = make_database_connection()
+d2 = fetch_and_clean_data(another_connection, num_rows=10)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _database_connection parameter was different
+# in both calls.
+
+A cached function's cache can be procedurally cleared:
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+fetch_and_clean_data.clear()
+# Clear all cached entries for this function.
+
+To override the default hashing behavior, pass a custom hash function.
+You can do that by mapping a type (e.g. datetime.datetime) to a hash
+function (lambda dt: dt.isoformat()) like this:
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={datetime.datetime: lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+Alternatively, you can map the type's fully-qualified name
+(e.g. "datetime.datetime") to the hash function instead:
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={"datetime.datetime": lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+
+
+priority_highWarningst.cache_data implicitly uses the pickle module, which is known to be insecure. Anything your cached function returns is pickled and stored, then unpickled on retrieval. Ensure your cached functions return trusted values because it is possible to construct malicious pickle data that will execute arbitrary code during unpickling. Never load data that could have come from an untrusted source in an unsafe mode or that could have been tampered with. Only load data you trust.
+st.cache_data.clearStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeClear all in-memory and on-disk data caches.
+Function signature[source] st.cache_data.clear() 
+Example
+In the example below, pressing the "Clear All" button will clear memoized values from all functions decorated with @st.cache_data.
+import streamlit as st
+
+@st.cache_data
+def square(x):
+    return x**2
+
+@st.cache_data
+def cube(x):
+    return x**3
+
+if st.button("Clear All"):
+    # Clear values from *all* all in-memory and on-disk data caches:
+    # i.e. clear values from both square and cube
+    st.cache_data.clear()
+
+Using Streamlit commands in cached functions
+Static elements
+Since version 1.16.0, cached functions can contain Streamlit commands! For example, you can do this:
+@st.cache_data
+def get_api_data():
+    data = api.get(...)
+    st.success("Fetched data from API!")  # ğŸ‘ˆ Show a success message
+    return data
+
+As we know, Streamlit only runs this function if it hasnâ€™t been cached before. On this first run, the st.success message will appear in the app. But what happens on subsequent runs? It still shows up! Streamlit realizes that there is an st. command inside the cached function, saves it during the first run, and replays it on subsequent runs. Replaying static elements works for both caching decorators.
+You can also use this functionality to cache entire parts of your UI:
+@st.cache_data
+def show_data():
+    st.header("Data analysis")
+    data = api.get(...)
+    st.success("Fetched data from API!")
+    st.write("Here is a plot of the data:")
+    st.line_chart(data)
+    st.write("And here is the raw data:")
+    st.dataframe(data)
+
+Input widgets
+You can also use interactive input widgets like st.slider or st.text_input in cached functions. Widget replay is an experimental feature at the moment. To enable it, you need to set the experimental_allow_widgets parameter:
+@st.cache_data(experimental_allow_widgets=True)  # ğŸ‘ˆ Set the parameter
+def get_data():
+    num_rows = st.slider("Number of rows to get")  # ğŸ‘ˆ Add a slider
+    data = api.get(..., num_rows)
+    return data
+
+Streamlit treats the slider like an additional input parameter to the cached function. If you change the slider position, Streamlit will see if it has already cached the function for this slider value. If yes, it will return the cached value. If not, it will rerun the function using the new slider value.
+Using widgets in cached functions is extremely powerful because it lets you cache entire parts of your app. But it can be dangerous! Since Streamlit treats the widget value as an additional input parameter, it can easily lead to excessive memory usage. Imagine your cached function has five sliders and returns a 100 MB DataFrame. Then weâ€™ll add 100 MB to the cache for every permutation of these five slider values â€“ even if the sliders do not influence the returned data! These additions can make your cache explode very quickly. Please be aware of this limitation if you use widgets in cached functions. We recommend using this feature only for isolated parts of your UI where the widgets directly influence the cached return value.
+priority_highWarningSupport for widgets in cached functions is currently experimental. We may change or remove it anytime without warning. Please use it with care!
+push_pinNoteTwo widgets are currently not supported in cached functions: st.file_uploader and st.camera_input. We may support them in the future. Feel free to open a GitHub issue if you need them!Previous: PerformanceNext: st.cache_resourceforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,50 @@
+st.caption - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsremovest.markdownst.titlest.headerst.subheaderst.captionst.codest.textst.latexst.dividerData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Text elements/st.captionst.captionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay text in small font.
+This should be used for captions, asides, footnotes, sidenotes, and
+other explanatory text.
+Function signature[source] st.caption(body, unsafe_allow_html=False, *, help=None) Parameters
+
+body
+(str)
+ 
+The text to display as Github-flavored Markdown. Syntax
+information can be found at: https://github.github.com/gfm.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+
+
+unsafe_allow_html
+(bool)
+ 
+By default, any HTML tags found in strings will be escaped and
+therefore treated as pure text. This behavior may be turned off by
+setting this argument to True.
+That said, we strongly advise against it. It is hard to write secure
+HTML, so by using this argument you may be compromising your users'
+security. For more information, see:
+https://github.com/streamlit/streamlit/issues/152
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed next to the caption.
+Examples
+
+import streamlit as st
+
+st.caption('This is a string that explains something above.')
+st.caption('A caption with _italics_ :blue[colors] and emojis :sunglasses:')
+
+
+
+Previous: st.subheaderNext: st.codeforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

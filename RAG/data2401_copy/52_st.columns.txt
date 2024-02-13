@@ -1,0 +1,70 @@
+st.columns - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersremovest.sidebarst.columnsst.tabsst.expanderst.containerst.emptyChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Layouts and containers/st.columnsst.columnsStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeInsert containers laid out as side-by-side columns.
+Inserts a number of multi-element containers laid out side-by-side and
+returns a list of container objects.
+To add elements to the returned containers, you can use "with" notation
+(preferred) or just call methods directly on the returned object. See
+examples below.
+Columns can only be placed inside other columns up to one level of nesting.
+
+Warning
+Columns cannot be placed inside other columns in the sidebar. This is only possible in the main area of the app.
+
+Function signature[source] st.columns(spec, *, gap="small") Parameters
+
+spec
+(int or Iterable of numbers)
+ 
+Controls the number and width of columns to insert. Can be one of:
+
+An integer that specifies the number of columns. All columns have equal
+width in this case.
+An Iterable of numbers (int or float) that specify the relative width of
+each column. E.g. [0.7, 0.3] creates two columns where the first
+one takes up 70% of the available with and the second one takes up 30%.
+Or [1, 2, 3] creates three columns where the second one is two times
+the width of the first one, and the third one is three times that width.
+
+
+
+gap
+("small", "medium", or "large")
+ 
+The size of the gap between the columns. Defaults to "small".
+Returns(list of containers)  A list of container objects.
+Examples
+You can use with notation to insert any element into a column:
+
+import streamlit as st
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+   st.header("A cat")
+   st.image("https://static.streamlit.io/examples/cat.jpg")
+
+with col2:
+   st.header("A dog")
+   st.image("https://static.streamlit.io/examples/dog.jpg")
+
+with col3:
+   st.header("An owl")
+   st.image("https://static.streamlit.io/examples/owl.jpg")
+
+
+Or you can just call methods directly in the returned objects:
+
+import streamlit as st
+import numpy as np
+
+col1, col2 = st.columns([3, 1])
+data = np.random.randn(10, 1)
+
+col1.subheader("A wide column with a chart")
+col1.line_chart(data)
+
+col2.subheader("A narrow column with the data")
+col2.write(data)
+
+
+
+Previous: st.sidebarNext: st.tabsforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

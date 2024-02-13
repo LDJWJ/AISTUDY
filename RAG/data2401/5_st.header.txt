@@ -1,0 +1,55 @@
+st.header - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsremovest.markdownst.titlest.headerst.subheaderst.captionst.codest.textst.latexst.dividerData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Text elements/st.headerst.headerStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay text in header formatting.
+Function signature[source] st.header(body, anchor=None, *, help=None, divider=False) Parameters
+
+body
+(str)
+ 
+The text to display as Github-flavored Markdown. Syntax
+information can be found at: https://github.github.com/gfm.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+
+
+anchor
+(str or False)
+ 
+The anchor name of the header that can be accessed with #anchor
+in the URL. If omitted, it generates an anchor using the body.
+If False, the anchor is not shown in the UI.
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed next to the header.
+
+
+divider
+(bool or â€œblueâ€�, â€œgreenâ€�, â€œorangeâ€�, â€œredâ€�, â€œvioletâ€�, â€œgrayâ€�/"grey", or â€œrainbowâ€�)
+ 
+Shows a colored divider below the header. If True, successive
+headers will cycle through divider colors. That is, the first
+header will have a blue line, the second header will have a
+green line, and so on. If a string, the color can be set to one of
+the following: blue, green, orange, red, violet, gray/grey, or
+rainbow.
+Examples
+
+import streamlit as st
+
+st.header('This is a header with a divider', divider='rainbow')
+st.header('_Streamlit_ is :blue[cool] :sunglasses:')
+
+
+
+Previous: st.titleNext: st.subheaderforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

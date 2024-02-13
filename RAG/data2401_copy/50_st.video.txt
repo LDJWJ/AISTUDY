@@ -1,0 +1,43 @@
+st.video - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsremovest.imagest.audiost.videoLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Media elements/st.videost.videoStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a video player.
+Function signature[source] st.video(data, format="video/mp4", start_time=0) Parameters
+
+data
+(str, bytes, BytesIO, numpy.ndarray, or file)
+ 
+Raw video data, filename, or URL pointing to a video to load.
+Includes support for YouTube URLs.
+Numpy arrays and raw data formats must include all necessary file
+headers to match specified file format.
+
+
+format
+(str)
+ 
+The mime type for the video file. Defaults to 'video/mp4'.
+See https://tools.ietf.org/html/rfc4281 for more info.
+
+
+start_time
+(int)
+ 
+The time from which this element should start playing.
+Example
+
+import streamlit as st
+
+video_file = open('myvideo.mp4', 'rb')
+video_bytes = video_file.read()
+
+st.video(video_bytes)
+
+
+
+Note
+Some videos may not display if they are encoded using MP4V (which is an export option in OpenCV), as this codec is
+not widely supported by browsers. Converting your video to H.264 will allow the video to be displayed in Streamlit.
+See this StackOverflow post or this
+Streamlit forum post
+for more information.
+
+
+Previous: st.audioNext: Layouts and containersforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

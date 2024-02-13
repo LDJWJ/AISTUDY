@@ -1,0 +1,70 @@
+st.chat_input - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsremovest.chat_messagest.chat_inputStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Chat elements/st.chat_inputstarTipRead the Build a basic LLM chat app tutorial to learn how to use st.chat_message and st.chat_input to build chat-based apps.
+st.chat_inputStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a chat input widget.
+
+Warning
+Chat input can only be used once per app page and inside the main area of the app.
+It cannot be used in the sidebar, columns, expanders, forms or tabs.
+We plan to support this in the future.
+
+Function signature[source] st.chat_input(placeholder="Your message", *, key=None, max_chars=None, disabled=False, on_submit=None, args=None, kwargs=None) Parameters
+
+placeholder
+(str)
+ 
+A placeholder text shown when the chat input is empty. Defaults to
+"Your message". For accessibility reasons, you should not use an
+empty string.
+
+
+key
+(str or int)
+ 
+An optional string or integer to use as the unique key for the widget.
+If this is omitted, a key will be generated for the widget based on
+its content. Multiple widgets of the same type may not share the same key.
+
+
+max_chars
+(int or None)
+ 
+The maximum number of characters that can be entered. If None
+(default), there will be no maximum.
+
+
+disabled
+(bool)
+ 
+Whether the chat input should be disabled. Defaults to False.
+
+
+on_submit
+(callable)
+ 
+An optional callback invoked when the chat input's value is submitted.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+Returns(str or None)  The current (non-empty) value of the text input widget on the last
+run of the app, None otherwise.
+Examples
+
+import streamlit as st
+
+prompt = st.chat_input("Say something")
+if prompt:
+    st.write(f"User has sent the following prompt: {prompt}")
+
+
+
+
+For an overview of the st.chat_input and st.chat_message API, check out this video tutorial by Chanin Nantasenamat (@dataprofessor), a Senior Developer Advocate at Streamlit.
+Previous: st.chat_messageNext: Status elementsforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

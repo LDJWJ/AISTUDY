@@ -1,0 +1,155 @@
+st.connections.SnowflakeConnection - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesremovest.connectionSnowflakeConnectionSQLConnectionBaseConnectionst.experimental_connectiondeleteSnowparkConnectiondeleteExperimentalBaseConnectiondeleteApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Connections and databases/SnowflakeConnectionstarTipThis page only contains the st.connections.SnowflakeConnection class. For a deeper dive into creating and managing data connections within Streamlit apps, read Connecting to data.
+st.connections.SnowflakeConnectionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeA connection to Snowflake using the Snowflake Python Connector. Initialize using
+st.connection("<name>", type="snowflake").
+SnowflakeConnection supports direct SQL querying using .query("..."), access to
+the underlying Snowflake Python Connector object with .raw_connection, and other
+convenience functions. See the methods below for more information.
+SnowflakeConnections should always be created using st.connection(), not
+initialized directly.
+Class description[source] st.connections.SnowflakeConnection(connection_name, **kwargs) Methods
+
+cursor()
+ 
+Return a PEP 249-compliant cursor object.
+
+
+query(sql, *, ttl=None, show_spinner="Running `snowflake.query(...)`.", params=None, **kwargs)
+ 
+Run a read-only SQL query.
+
+
+reset()
+ 
+Reset this connection so that it gets reinitialized the next time it's used.
+
+
+session()
+ 
+Create a new Snowpark Session from this connection.
+
+
+write_pandas(df, table_name, database=None, schema=None, chunk_size=None, **kwargs)
+ 
+Call snowflake.connector.pandas_tools.write_pandas with this connection.
+Attributes
+
+raw_connection
+ 
+Access the underlying Snowflake Python connector object.
+
+Configuration
+
+st.connection("snowflake") can be configured using Streamlit secrets or keyword args just like any other connection. It can also use existing Snowflake connection configuration when available.
+Note that snowflake-snowpark-python must be installed to use this connection.
+Using Streamlit secrets
+For example, if your Snowflake account supports SSO, you can set up a quick local connection for development using browser-based SSO and secrets.toml as follows:
+# .streamlit/secrets.toml
+
+[connections.snowflake]
+account = "<ACCOUNT ID>"
+user = "<USERNAME>"
+authenticator = "EXTERNALBROWSER"
+
+Learn more about account indentifier here. You could also specify the full configuration and credentials in your secrets file, as in the example here.
+Using existing Snowflake configuration
+Snowflake's python driver also supports a connection configuration file, which is well integrated with Streamlit SnowflakeConnection. If you already have one or more connections configured, all you need to do is pass Streamlit the name of the connection to use. This can be done in several ways:
+
+Set connection_name in your app code, such as st.connnection("<name>", type="snowflake").
+Set connection_name = "<name>" in the [connections.snowflake] section of your Streamlit secrets.
+Set the environment variable SNOWFLAKE_DEFAULT_CONNECTION_NAME=<name>.
+Set a default connection in your Snowflake configuration.
+
+When available in Streamlit in Snowflake, st.connection("snowflake") will connect automatically using the app owner role and does not require any configuration.
+Learn more about setting up connections in the Connecting Streamlit to Snowflake tutorial and Connecting to data.
+SnowflakeConnection.cursorStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeReturn a PEP 249-compliant cursor object.
+For more information, see the Snowflake Python Connector documentation.
+Function signature[source] SnowflakeConnection.cursor() 
+SnowflakeConnection.queryStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeRun a read-only SQL query.
+This method implements both query result caching (with caching behavior
+identical to that of using @st.cache_data) as well as simple error handling/retries.
+
+Note
+Queries that are run without a specified ttl are cached indefinitely.
+
+Function signature[source] SnowflakeConnection.query(sql, *, ttl=None, show_spinner="Running `snowflake.query(...)`.", params=None, **kwargs) Parameters
+
+sql
+(str)
+ 
+The read-only SQL query to execute.
+
+
+ttl
+(float, int, timedelta or None)
+ 
+The maximum number of seconds to keep results in the cache, or
+None if cached results should not expire. The default is None.
+
+
+show_spinner
+(boolean or string)
+ 
+Enable the spinner. The default is to show a spinner when there is a
+"cache miss" and the cached resource is being created. If a string, the value
+of the show_spinner param will be used for the spinner text.
+
+
+params
+(list, tuple, dict or None)
+ 
+List of parameters to pass to the execute method. This connector supports
+binding data to a SQL statement using qmark bindings. For more information
+and examples, see the Snowflake Python Connector documentation.
+Default is None.
+Returns(pandas.DataFrame)  The result of running the query, formatted as a pandas DataFrame.
+Example
+
+import streamlit as st
+
+conn = st.connection("snowflake")
+df = conn.query("select * from pet_owners")
+st.dataframe(df)
+
+
+
+SnowflakeConnection.raw_connectionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeAccess the underlying Snowflake Python connector object.
+Information on how to use the Snowflake Python Connector can be found in the
+Snowflake Python Connector documentation.
+Function signature[source] SnowflakeConnection.raw_connection 
+SnowflakeConnection.resetStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeReset this connection so that it gets reinitialized the next time it's used.
+This method can be useful when a connection has become stale, an auth token has
+expired, or in similar scenarios where a broken connection might be fixed by
+reinitializing it. Note that some connection methods may already use reset()
+in their error handling code.
+Function signature[source] SnowflakeConnection.reset() Example
+
+import streamlit as st
+
+conn = st.connection("my_conn")
+
+# Reset the connection before using it if it isn't healthy
+# Note: is_healthy() isn't a real method and is just shown for example here.
+if not conn.is_healthy():
+    conn.reset()
+
+# Do stuff with conn...
+
+
+
+SnowflakeConnection.sessionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeCreate a new Snowpark Session from this connection.
+Information on how to use Snowpark sessions can be found in the Snowpark documentation.
+Function signature[source] SnowflakeConnection.session() 
+SnowflakeConnection.write_pandasStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeCall snowflake.connector.pandas_tools.write_pandas with this connection.
+This convenience method is simply a thin wrapper around the write_pandas
+function of the same name from snowflake.connector.pandas_tools. For more
+information, see the Snowflake Python Connector documentation.
+Function signature[source] SnowflakeConnection.write_pandas(df, table_name, database=None, schema=None, chunk_size=None, **kwargs) Returns(tuple[bool, int, int])  
+A tuple containing three values:
+
+A bool that is True if the write was successful.
+An int giving the number of chunks of data that were copied.
+An int giving the number of rows that were inserted.
+
+
+
+Previous: st.connectionNext: SQLConnectionforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

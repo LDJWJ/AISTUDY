@@ -1,0 +1,85 @@
+st.set_page_config - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesremovest.set_page_configst.echost.helpst.query_paramsst.experimental_get_query_paramsdeletest.experimental_set_query_paramsdeleteMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Utilities/st.set_page_configst.set_page_configStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeConfigures the default settings of the page.
+
+Note
+This must be the first Streamlit command used on an app page, and must only
+be set once per page.
+
+Function signature[source] st.set_page_config(page_title=None, page_icon=None, layout="centered", initial_sidebar_state="auto", menu_items=None) Parameters
+
+page_title
+(str or None)
+ 
+The page title, shown in the browser tab. If None, defaults to the
+filename of the script ("app.py" would show "app â€¢ Streamlit").
+
+
+page_icon
+(Anything supported by st.image or str or None)
+ 
+The page favicon.
+Besides the types supported by st.image (like URLs or numpy arrays),
+you can pass in an emoji as a string ("ğŸ¦ˆ") or a shortcode (":shark:").
+If you're feeling lucky, try "random" for a random emoji!
+Emoji icons are courtesy of Twemoji and loaded from MaxCDN.
+
+
+layout
+("centered" or "wide")
+ 
+How the page content should be laid out. Defaults to "centered",
+which constrains the elements into a centered column of fixed width;
+"wide" uses the entire screen.
+
+
+initial_sidebar_state
+("auto", "expanded", or "collapsed")
+ 
+How the sidebar should start out. Defaults to "auto",
+which hides the sidebar on small devices and shows it otherwise.
+"expanded" shows the sidebar initially; "collapsed" hides it.
+In most cases, you should just use "auto", otherwise the app will
+look bad when embedded and viewed on mobile.
+
+
+menu_items
+(dict)
+ 
+Configure the menu that appears on the top-right side of this app.
+The keys in this dict denote the menu item you'd like to configure:
+
+
+"Get help": str or None
+The URL this menu item should point to.
+If None, hides this menu item.
+
+
+
+"Report a Bug": str or None
+The URL this menu item should point to.
+If None, hides this menu item.
+
+
+
+"About": str or None
+A markdown string to show in the About dialog.
+If None, only shows Streamlit's default About text.
+
+
+
+The URL may also refer to an email address e.g. mailto:john@example.com.
+Example
+import streamlit as st
+
+st.set_page_config(
+    page_title="Ex-stream-ly Cool App",
+    page_icon="ğŸ§Š",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
+
+Previous: UtilitiesNext: st.echoforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,18 @@
+st.column_config - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsremovest.dataframest.data_editorst.column_configremoveColumnText columnNumber columnCheckbox columnSelectbox columnDatetime columnDate columnTime columnList columnLink columnImage columnLine chart columnBar chart columnProgress columnst.tablest.metricst.jsonst.experimental_data_editordeleteChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Data elements/st.column_configColumn configuration
+When working with data in Streamlit, the st.column_config class is a powerful tool for configuring data display and interaction. Specifically designed for the column_config parameter in st.dataframe and st.data_editor, it provides a suite of methods to tailor your columns to various data types - from simple text and numbers to lists, URLs, images, and more.
+Whether it's translating temporal data into user-friendly formats or utilizing charts and progress bars for clearer data visualization, column configuration not only provides the user with an enriched data viewing experience but also ensures that you're equipped with the tools to present and interact with your data, just the way you want it.
+ColumnConfigure a generic column.Column("Streamlit Widgets", width="medium", help="Streamlit **widget** commands ğŸ�ˆ")
+Text columnConfigure a text column.TextColumn("Widgets", max_chars=50, validate="^st\.[a-z_]+$")
+Number columnConfigure a number column.NumberColumn("Price (in USD)", min_value=0, format="$%d")
+Checkbox columnConfigure a checkbox column.CheckboxColumn("Your favorite?", help="Select your **favorite** widgets")
+Selectbox columnConfigure a selectbox column.SelectboxColumn("App Category", options=["ğŸ¤– LLM", "ğŸ“ˆ Data Viz"])
+Datetime columnConfigure a datetime column.DatetimeColumn("Appointment", min_value=datetime(2023, 6, 1), format="D MMM YYYY, h:mm a")
+Date columnConfigure a date column.DateColumn("Birthday", max_value=date(2005, 1, 1), format="DD.MM.YYYY")
+Time columnConfigure a time column.TimeColumn("Appointment", min_value=time(8, 0, 0), format="hh:mm a")
+List columnConfigure a list column.ListColumn("Sales (last 6 months)", width="medium")
+Link columnConfigure a link column.LinkColumn("Trending apps", max_chars=100, validate="^https://.*$")
+Image columnConfigure an image column.ImageColumn("Preview Image", help="The preview screenshots")
+Line chart columnConfigure a line chart column.LineChartColumn("Sales (last 6 months)" y_min=0, y_max=100)
+Bar chart columnConfigure a bar chart column.BarChartColumn("Marketing spend" y_min=0, y_max=100)
+Progress columnConfigure a progress column.ProgressColumn("Sales volume", min_value=0, max_value=1000, format="$%f")
+Previous: st.data_editorNext: ColumnforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,156 @@
+st.dataframe - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsremovest.dataframest.data_editorst.column_configaddst.tablest.metricst.jsonst.experimental_data_editordeleteChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Data elements/st.dataframestarTipThis page only contains information on the st.dataframe API. For an overview of working with dataframes read Dataframes. If you want to let users interactively edit dataframes, check out st.data_editor.
+st.dataframeStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a dataframe as an interactive table.
+This command works with dataframes from Pandas, PyArrow, Snowpark, and PySpark.
+It can also display several other types that can be converted to dataframes,
+e.g. numpy arrays, lists, sets and dictionaries.
+Function signature[source] st.dataframe(data=None, width=None, height=None, *, use_container_width=False, hide_index=None, column_order=None, column_config=None) Parameters
+
+data
+(pandas.DataFrame, pandas.Series, pandas.Styler, pandas.Index, pyarrow.Table, numpy.ndarray, pyspark.sql.DataFrame, snowflake.snowpark.dataframe.DataFrame, snowflake.snowpark.table.Table, Iterable, dict, or None)
+ 
+The data to display.
+If 'data' is a pandas.Styler, it will be used to style its
+underlying DataFrame. Streamlit supports custom cell
+values and colors. It does not support some of the more exotic
+pandas styling features, like bar charts, hovering, and captions.
+
+
+width
+(int or None)
+ 
+Desired width of the dataframe expressed in pixels. If None, the width
+will be automatically calculated based on the column content.
+
+
+height
+(int or None)
+ 
+Desired height of the dataframe expressed in pixels. If None, a
+default height is used.
+
+
+use_container_width
+(bool)
+ 
+If True, set the dataframe width to the width of the parent container.
+This takes precedence over the width argument.
+
+
+hide_index
+(bool or None)
+ 
+Whether to hide the index column(s). If None (default), the visibility of
+index columns is automatically determined based on the data.
+
+
+column_order
+(Iterable of str or None)
+ 
+Specifies the display order of columns. This also affects which columns are
+visible. For example, column_order=("col2", "col1") will display 'col2'
+first, followed by 'col1', and will hide all other non-index columns. If
+None (default), the order is inherited from the original data structure.
+
+
+column_config
+(dict or None)
+ 
+Configures how columns are displayed, e.g. their title, visibility, type, or
+format. This needs to be a dictionary where each key is a column name and
+the value is one of:
+
+None to hide the column.
+A string to set the display label of the column.
+One of the column types defined under st.column_config, e.g.
+st.column_config.NumberColumn("Dollar valuesâ€�, format=â€�$ %d") to show
+a column as dollar amounts. See more info on the available column types
+and config options here.
+
+To configure the index column(s), use _index as the column name.
+Examples
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(50, 20), columns=("col %d" % i for i in range(20)))
+
+st.dataframe(df)  # Same as st.write(df)
+
+
+You can also pass a Pandas Styler object to change the style of
+the rendered DataFrame:
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
+
+st.dataframe(df.style.highlight_max(axis=0))
+
+
+Or you can customize the dataframe via column_config, hide_index, or column_order:
+
+import random
+import pandas as pd
+import streamlit as st
+
+df = pd.DataFrame(
+    {
+        "name": ["Roadmap", "Extras", "Issues"],
+        "url": ["https://roadmap.streamlit.app", "https://extras.streamlit.app", "https://issues.streamlit.app"],
+        "stars": [random.randint(0, 1000) for _ in range(3)],
+        "views_history": [[random.randint(0, 5000) for _ in range(30)] for _ in range(3)],
+    }
+)
+st.dataframe(
+    df,
+    column_config={
+        "name": "App name",
+        "stars": st.column_config.NumberColumn(
+            "Github Stars",
+            help="Number of stars on GitHub",
+            format="%d â­�",
+        ),
+        "url": st.column_config.LinkColumn("App URL"),
+        "views_history": st.column_config.LineChartColumn(
+            "Views (past 30 days)", y_min=0, y_max=5000
+        ),
+    },
+    hide_index=True,
+)
+
+
+
+
+
+st.dataframe supports the use_container_width parameter to stretch across the full container width:
+import pandas as pd
+import streamlit as st
+
+# Cache the dataframe so it's only loaded once
+@st.cache_data
+def load_data():
+    return pd.DataFrame(
+        {
+            "first column": [1, 2, 3, 4],
+            "second column": [10, 20, 30, 40],
+        }
+    )
+
+# Boolean to resize the dataframe, stored as a session state variable
+st.checkbox("Use container width", value=False, key="use_container_width")
+
+df = load_data()
+
+# Display the dataframe and allow the user to stretch the dataframe
+# across the full width of the container, based on the checkbox value
+st.dataframe(df, use_container_width=st.session_state.use_container_width)
+
+
+Interactivity
+Dataframes displayed with st.dataframe are interactive. End users can sort, resize, search, and copy data to their clipboard. For on overview of features, read our Dataframes guide.
+Configuring columns
+You can configure the display and editing behavior of columns in st.dataframe and st.data_editor via the Column configuration API. We have developed the API to let you add images, charts, and clickable URLs in dataframe and data editor columns. Additionally, you can make individual columns editable, set columns as categorical and specify which options they can take, hide the index of the dataframe, and much more.
+Previous: Data elementsNext: st.data_editorforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

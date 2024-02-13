@@ -1,0 +1,99 @@
+st.metric - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsremovest.dataframest.data_editorst.column_configaddst.tablest.metricst.jsonst.experimental_data_editordeleteChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Data elements/st.metricst.metricStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a metric in big bold font, with an optional indicator of how the metric changed.
+Tip: If you want to display a large number, it may be a good idea to
+shorten it using packages like millify
+or numerize. E.g. 1234 can be
+displayed as 1.2k using st.metric("Short number", millify(1234)).
+Function signature[source] st.metric(label, value, delta=None, delta_color="normal", help=None, label_visibility="visible") Parameters
+
+label
+(str)
+ 
+The header or title for the metric. The label can optionally contain
+Markdown and supports the following elements: Bold, Italics,
+Strikethroughs, Inline Code, Emojis, and Links.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+
+
+value
+(int, float, str, or None)
+ 
+Value of the metric. None is rendered as a long dash.
+
+
+delta
+(int, float, str, or None)
+ 
+Indicator of how the metric changed, rendered with an arrow below
+the metric. If delta is negative (int/float) or starts with a minus
+sign (str), the arrow points down and the text is red; else the
+arrow points up and the text is green. If None (default), no delta
+indicator is shown.
+
+
+delta_color
+("normal", "inverse", or "off")
+ 
+If "normal" (default), the delta indicator is shown as described
+above. If "inverse", it is red when positive and green when
+negative. This is useful when a negative change is considered
+good, e.g. if cost decreased. If "off", delta is  shown in gray
+regardless of its value.
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed next to the metric label.
+
+
+label_visibility
+("visible", "hidden", or "collapsed")
+ 
+The visibility of the label. If "hidden", the label doesn't show but there
+is still empty space for it (equivalent to label="").
+If "collapsed", both the label and the space are removed. Default is
+"visible".
+Example
+
+import streamlit as st
+
+st.metric(label="Temperature", value="70 Â°F", delta="1.2 Â°F")
+
+
+st.metric looks especially nice in combination with st.columns:
+
+import streamlit as st
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Temperature", "70 Â°F", "1.2 Â°F")
+col2.metric("Wind", "9 mph", "-8%")
+col3.metric("Humidity", "86%", "4%")
+
+
+The delta indicator color can also be inverted or turned off:
+
+import streamlit as st
+
+st.metric(label="Gas price", value=4, delta=-0.5,
+    delta_color="inverse")
+
+st.metric(label="Active developers", value=123, delta=123,
+    delta_color="off")
+
+
+
+Previous: st.tableNext: st.jsonforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

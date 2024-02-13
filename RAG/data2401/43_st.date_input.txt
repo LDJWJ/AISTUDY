@@ -1,0 +1,149 @@
+st.date_input - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsremovest.buttonst.download_buttonst.link_buttonst.checkboxst.togglest.radiost.selectboxst.multiselectst.sliderst.select_sliderst.text_inputst.number_inputst.text_areast.date_inputst.time_inputst.file_uploaderst.camera_inputst.color_pickerMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Input widgets/st.date_inputst.date_inputStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a date input widget.
+Function signature[source] st.date_input(label, value="today", min_value=None, max_value=None, key=None, help=None, on_change=None, args=None, kwargs=None, *, format="YYYY/MM/DD", disabled=False, label_visibility="visible") Parameters
+
+label
+(str)
+ 
+A short label explaining to the user what this date input is for.
+The label can optionally contain Markdown and supports the following
+elements: Bold, Italics, Strikethroughs, Inline Code, Emojis, and Links.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+For accessibility reasons, you should never set an empty label (label="")
+but hide it with label_visibility if needed. In the future, we may disallow
+empty labels by raising an exception.
+
+
+value
+(datetime.date or datetime.datetime or list/tuple of datetime.date or datetime.datetime, "today", or None)
+ 
+The value of this widget when it first renders. If a list/tuple with
+0 to 2 date/datetime values is provided, the datepicker will allow
+users to provide a range. If None, will initialize empty and
+return None until the user provides input. If "today" (default),
+will initialize with today as a single-date picker.
+
+
+min_value
+(datetime.date or datetime.datetime)
+ 
+The minimum selectable date. If value is a date, defaults to value - 10 years.
+If value is the interval [start, end], defaults to start - 10 years.
+
+
+max_value
+(datetime.date or datetime.datetime)
+ 
+The maximum selectable date. If value is a date, defaults to value + 10 years.
+If value is the interval [start, end], defaults to end + 10 years.
+
+
+key
+(str or int)
+ 
+An optional string or integer to use as the unique key for the widget.
+If this is omitted, a key will be generated for the widget
+based on its content. Multiple widgets of the same type may
+not share the same key.
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed next to the input.
+
+
+on_change
+(callable)
+ 
+An optional callback invoked when this date_input's value changes.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+
+
+format
+(str)
+ 
+A format string controlling how the interface should display dates.
+Supports â€œYYYY/MM/DDâ€� (default), â€œDD/MM/YYYYâ€�, or â€œMM/DD/YYYYâ€�.
+You may also use a period (.) or hyphen (-) as separators.
+
+
+disabled
+(bool)
+ 
+An optional boolean, which disables the date input if set to True.
+The default is False.
+
+
+label_visibility
+("visible", "hidden", or "collapsed")
+ 
+The visibility of the label. If "hidden", the label doesn't show but there
+is still empty space for it above the widget (equivalent to label="").
+If "collapsed", both the label and the space are removed. Default is
+"visible".
+Returns(datetime.date or a tuple with 0-2 dates or None)  The current value of the date input widget or None if no date has been
+selected.
+Examples
+
+import datetime
+import streamlit as st
+
+d = st.date_input("When's your birthday", datetime.date(2019, 7, 6))
+st.write('Your birthday is:', d)
+
+
+
+import datetime
+import streamlit as st
+
+today = datetime.datetime.now()
+next_year = today.year + 1
+jan_1 = datetime.date(next_year, 1, 1)
+dec_31 = datetime.date(next_year, 12, 31)
+
+d = st.date_input(
+    "Select your vacation for next year",
+    (jan_1, datetime.date(next_year, 1, 7)),
+    jan_1,
+    dec_31,
+    format="MM.DD.YYYY",
+)
+d
+
+
+To initialize an empty date input, use None as the value:
+
+import datetime
+import streamlit as st
+
+d = st.date_input("When's your birthday", value=None)
+st.write('Your birthday is:', d)
+
+
+
+Previous: st.text_areaNext: st.time_inputforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

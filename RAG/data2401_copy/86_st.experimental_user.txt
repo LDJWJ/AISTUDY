@@ -1,0 +1,62 @@
+st.experimental_user - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationremovest.experimental_userConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Personalization/st.experimental_userpriority_highImportantThis is an experimental feature. Experimental features and their APIs may change or be removed at any time. To learn more, click here.
+st.experimental_userStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeA read-only, dict-like object for accessing information about current user.
+st.experimental_user is dependant on the host platform running the
+Streamlit app. If the host platform has not configured the function, it
+will behave as it does in a locally running app.
+Properties can by accessed via key or attribute notation. For example,
+st.experimental_user["email"] or st.experimental_user.email.
+Class description[source] st.experimental_user() Methods
+
+to_dict()
+ 
+Get user info as a dictionary.
+Attributes
+
+email
+(str)
+ 
+If running locally, this property returns the string literal
+"test@example.com".
+If running on Streamlit Community Cloud, this
+property returns one of two values:
+
+None if the user is not logged in or not a member of the app's        workspace. Such users appear under anonymous pseudonyms in the app's        analytics.
+The user's email if the the user is logged in and a member of the        app's workspace. Such users are identified by their email in the app's        analytics.
+
+
+Examples
+The ability to personalize apps for the user viewing the app is a great way to make your app more engaging.
+It unlocks a plethora of use-cases for developers, some of which could include: showing additional controls for admins, visualizing a user's Streamlit history, a personalized stock ticker, a chatbot app, and much more. We're excited to see what you build with this feature!
+Here's a code snippet that shows extra buttons for admins:
+# Show extra buttons for admin users.
+ADMIN_USERS = {
+    'person1@email.com',
+    'person2@email.com',
+    'person3@email.com'
+}
+if st.experimental_user.email in ADMIN_USERS:
+    display_the_extra_admin_buttons()
+display_the_interface_everyone_sees()
+
+Show different content to users based on their email address:
+# Show different content based on the user's email address.
+if st.experimental_user.email == 'jane@email.com':
+    display_jane_content()
+elif st.experimental_user.email == 'adam@foocorp.io':
+    display_adam_content()
+else:
+    st.write("Please contact us to get access!")
+
+Greet users with their name that's stored in a database:
+# Greet the user by their name.
+if st.experimental_user.email:
+    # Get the user's name from the database.
+    name = get_name_from_db(st.experimental_user.email)
+    st.write('Hello, %s!' % name)
+
+st.experimental_user.to_dictStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeGet user info as a dictionary.
+This method primarily exists for internal use and is not needed for
+most cases. st.experimental_user returns an object that inherits from
+dict by default.
+Function signature[source] st.experimental_user.to_dict() Returns(Dict[str,str])  A dictionary of the current user's information.
+Previous: PersonalizationNext: Connections and databasesforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

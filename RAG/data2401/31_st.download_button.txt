@@ -1,0 +1,160 @@
+st.download_button - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsremovest.buttonst.download_buttonst.link_buttonst.checkboxst.togglest.radiost.selectboxst.multiselectst.sliderst.select_sliderst.text_inputst.number_inputst.text_areast.date_inputst.time_inputst.file_uploaderst.camera_inputst.color_pickerMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Input widgets/st.download_buttonst.download_buttonStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a download button widget.
+This is useful when you would like to provide a way for your users
+to download a file directly from your app.
+Note that the data to be downloaded is stored in-memory while the
+user is connected, so it's a good idea to keep file sizes under a
+couple hundred megabytes to conserve memory.
+Function signature[source] st.download_button(label, data, file_name=None, mime=None, key=None, help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False) Parameters
+
+label
+(str)
+ 
+A short label explaining to the user what this button is for.
+The label can optionally contain Markdown and supports the following
+elements: Bold, Italics, Strikethroughs, Inline Code, and Emojis.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents)
+render. Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+
+
+data
+(str or bytes or file)
+ 
+The contents of the file to be downloaded. See example below for
+caching techniques to avoid recomputing this data unnecessarily.
+
+
+file_name
+(str)
+ 
+An optional string to use as the name of the file to be downloaded,
+such as 'my_file.csv'. If not specified, the name will be
+automatically generated.
+
+
+mime
+(str or None)
+ 
+The MIME type of the data. If None, defaults to "text/plain"
+(if data is of type str or is a textual file) or
+"application/octet-stream" (if data is of type bytes or is a
+binary file).
+
+
+key
+(str or int)
+ 
+An optional string or integer to use as the unique key for the widget.
+If this is omitted, a key will be generated for the widget
+based on its content. Multiple widgets of the same type may
+not share the same key.
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed when the button is
+hovered over.
+
+
+on_click
+(callable)
+ 
+An optional callback invoked when this button is clicked.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+
+
+type
+("secondary" or "primary")
+ 
+An optional string that specifies the button type. Can be "primary" for a
+button with additional emphasis or "secondary" for a normal button. Defaults
+to "secondary".
+
+
+disabled
+(bool)
+ 
+An optional boolean, which disables the download button if set to
+True. The default is False.
+
+
+use_container_width
+(bool)
+ 
+An optional boolean, which makes the button stretch its width to match the
+parent container.
+Returns(bool)  True if the button was clicked on the last run of the app,
+False otherwise.
+Examples
+Download a large DataFrame as a CSV:
+
+import streamlit as st
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+csv = convert_df(my_large_df)
+
+st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv',
+)
+
+Download a string as a file:
+
+import streamlit as st
+
+text_contents = '''This is some text'''
+st.download_button('Download some text', text_contents)
+
+Download a binary file:
+
+import streamlit as st
+
+binary_contents = b'example content'
+# Defaults to 'application/octet-stream'
+st.download_button('Download binary file', binary_contents)
+
+Download an image:
+
+import streamlit as st
+
+with open("flower.png", "rb") as file:
+    btn = st.download_button(
+            label="Download image",
+            data=file,
+            file_name="flower.png",
+            mime="image/png"
+          )
+
+
+
+Previous: st.buttonNext: st.link_buttonforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

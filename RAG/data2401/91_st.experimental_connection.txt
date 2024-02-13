@@ -1,0 +1,84 @@
+st.experimental_connection - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesremovest.connectionSnowflakeConnectionSQLConnectionBaseConnectionst.experimental_connectiondeleteSnowparkConnectiondeleteExperimentalBaseConnectiondeleteApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Connections and databases/st.experimental_connectionpriority_highImportantThis is an experimental feature. Experimental features and their APIs may change or be removed at any time. To learn more, click here.
+starTipThis page only contains the st.experimental_connection API. For a deeper dive into creating and managing data connections within Streamlit apps, read Connecting to data.
+st.experimental_connectionStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakedeleteDeprecation noticest.experimental_connection was deprecated in version 1.28.0. Use st.connection instead.Create a new connection to a data store or API, or return an existing one.
+Config options, credentials, secrets, etc. for connections are taken from various
+sources:
+
+Any connection-specific configuration files.
+An app's secrets.toml files.
+The kwargs passed to this function.
+
+Function signature[source] st.experimental_connection(name, type=None, max_entries=None, ttl=None, **kwargs) Parameters
+
+name
+(str)
+ 
+The connection name used for secrets lookup in [connections.<name>].
+Type will be inferred from passing "sql", "snowflake", or "snowpark".
+
+
+type
+(str, connection class, or None)
+ 
+The type of connection to create. It can be a keyword ("sql", "snowflake",
+or "snowpark"), a path to an importable class, or an imported class reference.
+All classes must extend st.connections.BaseConnection and implement the
+_connect() method. If the type kwarg is None, a type field must be set in
+the connection's section in secrets.toml.
+
+
+max_entries
+(int or None)
+ 
+The maximum number of connections to keep in the cache, or None
+for an unbounded cache. (When a new entry is added to a full cache,
+the oldest cached entry will be removed.) The default is None.
+
+
+ttl
+(float, timedelta, or None)
+ 
+The maximum number of seconds to keep results in the cache, or
+None if cached results should not expire. The default is None.
+
+
+**kwargs
+(any)
+ 
+Additional connection specific kwargs that are passed to the Connection's
+_connect() method. Learn more from the specific Connection's documentation.
+Returns(Connection object)  An initialized Connection object of the specified type.
+Examples
+The easiest way to create a first-party (SQL, Snowflake, or Snowpark) connection is
+to use their default names and define corresponding sections in your secrets.toml
+file.
+
+import streamlit as st
+conn = st.connection("sql") # Config section defined in [connections.sql] in secrets.toml.
+
+Creating a SQLConnection with a custom name requires you to explicitly specify the
+type. If type is not passed as a kwarg, it must be set in the appropriate section of
+secrets.toml.
+
+import streamlit as st
+conn1 = st.connection("my_sql_connection", type="sql") # Config section defined in [connections.my_sql_connection].
+conn2 = st.connection("my_other_sql_connection") # type must be set in [connections.my_other_sql_connection].
+
+Passing the full module path to the connection class that you want to use can be
+useful, especially when working with a custom connection:
+
+import streamlit as st
+conn = st.connection("my_sql_connection", type="streamlit.connections.SQLConnection")
+
+Finally, you can pass the connection class to use directly to this function. Doing
+so allows static type checking tools such as mypy to infer the exact return
+type of st.connection.
+
+import streamlit as st
+from streamlit.connections import SQLConnection
+conn = st.connection("my_sql_connection", type=SQLConnection)
+
+
+
+For a comprehensive overview of this feature, check out this video tutorial by Joshua Carroll, Streamlit's Product Manager for Developer Experience. You'll learn about the feature's utility in creating and managing data connections within your apps by using real-world examples.
+Previous: BaseConnectionNext: SnowparkConnectionforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

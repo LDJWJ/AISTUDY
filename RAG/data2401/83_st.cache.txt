@@ -1,0 +1,129 @@
+st.cache - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceremovest.cache_datast.cache_resourcest.cachedeletest.experimental_memodeletest.experimental_singletondeletePersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Performance/st.cachest.cache
+When you mark a function with Streamlitâ€™s cache annotation, it tells Streamlit
+that whenever the function is called it should check three things:
+
+The name of the function
+The actual code that makes up the body of the function
+The input parameters that you called the function with
+
+If this is the first time Streamlit has seen those three items, with those exact
+values, and in that exact combination, it runs the function and stores the
+result in a local cache.
+Then, next time the function is called, if those three values have not changed
+Streamlit knows it can skip executing the function altogether. Instead, it just
+reads the output from the local cache and passes it on to the caller.
+The main limitation is that Streamlitâ€™s cache feature doesnâ€™t know about
+changes that take place outside the body of the annotated function.
+For more information about the Streamlit cache, its configuration parameters,
+and its limitations, see Caching.
+st.cacheStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakedeleteDeprecation noticest.cache was deprecated in version 1.18.0. Use st.cache_data or st.cache_resource instead. Learn more in Caching.Function decorator to memoize function executions.
+Function signature[source] st.cache(func=None, persist=False, allow_output_mutation=False, show_spinner=True, suppress_st_warning=False, hash_funcs=None, max_entries=None, ttl=None) Parameters
+
+func
+(callable)
+ 
+The function to cache. Streamlit hashes the function and dependent code.
+
+
+persist
+(bool)
+ 
+Whether to persist the cache on disk.
+
+
+allow_output_mutation
+(bool)
+ 
+Streamlit shows a warning when return values are mutated, as that
+can have unintended consequences. This is done by hashing the return value internally.
+If you know what you're doing and would like to override this warning, set this to True.
+
+
+show_spinner
+(bool)
+ 
+Enable the spinner. Default is True to show a spinner when there is
+a cache miss.
+
+
+suppress_st_warning
+(bool)
+ 
+Suppress warnings about calling Streamlit commands from within
+the cached function.
+
+
+hash_funcs
+(dict or None)
+ 
+Mapping of types or fully qualified names to hash functions. This is used to override
+the behavior of the hasher inside Streamlit's caching mechanism: when the hasher
+encounters an object, it will first check to see if its type matches a key in this
+dict and, if so, will use the provided function to generate a hash for it. See below
+for an example of how this can be used.
+
+
+max_entries
+(int or None)
+ 
+The maximum number of entries to keep in the cache, or None
+for an unbounded cache. (When a new entry is added to a full cache,
+the oldest cached entry will be removed.) The default is None.
+
+
+ttl
+(float or None)
+ 
+The maximum number of seconds to keep an entry in the cache, or
+None if cache entries should not expire. The default is None.
+Example
+
+import streamlit as st
+
+@st.cache
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+d1 = fetch_and_clean_data(DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+d2 = fetch_and_clean_data(DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the data in d1 is the same as in d2.
+
+d3 = fetch_and_clean_data(DATA_URL_2)
+# This is a different URL, so the function executes.
+
+To set the persist parameter, use this command as follows:
+
+@st.cache(persist=True)
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+To disable hashing return values, set the allow_output_mutation parameter to True:
+
+@st.cache(allow_output_mutation=True)
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+To override the default hashing behavior, pass a custom hash function.
+You can do that by mapping a type (e.g. MongoClient) to a hash function (id) like this:
+
+@st.cache(hash_funcs={MongoClient: id})
+def connect_to_database(url):
+    return MongoClient(url)
+
+Alternatively, you can map the type's fully-qualified name
+(e.g. "pymongo.mongo_client.MongoClient") to the hash function instead:
+
+@st.cache(hash_funcs={"pymongo.mongo_client.MongoClient": id})
+def connect_to_database(url):
+    return MongoClient(url)
+
+
+
+priority_highWarningst.cache implicitly uses the pickle module, which is known to be insecure. Anything your cached function returns is pickled and stored, then unpickled on retrieval. Ensure your cached functions return trusted values because it is possible to construct malicious pickle data that will execute arbitrary code during unpickling. Never load data that could have come from an untrusted source in an unsafe mode or that could have been tampered with. Only load data you trust.Previous: st.cache_resourceNext: st.experimental_memoforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

@@ -1,0 +1,56 @@
+st.audio - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsremovest.imagest.audiost.videoLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Media elements/st.audiost.audioStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay an audio player.
+Function signature[source] st.audio(data, format="audio/wav", start_time=0, *, sample_rate=None) Parameters
+
+data
+(str, bytes, BytesIO, numpy.ndarray, or file)
+ 
+Raw audio data, filename, or a URL pointing to the file to load.
+Raw data formats must include all necessary file headers to match the file
+format specified via format.
+If data is a numpy array, it must either be a 1D array of the waveform
+or a 2D array of shape (num_channels, num_samples) with waveforms
+for all channels. See the default channel order at
+http://msdn.microsoft.com/en-us/library/windows/hardware/dn653308(v=vs.85).aspx
+
+
+format
+(str)
+ 
+The mime type for the audio file. Defaults to 'audio/wav'.
+See https://tools.ietf.org/html/rfc4281 for more info.
+
+
+start_time
+(int)
+ 
+The time from which this element should start playing.
+
+
+sample_rate
+(int or None)
+ 
+The sample rate of the audio data in samples per second. Only required if
+data is a numpy array.
+Example
+
+import streamlit as st
+import numpy as np
+
+audio_file = open('myaudio.ogg', 'rb')
+audio_bytes = audio_file.read()
+
+st.audio(audio_bytes, format='audio/ogg')
+
+sample_rate = 44100  # 44100 samples per second
+seconds = 2  # Note duration of 2 seconds
+frequency_la = 440  # Our played note will be 440 Hz
+# Generate array with seconds*sample_rate steps, ranging between 0 and seconds
+t = np.linspace(0, seconds, seconds * sample_rate, False)
+# Generate a 440 Hz sine wave
+note_la = np.sin(frequency_la * t * 2 * np.pi)
+
+st.audio(note_la, sample_rate=sample_rate)
+
+
+
+Previous: st.imageNext: st.videoforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

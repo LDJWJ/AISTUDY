@@ -1136,3 +1136,2573 @@ st.graphviz_chart('''
 
 ---
 "
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.button,Button,Display a button widget.,"clicked = st.button(""Click me"")
+","
+---
+
+import streamlit as st
+
+st.button(""Reset"", type=""primary"")
+if st.button('Say hello'):
+    st.write('Why hello there')
+else:
+    st.write('Goodbye')
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.download_button,Download button,Display a download button widget.,"st.download_button(""Download file"", file)
+","
+---
+
+import streamlit as st
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+csv = convert_df(my_large_df)
+
+st.download_button(
+    label=""Download data as CSV"",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv',
+)
+
+---
+
+import streamlit as st
+
+text_contents = '''This is some text'''
+st.download_button('Download some text', text_contents)
+
+---
+
+import streamlit as st
+
+binary_contents = b'example content'
+# Defaults to 'application/octet-stream'
+st.download_button('Download binary file', binary_contents)
+
+---
+
+import streamlit as st
+
+with open(""flower.png"", ""rb"") as file:
+    btn = st.download_button(
+            label=""Download image"",
+            data=file,
+            file_name=""flower.png"",
+            mime=""image/png""
+          )
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.link_button,Link button,Display a link button.,"st.link_button(""Go to gallery"", url)
+","
+---
+
+import streamlit as st
+
+st.link_button(""Go to gallery"", ""https://streamlit.io/gallery"")
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.checkbox,Checkbox,Display a checkbox widget.,"selected = st.checkbox(""I agree"")
+","
+---
+
+import streamlit as st
+
+agree = st.checkbox('I agree')
+
+if agree:
+    st.write('Great!')
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.toggle,Toggle,Display a toggle widget.,"activated = st.toggle(""Activate"")
+","
+---
+
+import streamlit as st
+
+on = st.toggle('Activate feature')
+
+if on:
+    st.write('Feature activated!')
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.radio,Radio,Display a radio button widget.,"choice = st.radio(""Pick one"", [""cats"", ""dogs""])
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Store the initial value of widgets in session state
+if ""visibility"" not in st.session_state:
+    st.session_state.visibility = ""visible""
+    st.session_state.disabled = False
+    st.session_state.horizontal = False
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.checkbox(""Disable radio widget"", key=""disabled"")
+    st.checkbox(""Orient radio options horizontally"", key=""horizontal"")
+
+with col2:
+    st.radio(
+        ""Set label visibility 👇"",
+        [""visible"", ""hidden"", ""collapsed""],
+        key=""visibility"",
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+        horizontal=st.session_state.horizontal,
+    )
+</code></div></section>
+---
+
+import streamlit as st
+
+genre = st.radio(
+    ""What's your favorite movie genre"",
+    ["":rainbow[Comedy]"", ""***Drama***"", ""Documentary :movie_camera:""],
+    captions = [""Laugh out loud."", ""Get the popcorn."", ""Never stop learning.""])
+
+if genre == ':rainbow[Comedy]':
+    st.write('You selected comedy.')
+else:
+    st.write(""You didn\'t select comedy."")
+
+---
+
+import streamlit as st
+
+genre = st.radio(
+    ""What's your favorite movie genre"",
+    ["":rainbow[Comedy]"", ""***Drama***"", ""Documentary :movie_camera:""],
+    index=None,
+)
+
+st.write(""You selected:"", genre)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.selectbox,Selectbox,Display a select widget.,"choice = st.selectbox(""Pick one"", [""cats"", ""dogs""])
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Store the initial value of widgets in session state
+if ""visibility"" not in st.session_state:
+    st.session_state.visibility = ""visible""
+    st.session_state.disabled = False
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.checkbox(""Disable selectbox widget"", key=""disabled"")
+    st.radio(
+        ""Set selectbox label visibility 👉"",
+        key=""visibility"",
+        options=[""visible"", ""hidden"", ""collapsed""],
+    )
+
+with col2:
+    option = st.selectbox(
+        ""How would you like to be contacted?"",
+        (""Email"", ""Home phone"", ""Mobile phone""),
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+    )
+</code></div></section>
+---
+
+import streamlit as st
+
+option = st.selectbox(
+    'How would you like to be contacted?',
+    ('Email', 'Home phone', 'Mobile phone'))
+
+st.write('You selected:', option)
+
+---
+
+import streamlit as st
+
+option = st.selectbox(
+   ""How would you like to be contacted?"",
+   (""Email"", ""Home phone"", ""Mobile phone""),
+   index=None,
+   placeholder=""Select contact method..."",
+)
+
+st.write('You selected:', option)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.multiselect,Multiselect,Display a multiselect widget. The multiselect widget starts as empty.,"choices = st.multiselect(""Buy"", [""milk"", ""apples"", ""potatoes""])
+","
+---
+
+import streamlit as st
+
+options = st.multiselect(
+    'What are your favorite colors',
+    ['Green', 'Yellow', 'Red', 'Blue'],
+    ['Yellow', 'Red'])
+
+st.write('You selected:', options)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.slider,Slider,Display a slider widget.,"number = st.slider(""Pick a number"", 0, 100)
+","
+---
+
+import streamlit as st
+
+age = st.slider('How old are you?', 0, 130, 25)
+st.write(""I'm "", age, 'years old')
+
+---
+
+import streamlit as st
+
+values = st.slider(
+    'Select a range of values',
+    0.0, 100.0, (25.0, 75.0))
+st.write('Values:', values)
+
+---
+
+import streamlit as st
+from datetime import time
+
+appointment = st.slider(
+    ""Schedule your appointment:"",
+    value=(time(11, 30), time(12, 45)))
+st.write(""You're scheduled for:"", appointment)
+
+---
+
+import streamlit as st
+from datetime import datetime
+
+start_time = st.slider(
+    ""When do you start?"",
+    value=datetime(2020, 1, 1, 9, 30),
+    format=""MM/DD/YY - hh:mm"")
+st.write(""Start time:"", start_time)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.select_slider,Select slider,Display a slider widget to select items from a list.,"size = st.select_slider(""Pick a size"", [""S"", ""M"", ""L""])
+","
+---
+
+import streamlit as st
+
+color = st.select_slider(
+    'Select a color of the rainbow',
+    options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'])
+st.write('My favorite color is', color)
+
+---
+
+import streamlit as st
+
+start_color, end_color = st.select_slider(
+    'Select a range of color wavelength',
+    options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
+    value=('red', 'blue'))
+st.write('You selected wavelengths between', start_color, 'and', end_color)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.text_input,Text input,Display a single-line text input widget.,"name = st.text_input(""First name"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Store the initial value of widgets in session state
+if ""visibility"" not in st.session_state:
+    st.session_state.visibility = ""visible""
+    st.session_state.disabled = False
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.checkbox(""Disable text input widget"", key=""disabled"")
+    st.radio(
+        ""Set text input label visibility 👉"",
+        key=""visibility"",
+        options=[""visible"", ""hidden"", ""collapsed""],
+    )
+    st.text_input(
+        ""Placeholder for the other text input widget"",
+        ""This is a placeholder"",
+        key=""placeholder"",
+    )
+
+with col2:
+    text_input = st.text_input(
+        ""Enter some text 👇"",
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+        placeholder=st.session_state.placeholder,
+    )
+
+    if text_input:
+        st.write(""You entered: "", text_input)
+</code></div></section>
+---
+
+import streamlit as st
+
+title = st.text_input('Movie title', 'Life of Brian')
+st.write('The current movie title is', title)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.number_input,Number input,Display a numeric input widget.,"choice = st.number_input(""Pick a number"", 0, 10)
+","
+---
+
+import streamlit as st
+
+number = st.number_input('Insert a number')
+st.write('The current number is ', number)
+
+---
+
+import streamlit as st
+
+number = st.number_input(""Insert a number"", value=None, placeholder=""Type a number..."")
+st.write('The current number is ', number)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.text_area,Text area,Display a multi-line text input widget.,"text = st.text_area(""Text to translate"")
+","
+---
+
+import streamlit as st
+
+txt = st.text_area(
+    ""Text to analyze"",
+    ""It was the best of times, it was the worst of times, it was the age of ""
+    ""wisdom, it was the age of foolishness, it was the epoch of belief, it ""
+    ""was the epoch of incredulity, it was the season of Light, it was the ""
+    ""season of Darkness, it was the spring of hope, it was the winter of ""
+    ""despair, (...)"",
+    )
+
+st.write(f'You wrote {len(txt)} characters.')
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.date_input,Date input,Display a date input widget.,"date = st.date_input(""Your birthday"")
+","
+---
+
+import datetime
+import streamlit as st
+
+d = st.date_input(""When's your birthday"", datetime.date(2019, 7, 6))
+st.write('Your birthday is:', d)
+
+---
+
+import datetime
+import streamlit as st
+
+today = datetime.datetime.now()
+next_year = today.year + 1
+jan_1 = datetime.date(next_year, 1, 1)
+dec_31 = datetime.date(next_year, 12, 31)
+
+d = st.date_input(
+    ""Select your vacation for next year"",
+    (jan_1, datetime.date(next_year, 1, 7)),
+    jan_1,
+    dec_31,
+    format=""MM.DD.YYYY"",
+)
+d
+
+---
+
+import datetime
+import streamlit as st
+
+d = st.date_input(""When's your birthday"", value=None)
+st.write('Your birthday is:', d)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.time_input,Time input,Display a time input widget.,"time = st.time_input(""Meeting time"")
+","
+---
+
+import datetime
+import streamlit as st
+
+t = st.time_input('Set an alarm for', datetime.time(8, 45))
+st.write('Alarm is set for', t)
+
+---
+
+import datetime
+import streamlit as st
+
+t = st.time_input('Set an alarm for', value=None)
+st.write('Alarm is set for', t)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.file_uploader,File uploader,Display a file uploader widget.,"data = st.file_uploader(""Upload a CSV"")
+","
+---
+
+import streamlit as st
+import pandas as pd
+from io import StringIO
+
+uploaded_file = st.file_uploader(""Choose a file"")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
+
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode(""utf-8""))
+    st.write(stringio)
+
+    # To read file as string:
+    string_data = stringio.read()
+    st.write(string_data)
+
+    # Can be used wherever a ""file-like"" object is accepted:
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
+
+---
+
+import streamlit as st
+
+uploaded_files = st.file_uploader(""Choose a CSV file"", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write(""filename:"", uploaded_file.name)
+    st.write(bytes_data)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.camera_input,Camera input,Display a widget that allows users to upload images directly from a camera.,"image = st.camera_input(""Take a picture"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer as bytes:
+    bytes_data = img_file_buffer.getvalue()
+    # Check the type of bytes_data:
+    # Should output: &lt;class 'bytes'&gt;
+    st.write(type(bytes_data))
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+from PIL import Image
+import numpy as np
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a PIL Image:
+    img = Image.open(img_file_buffer)
+
+    # To convert PIL Image to numpy array:
+    img_array = np.array(img)
+
+    # Check the type of img_array:
+    # Should output: &lt;class 'numpy.ndarray'&gt;
+    st.write(type(img_array))
+
+    # Check the shape of img_array:
+    # Should output shape: (height, width, channels)
+    st.write(img_array.shape)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+import cv2
+import numpy as np
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer with OpenCV:
+    bytes_data = img_file_buffer.getvalue()
+    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+
+    # Check the type of cv2_img:
+    # Should output: &lt;class 'numpy.ndarray'&gt;
+    st.write(type(cv2_img))
+
+    # Check the shape of cv2_img:
+    # Should output shape: (height, width, channels)
+    st.write(cv2_img.shape)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+import tensorflow as tf
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with TensorFlow:
+    bytes_data = img_file_buffer.getvalue()
+    img_tensor = tf.io.decode_image(bytes_data, channels=3)
+
+    # Check the type of img_tensor:
+    # Should output: &lt;class 'tensorflow.python.framework.ops.EagerTensor'&gt;
+    st.write(type(img_tensor))
+
+    # Check the shape of img_tensor:
+    # Should output shape: (height, width, channels)
+    st.write(img_tensor.shape)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+import torch
+import torchvision
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with `torchvision.io`:
+    bytes_data = img_file_buffer.getvalue()
+    torch_img = torchvision.io.decode_image(
+        torch.frombuffer(bytes_data, dtype=torch.uint8)
+    )
+
+    # Check the type of torch_img:
+    # Should output: &lt;class 'torch.Tensor'&gt;
+    st.write(type(torch_img))
+
+    # Check the shape of torch_img:
+    # Should output shape: torch.Size([channels, height, width])
+    st.write(torch_img.shape)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+import torch
+import numpy as np
+
+img_file_buffer = st.camera_input(""Take a picture"")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with PyTorch:
+    bytes_data = img_file_buffer.getvalue()
+    torch_img = torch.ops.image.decode_image(
+        torch.from_numpy(np.frombuffer(bytes_data, np.uint8)), 3
+    )
+
+    # Check the type of torch_img:
+    # Should output: &lt;class 'torch.Tensor'&gt;
+    st.write(type(torch_img))
+
+    # Check the shape of torch_img:
+    # Should output shape: torch.Size([channels, height, width])
+    st.write(torch_img.shape)
+</code></div></section>
+---
+
+import streamlit as st
+
+picture = st.camera_input(""Take a picture"")
+
+if picture:
+    st.image(picture)
+
+---
+"
+Input widgets,https://docs.streamlit.io/library/api-reference/widgets/st.color_picker,Color picker,Display a color picker widget.,"color = st.color_picker(""Pick a color"")
+","
+---
+
+import streamlit as st
+
+color = st.color_picker('Pick A Color', '#00f900')
+st.write('The current color is', color)
+
+---
+"
+Media elements,https://docs.streamlit.io/library/api-reference/media/st.image,Image,Display an image or list of images.,"st.image(numpy_array)
+st.image(image_bytes)
+st.image(file)
+st.image(""https://example.com/myimage.jpg"")
+","
+---
+
+import streamlit as st
+st.image('sunrise.jpg', caption='Sunrise by the mountains')
+
+---
+"
+Media elements,https://docs.streamlit.io/library/api-reference/media/st.audio,Audio,Display an audio player.,"st.audio(numpy_array)
+st.audio(audio_bytes)
+st.audio(file)
+st.audio(""https://example.com/myaudio.mp3"", format=""audio/mp3"")
+","
+---
+
+import streamlit as st
+import numpy as np
+
+audio_file = open('myaudio.ogg', 'rb')
+audio_bytes = audio_file.read()
+
+st.audio(audio_bytes, format='audio/ogg')
+
+sample_rate = 44100  # 44100 samples per second
+seconds = 2  # Note duration of 2 seconds
+frequency_la = 440  # Our played note will be 440 Hz
+# Generate array with seconds*sample_rate steps, ranging between 0 and seconds
+t = np.linspace(0, seconds, seconds * sample_rate, False)
+# Generate a 440 Hz sine wave
+note_la = np.sin(frequency_la * t * 2 * np.pi)
+
+st.audio(note_la, sample_rate=sample_rate)
+
+---
+"
+Media elements,https://docs.streamlit.io/library/api-reference/media/st.video,Video,Display a video player.,"st.video(numpy_array)
+st.video(video_bytes)
+st.video(file)
+st.video(""https://example.com/myvideo.mp4"", format=""video/mp4"")
+","
+---
+
+import streamlit as st
+
+video_file = open('myvideo.mp4', 'rb')
+video_bytes = video_file.read()
+
+st.video(video_bytes)
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.sidebar,Sidebar,Display items in a sidebar.,"st.sidebar.write(""This lives in the sidebar"")
+st.sidebar.button(""Click me!"")
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Object notation
+st.sidebar.[element_name]
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># ""with"" notation
+with st.sidebar:
+    st.[element_name]
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    ""How would you like to be contacted?"",
+    (""Email"", ""Home phone"", ""Mobile phone"")
+)
+
+# Using ""with"" notation
+with st.sidebar:
+    add_radio = st.radio(
+        ""Choose a shipping method"",
+        (""Standard (5-15 days)"", ""Express (2-5 days)"")
+    )
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+with st.sidebar:
+    with st.echo():
+        st.write(""This code will be printed to the sidebar."")
+
+    with st.spinner(""Loading...""):
+        time.sleep(5)
+    st.success(""Done!"")
+</code></div></section>
+---
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.columns,Columns,Insert containers laid out as side-by-side columns.,"col1, col2 = st.columns(2)
+col1.write(""this is column 1"")
+col2.write(""this is column 2"")
+","
+---
+
+import streamlit as st
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+   st.header(""A cat"")
+   st.image(""https://static.streamlit.io/examples/cat.jpg"")
+
+with col2:
+   st.header(""A dog"")
+   st.image(""https://static.streamlit.io/examples/dog.jpg"")
+
+with col3:
+   st.header(""An owl"")
+   st.image(""https://static.streamlit.io/examples/owl.jpg"")
+
+---
+
+import streamlit as st
+import numpy as np
+
+col1, col2 = st.columns([3, 1])
+data = np.random.randn(10, 1)
+
+col1.subheader(""A wide column with a chart"")
+col1.line_chart(data)
+
+col2.subheader(""A narrow column with the data"")
+col2.write(data)
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.tabs,Tabs,Insert containers separated into tabs.,"tab1, tab2 = st.tabs([""Tab 1"", ""Tab2""])
+tab1.write(""this is tab 1"")
+tab2.write(""this is tab 2"")
+","
+---
+
+import streamlit as st
+
+tab1, tab2, tab3 = st.tabs([""Cat"", ""Dog"", ""Owl""])
+
+with tab1:
+   st.header(""A cat"")
+   st.image(""https://static.streamlit.io/examples/cat.jpg"", width=200)
+
+with tab2:
+   st.header(""A dog"")
+   st.image(""https://static.streamlit.io/examples/dog.jpg"", width=200)
+
+with tab3:
+   st.header(""An owl"")
+   st.image(""https://static.streamlit.io/examples/owl.jpg"", width=200)
+
+---
+
+import streamlit as st
+import numpy as np
+
+tab1, tab2 = st.tabs([""📈 Chart"", ""🗃 Data""])
+data = np.random.randn(10, 1)
+
+tab1.subheader(""A tab with a chart"")
+tab1.line_chart(data)
+
+tab2.subheader(""A tab with the data"")
+tab2.write(data)
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.expander,Expander,Insert a multi-element container that can be expanded/collapsed.,"with st.expander(""Open to see more""):
+  st.write(""This is more content"")
+","
+---
+
+import streamlit as st
+
+st.bar_chart({""data"": [1, 5, 2, 6, 2, 1]})
+
+with st.expander(""See explanation""):
+    st.write(\""\""\""
+        The chart above shows some numbers I picked for you.
+        I rolled actual dice for these, so they're *guaranteed* to
+        be random.
+    \""\""\"")
+    st.image(""https://static.streamlit.io/examples/dice.jpg"")
+
+---
+
+import streamlit as st
+
+st.bar_chart({""data"": [1, 5, 2, 6, 2, 1]})
+
+expander = st.expander(""See explanation"")
+expander.write(\""\""\""
+    The chart above shows some numbers I picked for you.
+    I rolled actual dice for these, so they're *guaranteed* to
+    be random.
+\""\""\"")
+expander.image(""https://static.streamlit.io/examples/dice.jpg"")
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.container,Container,Insert a multi-element container.,"c = st.container()
+st.write(""This will show last"")
+c.write(""This will show first"")
+c.write(""This will show second"")
+","
+---
+
+import streamlit as st
+
+with st.container():
+   st.write(""This is inside the container"")
+
+   # You can call any Streamlit command, including custom components:
+   st.bar_chart(np.random.randn(50, 3))
+
+st.write(""This is outside the container"")
+
+---
+
+import streamlit as st
+
+container = st.container(border=True)
+container.write(""This is inside the container"")
+st.write(""This is outside the container"")
+
+# Now insert some more in the container
+container.write(""This is inside too"")
+
+---
+
+import streamlit as st
+
+row1 = st.columns(3)
+row2 = st.columns(3)
+
+for col in row1 + row2:
+    tile = col.container(height=120)
+    tile.title("":balloon:"")
+
+---
+
+import streamlit as st
+
+long_text = ""Lorem ipsum. "" * 1000
+
+with st.container(height=300):
+    st.markdown(long_text)
+
+---
+"
+Layouts and containers,https://docs.streamlit.io/library/api-reference/layout/st.empty,Empty,Insert a single-element container.,"c = st.empty()
+st.write(""This will show last"")
+c.write(""This will be replaced"")
+c.write(""This will show first"")
+","
+---
+
+import streamlit as st
+import time
+
+with st.empty():
+    for seconds in range(60):
+        st.write(f""⏳ {seconds} seconds have passed"")
+        time.sleep(1)
+    st.write(""✔️ 1 minute over!"")
+
+---
+
+import streamlit as st
+
+placeholder = st.empty()
+
+# Replace the placeholder with some text:
+placeholder.text(""Hello"")
+
+# Replace the text with a chart:
+placeholder.line_chart({""data"": [1, 5, 2, 6]})
+
+# Replace the chart with several elements:
+with placeholder.container():
+    st.write(""This is one element"")
+    st.write(""This is another"")
+
+# Clear all those elements:
+placeholder.empty()
+
+---
+"
+Chat elements,https://docs.streamlit.io/library/api-reference/chat/st.chat_message,Chat message,Insert a chat message container.,"import numpy as np
+with st.chat_message(""user""):
+    st.write(""Hello 👋"")
+    st.line_chart(np.random.randn(30, 3))
+","
+---
+
+import streamlit as st
+import numpy as np
+
+with st.chat_message(""user""):
+    st.write(""Hello 👋"")
+    st.line_chart(np.random.randn(30, 3))
+
+---
+
+import streamlit as st
+import numpy as np
+
+message = st.chat_message(""assistant"")
+message.write(""Hello human"")
+message.bar_chart(np.random.randn(30, 3))
+
+---
+"
+Chat elements,https://docs.streamlit.io/library/api-reference/chat/st.chat_input,Chat input,Display a chat input widget.,"prompt = st.chat_input(""Say something"")
+if prompt:
+    st.write(f""The user has sent: {prompt}"")
+","
+---
+
+import streamlit as st
+
+prompt = st.chat_input(""Say something"")
+if prompt:
+    st.write(f""User has sent the following prompt: {prompt}"")
+
+---
+"
+Chat elements,https://docs.streamlit.io/library/api-reference/status/st.status,Status container,Display output of long-running tasks in a container.,"with st.status('Running'):
+  do_something_slow()
+","
+---
+
+import time
+import streamlit as st
+
+with st.status(""Downloading data...""):
+    st.write(""Searching for data..."")
+    time.sleep(2)
+    st.write(""Found URL."")
+    time.sleep(1)
+    st.write(""Downloading data..."")
+    time.sleep(1)
+
+st.button('Rerun')
+
+---
+
+import time
+import streamlit as st
+
+with st.status(""Downloading data..."", expanded=True) as status:
+    st.write(""Searching for data..."")
+    time.sleep(2)
+    st.write(""Found URL."")
+    time.sleep(1)
+    st.write(""Downloading data..."")
+    time.sleep(1)
+    status.update(label=""Download complete!"", state=""complete"", expanded=False)
+
+st.button('Rerun')
+
+---
+"
+Status elements,https://docs.streamlit.io/library/api-reference/control-flow/st.rerun,Rerun script,Rerun the script immediately.,"st.rerun()
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+if ""value"" not in st.session_state:
+    st.session_state.value = ""Title""
+
+##### Option using st.rerun #####
+st.header(st.session_state.value)
+
+if st.button(""Foo""):
+    st.session_state.value = ""Foo""
+    st.rerun()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">##### Option using a callback #####
+st.header(st.session_state.value)
+
+def update_value():
+    st.session_state.value = ""Bar""
+
+st.button(""Bar"", on_click=update_value)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">##### Option using a container #####
+container = st.container()
+
+if st.button(""Baz""):
+    st.session_state.value = ""Baz""
+
+container.header(st.session_state.value)
+</code></div></section>
+---
+
+---
+"
+Status elements,https://docs.streamlit.io/library/api-reference/control-flow/st.stop,Stop execution,Stops execution immediately.,"st.stop()
+","
+---
+
+import streamlit as st
+
+name = st.text_input('Name')
+if not name:
+  st.warning('Please input a name.')
+  st.stop()
+st.success('Thank you for inputting a name.')
+
+---
+"
+Status elements,https://docs.streamlit.io/library/api-reference/control-flow/st.switch_page,Switch page,Programmatically navigates to a specified page.,"st.switch_page(""pages/my_page.py"")
+","
+---
+
+your-repository/
+├── pages/
+│   ├── page_1.py.py
+│   └── page_2.py.py
+└── your_app.py
+
+---
+
+import streamlit as st
+
+if st.button(""Home""):
+    st.switch_page(""your_app.py"")
+if st.button(""Page 1""):
+    st.switch_page(""pages/page_1.py"")
+if st.button(""Page 2""):
+    st.switch_page(""pages/page_2.py"")
+
+---
+"
+Status elements,https://docs.streamlit.io/library/api-reference/control-flow/st.form,Forms,"Create a form that batches elements together with a “Submit"" button.","with st.form(key='my_form'):
+    name = st.text_input(""Name"")
+    email = st.text_input(""Email"")
+    st.form_submit_button(""Sign up"")
+","
+---
+
+import streamlit as st
+
+with st.form(""my_form""):
+   st.write(""Inside the form"")
+   slider_val = st.slider(""Form slider"")
+   checkbox_val = st.checkbox(""Form checkbox"")
+
+   # Every form must have a submit button.
+   submitted = st.form_submit_button(""Submit"")
+   if submitted:
+       st.write(""slider"", slider_val, ""checkbox"", checkbox_val)
+
+st.write(""Outside the form"")
+
+---
+
+import streamlit as st
+
+form = st.form(""my_form"")
+form.slider(""Inside the form"")
+st.slider(""Outside the form"")
+
+# Now add a submit button to the form:
+form.form_submit_button(""Submit"")
+
+---
+"
+Status elements,https://docs.streamlit.io/library/api-reference/control-flow/st.form_submit_button,Form submit button,Display a form submit button.,"with st.form(key='my_form'):
+    name = st.text_input(""Name"")
+    email = st.text_input(""Email"")
+    st.form_submit_button(""Sign up"")
+","
+---
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.area_chart,Simple area charts,Display an area chart.,"st.area_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.area_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": np.random.randn(20),
+       ""col2"": np.random.randn(20),
+       ""col3"": np.random.choice([""A"", ""B"", ""C""], 20),
+   }
+)
+
+st.area_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+
+st.area_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.bar_chart,Simple bar charts,Display a bar chart.,"st.bar_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.bar_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": list(range(20)) * 3,
+       ""col2"": np.random.randn(60),
+       ""col3"": [""A""] * 20 + [""B""] * 20 + [""C""] * 20,
+   }
+)
+
+st.bar_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {""col1"": list(range(20)), ""col2"": np.random.randn(20), ""col3"": np.random.randn(20)}
+)
+
+st.bar_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.line_chart,Simple line charts,Display a line chart.,"st.line_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.line_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(
+   {
+       ""col1"": np.random.randn(20),
+       ""col2"": np.random.randn(20),
+       ""col3"": np.random.choice([""A"", ""B"", ""C""], 20),
+   }
+)
+
+st.line_chart(chart_data, x=""col1"", y=""col2"", color=""col3"")
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+
+st.line_chart(
+   chart_data, x=""col1"", y=[""col2"", ""col3""], color=[""#FF0000"", ""#0000FF""]  # Optional
+)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.scatter_chart,Simple scatter charts,Display a line chart.,"st.scatter_chart(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+st.scatter_chart(chart_data)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""col1"", ""col2"", ""col3""])
+chart_data['col4'] = np.random.choice(['A','B','C'], 20)
+
+st.scatter_chart(
+    chart_data,
+    x='col1',
+    y='col2',
+    color='col4',
+    size='col3',
+)
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(20, 4), columns=[""col1"", ""col2"", ""col3"", ""col4""])
+
+st.scatter_chart(
+    chart_data,
+    x='col1',
+    y=['col2', 'col3'],
+    size='col4',
+    color=['#FF0000', '#0000FF'],  # Optional
+)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.map,Scatterplots on maps,Display a map with points on it.,"st.map(my_data_frame)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+st.map(df)
+
+---
+
+st.map(df, size=20, color='#0044ff')
+
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    ""col1"": np.random.randn(1000) / 50 + 37.76,
+    ""col2"": np.random.randn(1000) / 50 + -122.4,
+    ""col3"": np.random.randn(1000) * 100,
+    ""col4"": np.random.rand(1000, 4).tolist(),
+})
+
+st.map(df,
+    latitude='col1',
+    longitude='col2',
+    size='col3',
+    color='col4')
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.pyplot,Matplotlib,Display a matplotlib.pyplot figure.,"st.pyplot(my_mpl_figure)
+","
+---
+
+import streamlit as st
+import matplotlib.pyplot as plt
+import numpy as np
+
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
+
+st.pyplot(fig)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.altair_chart,Altair,Display a chart using the Altair library.,"st.altair_chart(my_altair_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+from vega_datasets import data
+
+source = data.cars()
+
+chart = alt.Chart(source).mark_circle().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+).interactive()
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Altair native theme""])
+
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.altair_chart(chart, theme=""streamlit"", use_container_width=True)
+with tab2:
+    # Use the native Altair theme.
+    st.altair_chart(chart, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+import streamlit as st
+from vega_datasets import data
+
+source = data.seattle_weather()
+
+scale = alt.Scale(
+    domain=[""sun"", ""fog"", ""drizzle"", ""rain"", ""snow""],
+    range=[""#e7ba52"", ""#a7a7a7"", ""#aec7e8"", ""#1f77b4"", ""#9467bd""],
+)
+color = alt.Color(""weather:N"", scale=scale)
+
+# We create two selections:
+# - a brush that is active on the top panel
+# - a multi-click that is active on the bottom panel
+brush = alt.selection_interval(encodings=[""x""])
+click = alt.selection_multi(encodings=[""color""])
+
+# Top panel is scatter plot of temperature vs time
+points = (
+    alt.Chart()
+    .mark_point()
+    .encode(
+        alt.X(""monthdate(date):T"", title=""Date""),
+        alt.Y(
+            ""temp_max:Q"",
+            title=""Maximum Daily Temperature (C)"",
+            scale=alt.Scale(domain=[-5, 40]),
+        ),
+        color=alt.condition(brush, color, alt.value(""lightgray"")),
+        size=alt.Size(""precipitation:Q"", scale=alt.Scale(range=[5, 200])),
+    )
+    .properties(width=550, height=300)
+    .add_selection(brush)
+    .transform_filter(click)
+)
+
+# Bottom panel is a bar chart of weather type
+bars = (
+    alt.Chart()
+    .mark_bar()
+    .encode(
+        x=""count()"",
+        y=""weather:N"",
+        color=alt.condition(click, color, alt.value(""lightgray"")),
+    )
+    .transform_filter(brush)
+    .properties(
+        width=550,
+    )
+    .add_selection(click)
+)
+
+chart = alt.vconcat(points, bars, data=source, title=""Seattle Weather: 2012-2015"")
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Altair native theme""])
+
+with tab1:
+    st.altair_chart(chart, theme=""streamlit"", use_container_width=True)
+with tab2:
+    st.altair_chart(chart, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import altair as alt
+import pandas as pd
+import streamlit as st
+from vega_datasets import data
+
+# We use @st.cache_data to keep the dataset in cache
+@st.cache_data
+def get_data():
+    source = data.stocks()
+    source = source[source.date.gt(""2004-01-01"")]
+    return source
+
+source = get_data()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Define the base time-series chart.
+def get_chart(data):
+    hover = alt.selection_single(
+        fields=[""date""],
+        nearest=True,
+        on=""mouseover"",
+        empty=""none"",
+    )
+
+    lines = (
+        alt.Chart(data, title=""Evolution of stock prices"")
+        .mark_line()
+        .encode(
+            x=""date"",
+            y=""price"",
+            color=""symbol"",
+        )
+    )
+
+    # Draw points on the line, and highlight based on selection
+    points = lines.transform_filter(hover).mark_circle(size=65)
+
+    # Draw a rule at the location of the selection
+    tooltips = (
+        alt.Chart(data)
+        .mark_rule()
+        .encode(
+            x=""yearmonthdate(date)"",
+            y=""price"",
+            opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
+            tooltip=[
+                alt.Tooltip(""date"", title=""Date""),
+                alt.Tooltip(""price"", title=""Price (USD)""),
+            ],
+        )
+        .add_selection(hover)
+    )
+    return (lines + points + tooltips).interactive()
+
+chart = get_chart(source)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python""># Add annotations
+ANNOTATIONS = [
+    (""Mar 01, 2008"", ""Pretty good day for GOOG""),
+    (""Dec 01, 2007"", ""Something's going wrong for GOOG &amp; AAPL""),
+    (""Nov 01, 2008"", ""Market starts again thanks to...""),
+    (""Dec 01, 2009"", ""Small crash for GOOG after...""),
+]
+annotations_df = pd.DataFrame(ANNOTATIONS, columns=[""date"", ""event""])
+annotations_df.date = pd.to_datetime(annotations_df.date)
+annotations_df[""y""] = 10
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">annotation_layer = (
+    alt.Chart(annotations_df)
+    .mark_text(size=20, text=""⬇"", dx=-8, dy=-10, align=""left"")
+    .encode(
+        x=""date:T"",
+        y=alt.Y(""y:Q""),
+        tooltip=[""event""],
+    )
+    .interactive()
+)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">st.altair_chart(
+    (chart + annotation_layer).interactive(),
+    use_container_width=True
+)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">.mark_image(
+    width=12,
+    height=12,
+    url=""image_url"",
+)
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import altair as alt
+
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=[""a"", ""b"", ""c""])
+
+c = (
+   alt.Chart(chart_data)
+   .mark_circle()
+   .encode(x=""a"", y=""b"", size=""c"", color=""c"", tooltip=[""a"", ""b"", ""c""])
+)
+
+st.altair_chart(c, use_container_width=True)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.vega_lite_chart,Vega-Lite,Display a chart using the Vega-Lite library.,"st.vega_lite_chart(my_vega_lite_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+from vega_datasets import data
+
+source = data.cars()
+
+chart = {
+    ""mark"": ""point"",
+    ""encoding"": {
+        ""x"": {
+            ""field"": ""Horsepower"",
+            ""type"": ""quantitative"",
+        },
+        ""y"": {
+            ""field"": ""Miles_per_Gallon"",
+            ""type"": ""quantitative"",
+        },
+        ""color"": {""field"": ""Origin"", ""type"": ""nominal""},
+        ""shape"": {""field"": ""Origin"", ""type"": ""nominal""},
+    },
+}
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Vega-Lite native theme""])
+
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.vega_lite_chart(
+        source, chart, theme=""streamlit"", use_container_width=True
+    )
+with tab2:
+    st.vega_lite_chart(
+        source, chart, theme=None, use_container_width=True
+    )
+</code></div></section>
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+chart_data = pd.DataFrame(np.random.randn(200, 3), columns=[""a"", ""b"", ""c""])
+
+st.vega_lite_chart(
+   chart_data,
+   {
+       ""mark"": {""type"": ""circle"", ""tooltip"": True},
+       ""encoding"": {
+           ""x"": {""field"": ""a"", ""type"": ""quantitative""},
+           ""y"": {""field"": ""b"", ""type"": ""quantitative""},
+           ""size"": {""field"": ""c"", ""type"": ""quantitative""},
+           ""color"": {""field"": ""c"", ""type"": ""quantitative""},
+       },
+   },
+)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.plotly_chart,Plotly,Display an interactive Plotly chart.,"st.plotly_chart(my_plotly_chart)
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import plotly.express as px
+import streamlit as st
+
+df = px.data.gapminder()
+
+fig = px.scatter(
+    df.query(""year==2007""),
+    x=""gdpPercap"",
+    y=""lifeExp"",
+    size=""pop"",
+    color=""continent"",
+    hover_name=""country"",
+    log_x=True,
+    size_max=60,
+)
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Plotly native theme""])
+with tab1:
+    # Use the Streamlit theme.
+    # This is the default. So you can also omit the theme argument.
+    st.plotly_chart(fig, theme=""streamlit"", use_container_width=True)
+with tab2:
+    # Use the native Plotly theme.
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import plotly.express as px
+import streamlit as st
+
+st.subheader(""Define a custom colorscale"")
+df = px.data.iris()
+fig = px.scatter(
+    df,
+    x=""sepal_width"",
+    y=""sepal_length"",
+    color=""sepal_length"",
+    color_continuous_scale=""reds"",
+)
+
+tab1, tab2 = st.tabs([""Streamlit theme (default)"", ""Plotly native theme""])
+with tab1:
+    st.plotly_chart(fig, theme=""streamlit"", use_container_width=True)
+with tab2:
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+</code></div></section>
+---
+
+import streamlit as st
+import numpy as np
+import plotly.figure_factory as ff
+
+# Add histogram data
+x1 = np.random.randn(200) - 2
+x2 = np.random.randn(200)
+x3 = np.random.randn(200) + 2
+
+# Group data together
+hist_data = [x1, x2, x3]
+
+group_labels = ['Group 1', 'Group 2', 'Group 3']
+
+# Create distplot with custom bin_size
+fig = ff.create_distplot(
+        hist_data, group_labels, bin_size=[.1, .25, .5])
+
+# Plot!
+st.plotly_chart(fig, use_container_width=True)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.bokeh_chart,Bokeh,Display an interactive Bokeh chart.,"st.bokeh_chart(my_bokeh_chart)
+","
+---
+
+import streamlit as st
+from bokeh.plotting import figure
+
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 2, 4, 5]
+
+p = figure(
+    title='simple line example',
+    x_axis_label='x',
+    y_axis_label='y')
+
+p.line(x, y, legend_label='Trend', line_width=2)
+
+st.bokeh_chart(p, use_container_width=True)
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.pydeck_chart,PyDeck,Display a chart using the PyDeck library.,"st.pydeck_chart(my_pydeck_chart)
+","
+---
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import pydeck as pdk
+
+chart_data = pd.DataFrame(
+   np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+   columns=['lat', 'lon'])
+
+st.pydeck_chart(pdk.Deck(
+    map_style=None,
+    initial_view_state=pdk.ViewState(
+        latitude=37.76,
+        longitude=-122.4,
+        zoom=11,
+        pitch=50,
+    ),
+    layers=[
+        pdk.Layer(
+           'HexagonLayer',
+           data=chart_data,
+           get_position='[lon, lat]',
+           radius=200,
+           elevation_scale=4,
+           elevation_range=[0, 1000],
+           pickable=True,
+           extruded=True,
+        ),
+        pdk.Layer(
+            'ScatterplotLayer',
+            data=chart_data,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            get_radius=200,
+        ),
+    ],
+))
+
+---
+"
+Control flow,https://docs.streamlit.io/library/api-reference/charts/st.graphviz_chart,GraphViz,Display a graph using the dagre-d3 library.,"st.graphviz_chart(my_graphviz_spec)
+","
+---
+
+import streamlit as st
+import graphviz
+
+# Create a graphlib graph object
+graph = graphviz.Digraph()
+graph.edge('run', 'intr')
+graph.edge('intr', 'runbl')
+graph.edge('runbl', 'run')
+graph.edge('run', 'kernel')
+graph.edge('kernel', 'zombie')
+graph.edge('kernel', 'sleep')
+graph.edge('kernel', 'runmem')
+graph.edge('sleep', 'swap')
+graph.edge('swap', 'runswap')
+graph.edge('runswap', 'new')
+graph.edge('runswap', 'runmem')
+graph.edge('new', 'runmem')
+graph.edge('sleep', 'runmem')
+
+st.graphviz_chart(graph)
+
+---
+
+st.graphviz_chart('''
+    digraph {
+        run -> intr
+        intr -> runbl
+        runbl -> run
+        run -> kernel
+        kernel -> zombie
+        kernel -> sleep
+        kernel -> runmem
+        sleep -> swap
+        swap -> runswap
+        runswap -> new
+        runswap -> runmem
+        new -> runmem
+        sleep -> runmem
+    }
+''')
+
+---
+"
+Utilities,https://docs.streamlit.io/library/api-reference/utilities/st.set_page_config,"Set page title, favicon, and more",Configures the default settings of the page.,"st.set_page_config(
+  page_title=""My app"",
+  page_icon="":shark:"",
+)
+","
+---
+
+import streamlit as st
+
+st.set_page_config(
+    page_title=""Ex-stream-ly Cool App"",
+    page_icon=""🧊"",
+    layout=""wide"",
+    initial_sidebar_state=""expanded"",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': ""https://www.extremelycoolapp.com/bug"",
+        'About': ""# This is a header. This is an *extremely* cool app!""
+    }
+)
+
+---
+"
+Utilities,https://docs.streamlit.io/library/api-reference/utilities/st.echo,Echo,"Display some code on the app, then execute it. Useful for tutorials.","with st.echo():
+  st.write('This code will be printed')
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+def get_user_name():
+    return 'John'
+
+# ------------------------------------------------
+# Want people to see this part of the code...
+
+def get_punctuation():
+    return '!!!'
+
+greeting = ""Hi there, ""
+user_name = get_user_name()
+punctuation = get_punctuation()
+
+st.write(greeting, user_name, punctuation)
+
+# ...up to here
+# ------------------------------------------------
+
+foo = 'bar'
+st.write('Done!')
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+def get_user_name():
+    return 'John'
+
+with st.echo():
+    # Everything inside this block will be both printed to the screen
+    # and executed.
+
+    def get_punctuation():
+        return '!!!'
+
+    greeting = ""Hi there, ""
+    value = get_user_name()
+    punctuation = get_punctuation()
+
+    st.write(greeting, value, punctuation)
+
+# And now we're back to _not_ printing to the screen
+foo = 'bar'
+st.write('Done!')
+</code></div></section>
+---
+
+import streamlit as st
+
+with st.echo():
+    st.write('This code will be printed')
+
+---
+"
+Utilities,https://docs.streamlit.io/library/api-reference/utilities/st.help,Get help,"Display object’s doc string, nicely formatted.","st.help(st.write)
+st.help(pd.DataFrame)
+","
+---
+
+import streamlit as st
+import pandas
+
+st.help(pandas.DataFrame)
+
+---
+
+import streamlit as st
+
+x = my_poorly_documented_function()
+st.help(x)
+
+---
+
+class Dog:
+  '''A typical dog.'''
+
+  def __init__(self, breed, color):
+    self.breed = breed
+    self.color = color
+
+  def bark(self):
+    return 'Woof!'
+
+
+fido = Dog('poodle', 'white')
+
+st.help(fido)
+
+---
+
+import streamlit as st
+import pandas
+
+# Get help for Pandas read_csv:
+pandas.read_csv
+
+# Get help for Streamlit itself:
+st
+
+---
+"
+Utilities,https://docs.streamlit.io/library/api-reference/utilities/st.query_params,Query parameters,"Get, set, or clear the query parameters that are shown in the browser's URL bar.","st.query_params[key] = value
+st.query_params.clear()
+","<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-javascript"">https://your_app.streamlit.app/?first_key=1&amp;second_key=two&amp;third_key=true
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">{
+    ""first_key"" : ""1"",
+    ""second_key"" : ""two"",
+    ""third_key"" : ""true""
+}
+
+</code></div></section>
+---
+
+---
+"
+Performance,https://docs.streamlit.io/library/api-reference/performance/st.cache,Caching,This command was deprecated in version 1.18.0. Use st.cache_data or st.cache_resource instead.,st.cache_data,"
+---
+
+import streamlit as st
+
+@st.cache
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+d1 = fetch_and_clean_data(DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+d2 = fetch_and_clean_data(DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the data in d1 is the same as in d2.
+
+d3 = fetch_and_clean_data(DATA_URL_2)
+# This is a different URL, so the function executes.
+
+---
+
+@st.cache(persist=True)
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+---
+
+@st.cache(allow_output_mutation=True)
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+---
+
+@st.cache(hash_funcs={MongoClient: id})
+def connect_to_database(url):
+    return MongoClient(url)
+
+---
+
+@st.cache(hash_funcs={""pymongo.mongo_client.MongoClient"": id})
+def connect_to_database(url):
+    return MongoClient(url)
+
+---
+"
+Performance,https://docs.streamlit.io/library/api-reference/performance/st.experimental_memo,Memo,This command was deprecated in version 1.18.0. Use st.cache_data instead.,st.cache_data,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo(ttl=60, persist=""disk"")
+def load_data():
+    return 42
+
+st.write(load_data())
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-bash"">streamlit run app.py
+
+  You can now view your Streamlit app in your browser.
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.1:8501
+
+2022-09-22 13:35:41.587 The memoized function 'load_data' has a TTL that will be ignored. Persistent memo caches currently don't support TTL.
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo
+def square(x):
+    return x**2
+
+@st.experimental_memo
+def cube(x):
+    return x**3
+
+if st.button(""Clear All""):
+    # Clear values from *all* memoized functions:
+    # i.e. clear values from both square and cube
+    st.experimental_memo.clear()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import numpy as np
+import pandas as pd
+import streamlit as st
+
+@st.experimental_memo
+def load_data(rows):
+    chart_data = pd.DataFrame(
+        np.random.randn(rows, 10),
+        columns=[""a"", ""b"", ""c"", ""d"", ""e"", ""f"", ""g"", ""h"", ""i"", ""j""],
+    )
+    # Contains a static element st.area_chart
+    st.area_chart(chart_data) # This will be recorded and displayed even when the function is skipped
+    return chart_data
+
+df = load_data(20)
+st.dataframe(df)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Enable widget replay
+@st.experimental_memo(experimental_allow_widgets=True)
+def func():
+    # Contains an input widget
+    st.checkbox(""Works!"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Widget replay is disabled by default
+@st.experimental_memo
+def func():
+    # Streamlit will throw a CachedStFunctionWarning
+    st.checkbox(""Doesn't work"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo(experimental_allow_widgets=True)
+def plus_one(x):
+    y = x + 1
+    if st.checkbox(""Nuke the value 💥""):
+        st.write(""Value was nuked, returning 0"")
+        y = 0
+    return y
+
+st.write(plus_one(2))
+</code></div></section>
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+d1 = fetch_and_clean_data(DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+d2 = fetch_and_clean_data(DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the data in d1 is the same as in d2.
+
+d3 = fetch_and_clean_data(DATA_URL_2)
+# This is a different URL, so the function executes.
+
+---
+
+import streamlit as st
+
+@st.cache_data(persist=""disk"")
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+connection = make_database_connection()
+d1 = fetch_and_clean_data(connection, num_rows=10)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+another_connection = make_database_connection()
+d2 = fetch_and_clean_data(another_connection, num_rows=10)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _database_connection parameter was different
+# in both calls.
+
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+fetch_and_clean_data.clear()
+# Clear all cached entries for this function.
+
+---
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={datetime.datetime: lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+---
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={""datetime.datetime"": lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+---
+"
+Performance,https://docs.streamlit.io/library/api-reference/performance/st.experimental_singleton,Singleton,This command was deprecated in version 1.18.0. Use st.cache_resource instead.,st.cache_resource,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+from transformers import BertModel
+
+@st.experimental_singleton
+ def get_database_session(url):
+     # Create a database session object that points to the URL.
+     return session
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Create a model of the specified type.
+    return BertModel.from_pretrained(model_type)
+
+if st.button(""Clear All""):
+    # Clears all singleton caches:
+    st.experimental_singleton.clear()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import numpy as np
+import pandas as pd
+import streamlit as st
+from transformers import AutoModel
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Contains a static element st.bar_chart
+    st.bar_chart(
+        np.random.rand(10, 1)
+    )  # This will be recorded and displayed even when the function is skipped
+
+    # Create a model of the specified type
+    return AutoModel.from_pretrained(model_type)
+
+bert_model = get_model(""distilbert-base-uncased"")
+st.help(bert_model) # Display the model's docstring
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Enable widget replay
+@st.experimental_singleton(experimental_allow_widgets=True)
+def func():
+    # Contains an input widget
+    st.checkbox(""Works!"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Widget replay is disabled by default
+@st.experimental_singleton
+def func():
+    # Streamlit will throw a CachedStFunctionWarning
+    st.checkbox(""Doesn't work"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_singleton(experimental_allow_widgets=True)
+def plus_one(x):
+    y = x + 1
+    if st.checkbox(""Nuke the value 💥""):
+        st.write(""Value was nuked, returning 0"")
+        y = 0
+    return y
+
+st.write(plus_one(2))
+</code></div></section>
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(url):
+    # Create a database session object that points to the URL.
+    return session
+
+s1 = get_database_session(SESSION_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(SESSION_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the connection object in s1 is the same as in s2.
+
+s3 = get_database_session(SESSION_URL_2)
+# This is a different URL, so the function executes.
+
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+s1 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _sessionmaker parameter was different
+# in both calls.
+
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+get_database_session.clear()
+# Clear all cached entries for this function.
+
+---
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={Person: str})
+def get_person_name(person: Person):
+    return person.name
+
+---
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={""__main__.Person"": str})
+def get_person_name(person: Person):
+    return person.name
+
+---
+"
+Performance,https://docs.streamlit.io/library/api-reference/performance/st.experimental_memo.clear,Clear memo,This command was deprecated in version 1.18.0. Use st.cache_data.clear instead.,st.cache_data.clear,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo(ttl=60, persist=""disk"")
+def load_data():
+    return 42
+
+st.write(load_data())
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-bash"">streamlit run app.py
+
+  You can now view your Streamlit app in your browser.
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.1:8501
+
+2022-09-22 13:35:41.587 The memoized function 'load_data' has a TTL that will be ignored. Persistent memo caches currently don't support TTL.
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo
+def square(x):
+    return x**2
+
+@st.experimental_memo
+def cube(x):
+    return x**3
+
+if st.button(""Clear All""):
+    # Clear values from *all* memoized functions:
+    # i.e. clear values from both square and cube
+    st.experimental_memo.clear()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import numpy as np
+import pandas as pd
+import streamlit as st
+
+@st.experimental_memo
+def load_data(rows):
+    chart_data = pd.DataFrame(
+        np.random.randn(rows, 10),
+        columns=[""a"", ""b"", ""c"", ""d"", ""e"", ""f"", ""g"", ""h"", ""i"", ""j""],
+    )
+    # Contains a static element st.area_chart
+    st.area_chart(chart_data) # This will be recorded and displayed even when the function is skipped
+    return chart_data
+
+df = load_data(20)
+st.dataframe(df)
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Enable widget replay
+@st.experimental_memo(experimental_allow_widgets=True)
+def func():
+    # Contains an input widget
+    st.checkbox(""Works!"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Widget replay is disabled by default
+@st.experimental_memo
+def func():
+    # Streamlit will throw a CachedStFunctionWarning
+    st.checkbox(""Doesn't work"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_memo(experimental_allow_widgets=True)
+def plus_one(x):
+    y = x + 1
+    if st.checkbox(""Nuke the value 💥""):
+        st.write(""Value was nuked, returning 0"")
+        y = 0
+    return y
+
+st.write(plus_one(2))
+</code></div></section>
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+d1 = fetch_and_clean_data(DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+d2 = fetch_and_clean_data(DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the data in d1 is the same as in d2.
+
+d3 = fetch_and_clean_data(DATA_URL_2)
+# This is a different URL, so the function executes.
+
+---
+
+import streamlit as st
+
+@st.cache_data(persist=""disk"")
+def fetch_and_clean_data(url):
+    # Fetch data from URL here, and then clean it up.
+    return data
+
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+connection = make_database_connection()
+d1 = fetch_and_clean_data(connection, num_rows=10)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+another_connection = make_database_connection()
+d2 = fetch_and_clean_data(another_connection, num_rows=10)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _database_connection parameter was different
+# in both calls.
+
+---
+
+import streamlit as st
+
+@st.cache_data
+def fetch_and_clean_data(_db_connection, num_rows):
+    # Fetch data from _db_connection here, and then clean it up.
+    return data
+
+fetch_and_clean_data.clear()
+# Clear all cached entries for this function.
+
+---
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={datetime.datetime: lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+---
+
+import streamlit as st
+import datetime
+
+@st.cache_data(hash_funcs={""datetime.datetime"": lambda dt: dt.isoformat()})
+def convert_to_utc(dt: datetime.datetime):
+    return dt.astimezone(datetime.timezone.utc)
+
+---
+"
+Performance,https://docs.streamlit.io/library/api-reference/performance/st.experimental_singleton.clear,Clear singleton,This command was deprecated in version 1.18.0. Use st.cache_resource.clearinstead.,st.cache_resource.clear,"<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+from transformers import BertModel
+
+@st.experimental_singleton
+ def get_database_session(url):
+     # Create a database session object that points to the URL.
+     return session
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Create a model of the specified type.
+    return BertModel.from_pretrained(model_type)
+
+if st.button(""Clear All""):
+    # Clears all singleton caches:
+    st.experimental_singleton.clear()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import numpy as np
+import pandas as pd
+import streamlit as st
+from transformers import AutoModel
+
+@st.experimental_singleton
+def get_model(model_type):
+    # Contains a static element st.bar_chart
+    st.bar_chart(
+        np.random.rand(10, 1)
+    )  # This will be recorded and displayed even when the function is skipped
+
+    # Create a model of the specified type
+    return AutoModel.from_pretrained(model_type)
+
+bert_model = get_model(""distilbert-base-uncased"")
+st.help(bert_model) # Display the model's docstring
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Enable widget replay
+@st.experimental_singleton(experimental_allow_widgets=True)
+def func():
+    # Contains an input widget
+    st.checkbox(""Works!"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+# Widget replay is disabled by default
+@st.experimental_singleton
+def func():
+    # Streamlit will throw a CachedStFunctionWarning
+    st.checkbox(""Doesn't work"")
+
+func()
+</code></div></section>
+---
+<section class=""code_Container__pq3Nr""><div class=""code_Pre__3lyyf""><code class=""language-python"">import streamlit as st
+
+@st.experimental_singleton(experimental_allow_widgets=True)
+def plus_one(x):
+    y = x + 1
+    if st.checkbox(""Nuke the value 💥""):
+        st.write(""Value was nuked, returning 0"")
+        y = 0
+    return y
+
+st.write(plus_one(2))
+</code></div></section>
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(url):
+    # Create a database session object that points to the URL.
+    return session
+
+s1 = get_database_session(SESSION_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(SESSION_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value. This means that now the connection object in s1 is the same as in s2.
+
+s3 = get_database_session(SESSION_URL_2)
+# This is a different URL, so the function executes.
+
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+s1 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Actually executes the function, since this is the first time it was
+# encountered.
+
+s2 = get_database_session(create_sessionmaker(), DATA_URL_1)
+# Does not execute the function. Instead, returns its previously computed
+# value - even though the _sessionmaker parameter was different
+# in both calls.
+
+---
+
+import streamlit as st
+
+@st.cache_resource
+def get_database_session(_sessionmaker, url):
+    # Create a database connection object that points to the URL.
+    return connection
+
+get_database_session.clear()
+# Clear all cached entries for this function.
+
+---
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={Person: str})
+def get_person_name(person: Person):
+    return person.name
+
+---
+
+import streamlit as st
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    name: str
+
+@st.cache_resource(hash_funcs={""__main__.Person"": str})
+def get_person_name(person: Person):
+    return person.name
+
+---
+"

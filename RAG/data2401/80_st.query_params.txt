@@ -1,0 +1,40 @@
+st.query_params - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesremovest.set_page_configst.echost.helpst.query_paramsst.experimental_get_query_paramsdeletest.experimental_set_query_paramsdeleteMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Utilities/st.query_paramsst.query_params
+st.query_params provides a dictionary-like interface to access query parameters in your app's URL and is available as of Streamlit 1.30.0. It behaves similarly to st.session_state with the notable exception that keys may be repeated in an app's URL. Handling of repeated keys requires special consideration as explained below. st.query_params can be used with both key and attribute notation. For example, st.query_params.my_key and st.query_params["my_key"].
+Query parameters can be entered into your app's URL or programatically added through st.query_params. For example, the following URL and dictionary show the same key-value pairs:
+https://your_app.streamlit.app/?first_key=1&second_key=two&third_key=true
+
+{
+    "first_key" : "1",
+    "second_key" : "two",
+    "third_key" : "true"
+}
+
+
+A key-value pair prefixed with ? is added to the end of your app's URL. Additional key-value pairs can be added. Each additional pair is prefixed with & instead of ?. All keys and values will be set and returned as strings. Query parameters are cleared when navigating between pages in a multipage app.
+Repeated keys
+When a key is repeated in your app's URL (?a=1&a=2&a=3), dict-like methods will return only the last value. In this example, st.query_params["a"] returns "3". To get all keys as a list, use the .get_all() method shown below. To set the value of a repeated key, assign the values as a list. For example, st.query_params.a = ["1", "2", "3"] produces the repeated key given at the beginning of this paragraph.
+Limitation
+st.query_params can't get or set embedding settings as described in Embed your app. st.query_params.embed and st.query_params.embed_options will raise an AttributeError or StreamlitAPIException when trying to get or set their values, respectively.
+st.query_params.get_allStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeGet a list of all query parameter values associated to a given key.
+When a key is repeated as a query parameter within the URL, this method
+allows all values to be obtained. In contrast, dict-like methods only
+retrieve the last value when a key is repeated in the URL.
+Function signature[source] st.query_params.get_all(key) Parameters
+
+key
+(str)
+ 
+The label of the query parameter in the URL.
+Returns(List[str])  A list of values associated to the given key. May return zero, one,
+or multiple values.
+
+st.query_params.clearStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeClear all query parameters from the URL of the app.
+Function signature[source] st.query_params.clear() Returns(None)  No description 
+st.query_params.to_dictStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeGet all query parameters as a dictionary.
+This method primarily exists for internal use and is not needed for
+most cases. st.query_params returns an object that inherits from
+dict by default.
+When a key is repeated as a query parameter within the URL, this method
+will return only the last value of each unique key.
+Function signature[source] st.query_params.to_dict() Returns(Dict[str,str])  A dictionary of the current query paramters in the app's URL.
+Previous: st.helpNext: st.experimental_get_query_paramsforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

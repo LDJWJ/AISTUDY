@@ -1,0 +1,74 @@
+st.expander - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersremovest.sidebarst.columnsst.tabsst.expanderst.containerst.emptyChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Layouts and containers/st.expanderst.expanderStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeInsert a multi-element container that can be expanded/collapsed.
+Inserts a container into your app that can be used to hold multiple elements
+and can be expanded or collapsed by the user. When collapsed, all that is
+visible is the provided label.
+To add elements to the returned container, you can use "with" notation
+(preferred) or just call methods directly on the returned object. See
+examples below.
+
+Warning
+Currently, you may not put expanders inside another expander.
+
+Function signature[source] st.expander(label, expanded=False) Parameters
+
+label
+(str)
+ 
+A string to use as the header for the expander. The label can optionally
+contain Markdown and supports the following elements: Bold, Italics,
+Strikethroughs, Inline Code, Emojis, and Links.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+
+
+expanded
+(bool)
+ 
+If True, initializes the expander in "expanded" state. Defaults to
+False (collapsed).
+Examples
+You can use with notation to insert any element into an expander
+
+import streamlit as st
+
+st.bar_chart({"data": [1, 5, 2, 6, 2, 1]})
+
+with st.expander("See explanation"):
+    st.write(\"\"\"
+        The chart above shows some numbers I picked for you.
+        I rolled actual dice for these, so they're *guaranteed* to
+        be random.
+    \"\"\")
+    st.image("https://static.streamlit.io/examples/dice.jpg")
+
+
+Or you can just call methods directly in the returned objects:
+
+import streamlit as st
+
+st.bar_chart({"data": [1, 5, 2, 6, 2, 1]})
+
+expander = st.expander("See explanation")
+expander.write(\"\"\"
+    The chart above shows some numbers I picked for you.
+    I rolled actual dice for these, so they're *guaranteed* to
+    be random.
+\"\"\")
+expander.image("https://static.streamlit.io/examples/dice.jpg")
+
+
+
+Previous: st.tabsNext: st.containerforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

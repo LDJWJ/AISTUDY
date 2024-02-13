@@ -1,0 +1,101 @@
+st.button - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsremovest.buttonst.download_buttonst.link_buttonst.checkboxst.togglest.radiost.selectboxst.multiselectst.sliderst.select_sliderst.text_inputst.number_inputst.text_areast.date_inputst.time_inputst.file_uploaderst.camera_inputst.color_pickerMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Input widgets/st.buttonst.buttonStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a button widget.
+Function signature[source] st.button(label, key=None, help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False) Parameters
+
+label
+(str)
+ 
+A short label explaining to the user what this button is for.
+The label can optionally contain Markdown and supports the following
+elements: Bold, Italics, Strikethroughs, Inline Code, and Emojis.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+
+
+key
+(str or int)
+ 
+An optional string or integer to use as the unique key for the widget.
+If this is omitted, a key will be generated for the widget
+based on its content. Multiple widgets of the same type may
+not share the same key.
+
+
+help
+(str)
+ 
+An optional tooltip that gets displayed when the button is
+hovered over.
+
+
+on_click
+(callable)
+ 
+An optional callback invoked when this button is clicked.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+
+
+type
+("secondary" or "primary")
+ 
+An optional string that specifies the button type. Can be "primary" for a
+button with additional emphasis or "secondary" for a normal button. Defaults
+to "secondary".
+
+
+disabled
+(bool)
+ 
+An optional boolean, which disables the button if set to True. The
+default is False.
+
+
+use_container_width
+(bool)
+ 
+An optional boolean, which makes the button stretch its width to match the parent container.
+Returns(bool)  True if the button was clicked on the last run of the app,
+False otherwise.
+Example
+
+import streamlit as st
+
+st.button("Reset", type="primary")
+if st.button('Say hello'):
+    st.write('Why hello there')
+else:
+    st.write('Goodbye')
+
+
+
+
+Advanced functionality
+Although a button is the simplest of input widgets, it's very common for buttons to be deeply tied to the use of st.session_state. Check out our advanced guide on Button behavior and examples.
+Featured videos
+Check out our video on how to use one of Streamlit's core functions, the button!
+
+In the video below, we'll take it a step further and learn how to combine a button, checkbox and radio button!
+Previous: Input widgetsNext: st.download_buttonforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

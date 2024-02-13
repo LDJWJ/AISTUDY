@@ -1,0 +1,79 @@
+st.form - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowremovest.formst.form_submit_buttonst.rerunst.stopst.switch_pagest.experimental_rerundeleteUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Control flow/st.formstarTipThis page only contains information on the st.forms API. For a deeper dive into creating and using forms within Streamlit apps, read our guide on Using forms.
+st.formStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeCreate a form that batches elements together with a "Submit" button.
+A form is a container that visually groups other elements and
+widgets together, and contains a Submit button. When the form's
+Submit button is pressed, all widget values inside the form will be
+sent to Streamlit in a batch.
+To add elements to a form object, you can use "with" notation
+(preferred) or just call methods directly on the form. See
+examples below.
+Forms have a few constraints:
+
+Every form must contain a st.form_submit_button.
+st.button and st.download_button cannot be added to a form.
+Forms can appear anywhere in your app (sidebar, columns, etc),
+but they cannot be embedded inside other forms.
+Within a form, the only widget that can have a callback function is
+st.form_submit_button.
+
+Function signature[source] st.form(key, clear_on_submit=False, *, border=True) Parameters
+
+key
+(str)
+ 
+A string that identifies the form. Each form must have its own
+key. (This key is not displayed to the user in the interface.)
+
+
+clear_on_submit
+(bool)
+ 
+If True, all widgets inside the form will be reset to their default
+values after the user presses the Submit button. Defaults to False.
+(Note that Custom Components are unaffected by this flag, and
+will not be reset to their defaults on form submission.)
+
+
+border
+(bool)
+ 
+Whether to show a border around the form. Defaults to True.
+
+Note
+Not showing a border can be confusing to viewers since interacting with a
+widget in the form will do nothing. You should only remove the border if
+there's another border (e.g. because of an expander) or the form is small
+(e.g. just a text input and a submit button).
+
+Examples
+Inserting elements using "with" notation:
+
+import streamlit as st
+
+with st.form("my_form"):
+   st.write("Inside the form")
+   slider_val = st.slider("Form slider")
+   checkbox_val = st.checkbox("Form checkbox")
+
+   # Every form must have a submit button.
+   submitted = st.form_submit_button("Submit")
+   if submitted:
+       st.write("slider", slider_val, "checkbox", checkbox_val)
+
+st.write("Outside the form")
+
+
+Inserting elements out of order:
+
+import streamlit as st
+
+form = st.form("my_form")
+form.slider("Inside the form")
+st.slider("Outside the form")
+
+# Now add a submit button to the form:
+form.form_submit_button("Submit")
+
+
+
+Previous: Control flowNext: st.form_submit_buttonforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

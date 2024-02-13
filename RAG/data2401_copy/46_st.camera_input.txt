@@ -1,0 +1,222 @@
+st.camera_input - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsremovest.buttonst.download_buttonst.link_buttonst.checkboxst.togglest.radiost.selectboxst.multiselectst.sliderst.select_sliderst.text_inputst.number_inputst.text_areast.date_inputst.time_inputst.file_uploaderst.camera_inputst.color_pickerMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesaddMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Input widgets/st.camera_inputst.camera_inputStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeDisplay a widget that returns pictures from the user's webcam.
+Function signature[source] st.camera_input(label, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible") Parameters
+
+label
+(str)
+ 
+A short label explaining to the user what this widget is used for.
+The label can optionally contain Markdown and supports the following
+elements: Bold, Italics, Strikethroughs, Inline Code, Emojis, and Links.
+This also supports:
+
+Emoji shortcodes, such as :+1:  and :sunglasses:.
+For a list of all supported codes,
+see https://share.streamlit.io/streamlit/emoji-shortcodes.
+LaTeX expressions, by wrapping them in "$" or "$$" (the "$$"
+must be on their own lines). Supported LaTeX functions are listed
+at https://katex.org/docs/supported.html.
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+
+Unsupported elements are unwrapped so only their children (text contents) render.
+Display unsupported elements as literal characters by
+backslash-escaping them. E.g. 1\. Not an ordered list.
+For accessibility reasons, you should never set an empty label (label="")
+but hide it with label_visibility if needed. In the future, we may disallow
+empty labels by raising an exception.
+
+
+key
+(str or int)
+ 
+An optional string or integer to use as the unique key for the widget.
+If this is omitted, a key will be generated for the widget
+based on its content. Multiple widgets of the same type may
+not share the same key.
+
+
+help
+(str)
+ 
+A tooltip that gets displayed next to the camera input.
+
+
+on_change
+(callable)
+ 
+An optional callback invoked when this camera_input's value
+changes.
+
+
+args
+(tuple)
+ 
+An optional tuple of args to pass to the callback.
+
+
+kwargs
+(dict)
+ 
+An optional dict of kwargs to pass to the callback.
+
+
+disabled
+(bool)
+ 
+An optional boolean, which disables the camera input if set to
+True. Default is False.
+
+
+label_visibility
+("visible", "hidden", or "collapsed")
+ 
+The visibility of the label. If "hidden", the label doesn't show but there
+is still empty space for it above the widget (equivalent to label="").
+If "collapsed", both the label and the space are removed. Default is
+"visible".
+Returns(None or UploadedFile)  The UploadedFile class is a subclass of BytesIO, and therefore
+it is "file-like". This means you can pass them anywhere where
+a file is expected.
+Examples
+
+import streamlit as st
+
+picture = st.camera_input("Take a picture")
+
+if picture:
+    st.image(picture)
+
+
+
+To read the image file buffer as bytes, you can use getvalue() on the UploadedFile object.
+import streamlit as st
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer as bytes:
+    bytes_data = img_file_buffer.getvalue()
+    # Check the type of bytes_data:
+    # Should output: <class 'bytes'>
+    st.write(type(bytes_data))
+
+priority_highImportantst.camera_input returns an object of the UploadedFile class, which a subclass of BytesIO. Therefore it is a "file-like" object. This means you can pass it anywhere where a file is expected, similar to st.file_uploader.
+Image processing examples
+You can use the output of st.camera_input for various downstream tasks, including image processing. Below, we demonstrate how to use the st.camera_input widget with popular image and data processing libraries such as Pillow, NumPy, OpenCV, TensorFlow, torchvision, and PyTorch.
+While we provide examples for the most popular use-cases and libraries, you are welcome to adapt these examples to your own needs and favorite libraries.
+Pillow (PIL) and NumPy
+Ensure you have installed Pillow and NumPy.
+To read the image file buffer as a PIL Image and convert it to a NumPy array:
+import streamlit as st
+from PIL import Image
+import numpy as np
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a PIL Image:
+    img = Image.open(img_file_buffer)
+
+    # To convert PIL Image to numpy array:
+    img_array = np.array(img)
+
+    # Check the type of img_array:
+    # Should output: <class 'numpy.ndarray'>
+    st.write(type(img_array))
+
+    # Check the shape of img_array:
+    # Should output shape: (height, width, channels)
+    st.write(img_array.shape)
+
+OpenCV (cv2)
+Ensure you have installed OpenCV and NumPy.
+To read the image file buffer with OpenCV:
+import streamlit as st
+import cv2
+import numpy as np
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer with OpenCV:
+    bytes_data = img_file_buffer.getvalue()
+    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+
+    # Check the type of cv2_img:
+    # Should output: <class 'numpy.ndarray'>
+    st.write(type(cv2_img))
+
+    # Check the shape of cv2_img:
+    # Should output shape: (height, width, channels)
+    st.write(cv2_img.shape)
+
+TensorFlow
+Ensure you have installed TensorFlow.
+To read the image file buffer as a 3 dimensional uint8 tensor with TensorFlow:
+import streamlit as st
+import tensorflow as tf
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with TensorFlow:
+    bytes_data = img_file_buffer.getvalue()
+    img_tensor = tf.io.decode_image(bytes_data, channels=3)
+
+    # Check the type of img_tensor:
+    # Should output: <class 'tensorflow.python.framework.ops.EagerTensor'>
+    st.write(type(img_tensor))
+
+    # Check the shape of img_tensor:
+    # Should output shape: (height, width, channels)
+    st.write(img_tensor.shape)
+
+Torchvision
+Ensure you have installed Torchvision (it is not bundled with PyTorch) and PyTorch.
+To read the image file buffer as a 3 dimensional uint8 tensor with torchvision.io:
+import streamlit as st
+import torch
+import torchvision
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with `torchvision.io`:
+    bytes_data = img_file_buffer.getvalue()
+    torch_img = torchvision.io.decode_image(
+        torch.frombuffer(bytes_data, dtype=torch.uint8)
+    )
+
+    # Check the type of torch_img:
+    # Should output: <class 'torch.Tensor'>
+    st.write(type(torch_img))
+
+    # Check the shape of torch_img:
+    # Should output shape: torch.Size([channels, height, width])
+    st.write(torch_img.shape)
+
+PyTorch
+Ensure you have installed PyTorch and NumPy.
+To read the image file buffer as a 3 dimensional uint8 tensor with PyTorch:
+import streamlit as st
+import torch
+import numpy as np
+
+img_file_buffer = st.camera_input("Take a picture")
+
+if img_file_buffer is not None:
+    # To read image file buffer as a 3D uint8 tensor with PyTorch:
+    bytes_data = img_file_buffer.getvalue()
+    torch_img = torch.ops.image.decode_image(
+        torch.from_numpy(np.frombuffer(bytes_data, np.uint8)), 3
+    )
+
+    # Check the type of torch_img:
+    # Should output: <class 'torch.Tensor'>
+    st.write(type(torch_img))
+
+    # Check the shape of torch_img:
+    # Should output shape: torch.Size([channels, height, width])
+    st.write(torch_img.shape)
+Previous: st.file_uploaderNext: st.color_pickerforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy

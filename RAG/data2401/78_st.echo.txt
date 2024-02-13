@@ -1,0 +1,76 @@
+st.echo - Streamlit DocsDocumentationsearchSearchrocket_launchGet startedInstallationaddFundamentalsaddTutorialsadddescriptionStreamlit libraryAPI referenceremoveWrite and magicaddText elementsaddData elementsaddChart elementsaddInput widgetsaddMedia elementsaddLayouts and containersaddChat elementsaddStatus elementsaddControl flowaddUtilitiesremovest.set_page_configst.echost.helpst.query_paramsst.experimental_get_query_paramsdeletest.experimental_set_query_paramsdeleteMutate chartsState managementPerformanceaddPersonalizationaddConnections and databasesaddApp testingaddAdvanced featuresaddComponentsaddRoadmapopen_in_newChangelogCheat sheetcloudStreamlit Community CloudGet startedaddDeploy your appaddManage your appaddShare your appaddManage your accountaddTroubleshootingschoolKnowledge baseTutorialsaddUsing StreamlitStreamlit ComponentsInstalling dependenciesDeployment issuesHome/Streamlit library/API reference/Utilities/st.echost.echoStreamlit VersionVersion 1.30.0Version 1.29.0Version 1.28.0Version 1.27.0Version 1.26.0Version 1.25.0Version 1.24.0Version 1.23.0Version 1.22.0Version 1.21.0Version 1.20.0Version 1.19.0Version 1.18.0Version 1.17.0Version 1.16.0Version 1.15.0Version 1.14.0Version 1.13.0Version 1.12.0Version 1.11.0Streamlit in SnowflakeUse in a with block to draw some code on the app, then execute it.
+Function signature[source] st.echo(code_location="above") Parameters
+
+code_location
+("above" or "below")
+ 
+Whether to show the echoed code before or after the results of the
+executed code block.
+Example
+
+import streamlit as st
+
+with st.echo():
+    st.write('This code will be printed')
+
+
+
+Display code
+Sometimes you want your Streamlit app to contain both your usual
+Streamlit graphic elements and the code that generated those elements.
+That's where st.echo() comes in.
+Ok so let's say you have the following file, and you want to make its
+app a little bit more self-explanatory by making that middle section
+visible in the Streamlit app:
+import streamlit as st
+
+def get_user_name():
+    return 'John'
+
+# ------------------------------------------------
+# Want people to see this part of the code...
+
+def get_punctuation():
+    return '!!!'
+
+greeting = "Hi there, "
+user_name = get_user_name()
+punctuation = get_punctuation()
+
+st.write(greeting, user_name, punctuation)
+
+# ...up to here
+# ------------------------------------------------
+
+foo = 'bar'
+st.write('Done!')
+
+The file above creates a Streamlit app containing the words "Hi there,
+John", and then "Done!".
+Now let's use st.echo() to make that middle section of the code visible
+in the app:
+import streamlit as st
+
+def get_user_name():
+    return 'John'
+
+with st.echo():
+    # Everything inside this block will be both printed to the screen
+    # and executed.
+
+    def get_punctuation():
+        return '!!!'
+
+    greeting = "Hi there, "
+    value = get_user_name()
+    punctuation = get_punctuation()
+
+    st.write(greeting, value, punctuation)
+
+# And now we're back to _not_ printing to the screen
+foo = 'bar'
+st.write('Done!')
+
+It's that simple!
+push_pinNoteYou can have multiple st.echo() blocks in the same file.
+Use it as often as you wish!Previous: st.set_page_configNext: st.helpforumStill have questions?Our forums are full of helpful information and Streamlit experts.Was this page helpful?thumb_upYes thumb_downNoeditEdit this page on GitHubHomeContact UsCommunityCopyright Â© 2024, Streamlit Inc.Cookie policy
